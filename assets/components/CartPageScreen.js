@@ -112,7 +112,7 @@ class CartPageScreen extends Component {
           }}
           onPress={() => console.log("Pressed!")}
         >
-          Add to cart
+          Checkout
         </ImButton>
         </View>
       </View>
