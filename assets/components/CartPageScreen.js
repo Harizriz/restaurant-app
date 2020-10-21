@@ -3,7 +3,6 @@ import { StyleSheet, SafeAreaView, View, Text, Platform, StatusBar, Button } fro
 import Icon from "react-native-vector-icons/Feather";
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import NavigationButton from './NavigationButton';
-// import ImButton from "react-native-button";
  
 class CartPageScreen extends Component {
   state = { 
@@ -101,21 +100,7 @@ class CartPageScreen extends Component {
       </View>
       <View style={styles.secondaryContainer}>
         <View style={styles.buttonContainer}>
-          <NavigationButton />
-          {/* <ImButton
-          style={{
-            padding: 16,
-            width: "100%",
-            // borderRadius: 24,
-            alignSelf: "center",
-            backgroundColor: "purple",
-            color: "white",
-            overflow: "hidden",
-          }}
-          onPress={() => console.log("Pressed!")}
-        >
-          Checkout
-        </ImButton> */}
+          <NavigationButton navigation={this.props.navigation}/>
         </View>
       </View>
     </SafeAreaView>
