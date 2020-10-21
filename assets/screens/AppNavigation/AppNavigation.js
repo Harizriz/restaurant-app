@@ -25,6 +25,9 @@ import WesternScreen from "../MenuListScreen/WesternScreen";
 import DessertScreen from "../MenuListScreen/DessertScreen";
 import DrinksScreen from "../MenuListScreen/DrinksScreen";
 
+import PaymentScreen from "../CheckoutScreen/PaymentScreen";
+import PaymentDetailScreen from "../CheckoutScreen/PaymentDetailScreen";
+
 import ItemScreen from "../../components/ItemScreen";
 import DummyScreen from "../../components/DummyScreen";
 import CartPageScreen from "../../components/CartPageScreen";
@@ -108,6 +111,8 @@ export default function App() {
         <Stack.Screen name="DummyScreen" component={DummyScreen} />
         <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
         <Stack.Screen name="CartPageScreen" component={CartPageScreen} />
+        <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
+        <Stack.Screen name="PaymentDetailScreen" component={PaymentDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, Platform, StatusBar, Button } from "react-native";
-import ImButton from "react-native-button";
 import Icon from "react-native-vector-icons/Feather";
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
+import NavigationButton from './NavigationButton';
+// import ImButton from "react-native-button";
  
 class CartPageScreen extends Component {
   state = { 
@@ -100,7 +101,8 @@ class CartPageScreen extends Component {
       </View>
       <View style={styles.secondaryContainer}>
         <View style={styles.buttonContainer}>
-        <ImButton
+          <NavigationButton />
+          {/* <ImButton
           style={{
             padding: 16,
             width: "100%",
@@ -113,7 +115,7 @@ class CartPageScreen extends Component {
           onPress={() => console.log("Pressed!")}
         >
           Checkout
-        </ImButton>
+        </ImButton> */}
         </View>
       </View>
     </SafeAreaView>
