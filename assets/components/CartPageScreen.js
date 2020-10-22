@@ -6,30 +6,7 @@ import NavigationButton from './NavigationButton';
  
 class CartPageScreen extends Component {
   state = { 
-    visible: true
-  }
-
-  showDialog = () => {
-    return (
-      <View style={styles.container}>
-        <Button
-          title="Show Dialog"
-          onPress={() => {
-            this.setState({ visible: true });
-          }}
-        />
-        <Dialog
-          visible={this.state.visible}
-          onTouchOutside={() => {
-            this.setState({ visible: false });
-          }}
-        >
-          <DialogContent>
-            <Text>TEST</Text>
-          </DialogContent>
-        </Dialog>
-      </View>
-    );
+    visible: false
   }
 
   render() { 
@@ -48,9 +25,26 @@ class CartPageScreen extends Component {
           <Text style={styles.text}>RM20.00</Text>
         </View>
         <View style={styles.editContainer}>
-          <View style={styles.icon}>
-            <Icon name="edit" color="black" size={15} onPress={this.showDialog}/>
-          </View>
+            <View style={styles.icon}>
+                <Icon 
+                name="edit" 
+                color="black" 
+                size={15} 
+                onPress={() => {
+                    this.setState({ visible: true });
+                }}
+                />
+                <Dialog
+                visible={this.state.visible}
+                onTouchOutside={() => {
+                    this.setState({ visible: false });
+                }}
+                >
+                <DialogContent>
+                    <Text>TEST</Text>
+                </DialogContent>
+                </Dialog>
+            </View>
         </View>
       </View>
       <View style={styles.itemContainer}>
@@ -67,7 +61,24 @@ class CartPageScreen extends Component {
         </View>
         <View style={styles.editContainer}>
           <View style={styles.icon}>
-            <Icon name="edit" color="black" size={15}/>
+          <Icon 
+            name="edit" 
+            color="black" 
+            size={15} 
+            onPress={() => {
+                this.setState({ visible: true });
+            }}
+            />
+            <Dialog
+            visible={this.state.visible}
+            onTouchOutside={() => {
+                this.setState({ visible: false });
+            }}
+            >
+              <DialogContent>
+                  <Text>TEST</Text>
+              </DialogContent>
+            </Dialog>
           </View>
         </View>
       </View>
@@ -85,7 +96,24 @@ class CartPageScreen extends Component {
         </View>
         <View style={styles.editContainer}>
           <View style={styles.icon}>
-            <Icon name="edit" color="black" size={15}/>
+            <Icon 
+              name="edit" 
+              color="black" 
+              size={15} 
+              onPress={() => {
+                  this.setState({ visible: true });
+              }}
+            />
+            <Dialog
+            visible={this.state.visible}
+            onTouchOutside={() => {
+                this.setState({ visible: false });
+            }}
+            >
+              <DialogContent>
+                  <Text>TEST</Text>
+              </DialogContent>
+            </Dialog>
           </View>
         </View>
       </View>
@@ -98,6 +126,24 @@ class CartPageScreen extends Component {
           <Text style={styles.text}>RM68.00</Text>
         </View>
       </View>
+      {/* <View style={styles.container}>
+        <Button
+          title="Show Dialog"
+          onPress={() => {
+            this.setState({ visible: true });
+          }}
+        />
+        <Dialog
+          visible={this.state.visible}
+          onTouchOutside={() => {
+            this.setState({ visible: false });
+          }}
+        >
+          <DialogContent>
+            <Text>TEST</Text>
+          </DialogContent>
+        </Dialog>
+      </View> */}
       <View style={styles.secondaryContainer}>
         <View style={styles.buttonContainer}>
           <NavigationButton navigation={this.props.navigation}/>
