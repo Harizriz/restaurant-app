@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, Platform, StatusBar, Button } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
-import Dialog, { DialogContent } from 'react-native-popup-dialog';
+import Dialog, { FadeAnimation, DialogContent, DialogFooter, DialogButton } from 'react-native-popup-dialog';
 import NavigationButton from './NavigationButton';
+import NumInput from "react-native-numeric-input";
  
 class CartPageScreen extends Component {
   state = { 
@@ -37,11 +38,48 @@ class CartPageScreen extends Component {
                 <Dialog
                 visible={this.state.visible}
                 onTouchOutside={() => {
-                    this.setState({ visible: false });
+                  this.setState({ visible: false });
                 }}
+                containerStyle={{justifyContent: "flex-end", paddingBottom: 80}}
+                width={1}
+                height={200}
+                footer={
+                  <DialogFooter>
+                    <DialogButton
+                      text="Remove from Cart"
+                      textStyle={{color: "red"}}
+                      onPress={() => console.log("OK")}
+                    />
+                    <DialogButton
+                      text="Update Cart"
+                      onPress={() => console.log("CANCEL")}
+                    />
+                  </DialogFooter>
+                }
+                dialogAnimation={new FadeAnimation({
+                  initialValue: 0,
+                  animationDuration: 150,
+                  useNativeDriver: true,
+                })}
                 >
                 <DialogContent>
-                    <Text>TEST</Text>
+                  <Text style={styles.dialogText}>French Fries</Text>
+                  <NumInput
+                    containerStyle={{alignSelf: "center", marginTop: 25, marginBottom: 10}}
+                    onChange={(value) => console.log(value)}
+                    totalWidth={150}
+                    totalHeight={40}
+                    iconSize={25}
+                    step={1}
+                    valueType="real"
+                    rounded
+                    minValue={0}
+                    textColor="black"
+                    iconStyle={{ color: "white" }}
+                    rightButtonBackgroundColor="lightblue"
+                    leftButtonBackgroundColor="lightblue"
+                    // https://www.npmjs.com/package/react-native-numeric-input
+                  />
                 </DialogContent>
                 </Dialog>
             </View>
@@ -69,7 +107,7 @@ class CartPageScreen extends Component {
                 this.setState({ visible: true });
             }}
             />
-            <Dialog
+            {/* <Dialog
             visible={this.state.visible}
             onTouchOutside={() => {
                 this.setState({ visible: false });
@@ -78,7 +116,7 @@ class CartPageScreen extends Component {
               <DialogContent>
                   <Text>TEST</Text>
               </DialogContent>
-            </Dialog>
+            </Dialog> */}
           </View>
         </View>
       </View>
@@ -104,7 +142,7 @@ class CartPageScreen extends Component {
                   this.setState({ visible: true });
               }}
             />
-            <Dialog
+            {/* <Dialog
             visible={this.state.visible}
             onTouchOutside={() => {
                 this.setState({ visible: false });
@@ -113,7 +151,7 @@ class CartPageScreen extends Component {
               <DialogContent>
                   <Text>TEST</Text>
               </DialogContent>
-            </Dialog>
+            </Dialog> */}
           </View>
         </View>
       </View>
@@ -220,6 +258,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center"
   },
+  dialogContentContainer: {
+    justifyContent: "center",
+    // backgroundColor: "yellow"
+  },
   totalText: {
     height: 50,
     width: "60%",
@@ -247,5 +289,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     alignSelf: "center"
+  },
+  dialogText: {
+    fontSize: 20,
+    alignSelf: "center",
+    paddingTop: 30
   }
 });
