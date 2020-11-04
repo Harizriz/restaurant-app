@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, Platform, StatusBar, Button } from "react-native";
+import { StyleSheet, SafeAreaView, View, Text, Platform, StatusBar } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import Dialog, { FadeAnimation, DialogContent, DialogFooter, DialogButton } from 'react-native-popup-dialog';
-import NavigationButton from './NavigationButton';
 import NumInput from "react-native-numeric-input";
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import CheckoutButton from "react-native-button";
  
 class CartPageScreen extends Component {
   state = { 
@@ -184,7 +185,21 @@ class CartPageScreen extends Component {
       </View> */}
       <View style={styles.secondaryContainer}>
         <View style={styles.buttonContainer}>
-          <NavigationButton navigation={this.props.navigation}/>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentScreen")}>
+            <CheckoutButton
+              style={{
+                padding: 16,
+                width: "100%",
+                // borderRadius: 24,
+                alignSelf: "center",
+                backgroundColor: "purple",
+                color: "white",
+                overflow: "hidden",
+              }}
+            >
+              Checkout
+            </CheckoutButton>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -210,7 +225,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: "space-between",
     // alignSelf: "flex-start",
-    backgroundColor: "red"
+    // backgroundColor: "red"
   },
   itemContainer: {
     height: 50,

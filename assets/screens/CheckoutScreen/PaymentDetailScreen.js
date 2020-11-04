@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 
-class PaymentScreen extends Component {
+class PaymentDetailScreen extends Component {
     state = {  }
     render() { 
         return ( 
-        <View style={styles.container}>
-            <View style={styles.headingContainer}>
-                <Text style={styles.headingText}>Payment Screen</Text>
+        <SafeAreaView style={styles.container}>
+          <View style={styles.headingContainer}>
+            <Text style={styles.headingText}>Checkout</Text>
+          </View>
+          <View style={styles.informationContainer}>
+            <View style={styles.infoContainer}>
+              <Text style={styles.textTitle}>
+                Payment
+              </Text>
+              <Text style={styles.textInfo}>
+                4242
+              </Text>
             </View>
-        </View> 
+          </View>
+        </SafeAreaView> 
         );
     }
 }
@@ -24,12 +34,31 @@ const styles = StyleSheet.create({
       height: 100,
       // backgroundColor: "yellow",
     },
+    informationContainer: {
+      height: 200,
+      backgroundColor: "pink"
+    },  
+    infoContainer: {
+      height: 50,
+      backgroundColor: "white",
+      justifyContent: "center"
+    },
     headingText: {
       fontSize: 40,
       color: "purple",
-      left: 50,
-      top: 50,
+      left: 30,
+      top: 30,
     },
+    textTitle: {
+      fontSize: 15,
+      color: "purple",
+      alignSelf: "flex-start"
+    },
+    textInfo: {
+      fontSize: 15,
+      color: "black",
+      alignSelf: "flex-end"
+    }
   });
  
-export default PaymentScreen;
+export default PaymentDetailScreen;
