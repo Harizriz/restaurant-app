@@ -13,7 +13,7 @@ import LoginPhoneNumberScreen from "../LoginScreen/LoginPhoneNumberScreen";
 import SignUpPhoneNumberScreen from "../SignUpScreen/SignUpPhoneNumberScreen";
 
 import FeaturedMenuScreen from "../MenuScreen/FeaturedMenuScreen";
-import SettingsScreen from "../MenuScreen/SettingsScreen";
+import OrderScreen from "../MenuScreen/OrderScreen";
 import AccountScreen from "../MenuScreen/AccountScreen";
 import ChangePasswordScreen from "../../components/ChangePasswordScreen";
 import MainMenuScreen from "../MenuScreen/MainMenuScreen";
@@ -57,7 +57,7 @@ const MaterialBottomTabs = () => {
       />
       <BottomTab.Screen
         name="Order Status"
-        component={SettingsScreen}
+        component={OrderScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MenuIcon name="shopping-cart" color={color} size={26} />
