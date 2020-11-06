@@ -50,7 +50,7 @@ class PaymentDetailScreen extends Component {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentDetailScreen")}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentLoadingScreen")}>
           <Button
           style={{
             padding: 16,
