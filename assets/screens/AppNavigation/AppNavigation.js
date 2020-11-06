@@ -56,20 +56,20 @@ const MaterialBottomTabs = () => {
         }}
       />
       <BottomTab.Screen
+        name="Order Status"
+        component={SettingsScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MenuIcon name="shopping-cart" color={color} size={26} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
         name="Account"
         component={AccountScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MenuIcon name="account-circle" color={color} size={26} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="More"
-        component={SettingsScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <MenuIcon name="more-horiz" color={color} size={26} />
           ),
         }}
       />
