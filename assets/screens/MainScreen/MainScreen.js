@@ -1,10 +1,10 @@
 import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { SafeAreaView, StyleSheet, View, Image, Text } from "react-native";
 import Button from "react-native-button";
 
 const MainScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
@@ -45,7 +45,7 @@ const MainScreen = ({ navigation }) => {
           </Button>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

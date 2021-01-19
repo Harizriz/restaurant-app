@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { SafeAreaView, View, StyleSheet, Text } from "react-native";
 import Button from "react-native-button";
 
 import PromptTextInput from "../../components/InputText";
 
 const LoginScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.headingContainer}>
         <Text style={styles.headingText}>Sign In</Text>
       </View>
@@ -62,7 +62,7 @@ const LoginScreen = ({ navigation }) => {
           Login with phone number
         </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
