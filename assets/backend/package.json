@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "register.js",
+  "scripts": {
+    "start": "node express",
+    "dev": "nodemon express"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "parse": "^2.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
