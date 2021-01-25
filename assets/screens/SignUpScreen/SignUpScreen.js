@@ -1,21 +1,107 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, TextInput, Alert } from "react-native";
 import Button from "react-native-button";
 
-import PromptTextInput from "../../components/InputText";
+import PromptTextInput from "../../components/InputText"; 
+import signup from "../../backend/signup";
 
-const SignUpScreen = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
+class SignUpScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      FirstNameValueHolder: '',
+      LastNameValueHolder: '',
+      EmailValueHolder: '',
+      PasswordValueHolder: ''
+    }
+  }
+  GetValueFunction = () => {
+    // console.log("Hello");
+    const { FirstNameValueHolder, LastNameValueHolder, EmailValueHolder, PasswordValueHolder } = this.state;
+    console.log(FirstNameValueHolder)
+    console.log(LastNameValueHolder)
+    console.log(EmailValueHolder)
+    console.log(PasswordValueHolder) 
+    const JSONObj = {
+      firstName: FirstNameValueHolder,
+      lastName: LastNameValueHolder,
+      email: EmailValueHolder,
+      password: PasswordValueHolder
+    };
+    const JSONObjString = JSON.stringify(JSONObj);
+    console.log(JSONObjString);   
+  }
+  render() { 
+    return ( 
+      <SafeAreaView style={styles.container}>
       <View style={styles.headingContainer}>
         <Text style={styles.headingText}>Create new account</Text>
       </View>
-      {/* <View style={styles.pictureContainer}></View> */}
       <View style={styles.promptContainer}>
-        <PromptTextInput placeholder="First Name" />
-        <PromptTextInput placeholder="Last Name" />
-        <PromptTextInput placeholder="Email" />
-        <PromptTextInput placeholder="Password" />
+      <TextInput
+        placeholder="First Name"
+        placeholderTextColor="gray"
+        style={{
+          height: 50,
+          borderColor: "gray",
+          borderWidth: 2,
+          borderRadius: 25,
+          width: "75%",
+          left: 50,
+          paddingLeft: 20,
+          marginTop: 20,
+          top: 20,
+        }}
+        onChangeText={FirstNameValueHolder => this.setState({FirstNameValueHolder})}
+      />
+      <TextInput
+        placeholder="Last Name"
+        placeholderTextColor="gray"
+        style={{
+          height: 50,
+          borderColor: "gray",
+          borderWidth: 2,
+          borderRadius: 25,
+          width: "75%",
+          left: 50,
+          paddingLeft: 20,
+          marginTop: 20,
+          top: 20,
+        }}
+        onChangeText={LastNameValueHolder => this.setState({LastNameValueHolder})}
+      />
+      <TextInput
+        placeholder="Email"
+        placeholderTextColor="gray"
+        style={{
+          height: 50,
+          borderColor: "gray",
+          borderWidth: 2,
+          borderRadius: 25,
+          width: "75%",
+          left: 50,
+          paddingLeft: 20,
+          marginTop: 20,
+          top: 20,
+        }}
+        onChangeText={EmailValueHolder => this.setState({EmailValueHolder})}
+      />        
+      <TextInput
+        placeholder="Password"
+        placeholderTextColor="gray"
+        style={{
+          height: 50,
+          borderColor: "gray",
+          borderWidth: 2,
+          borderRadius: 25,
+          width: "75%",
+          left: 50,
+          paddingLeft: 20,
+          marginTop: 20,
+          top: 20,
+        }}
+        onChangeText={PasswordValueHolder => this.setState({PasswordValueHolder})}
+      />      
       </View>
       <View style={styles.submitContainer}>
         <Button
@@ -29,7 +115,10 @@ const SignUpScreen = ({ navigation }) => {
             overflow: "hidden",
             top: 20,
           }}
-          onPress={() => navigation.navigate("")}
+          onPress={() => {
+            this.GetValueFunction();
+            this.props.navigation.navigate("LoginScreen");
+          }}
         >
           Sign Up
         </Button>
@@ -48,20 +137,21 @@ const SignUpScreen = ({ navigation }) => {
             color: "white",
             overflow: "hidden",
           }}
-          onPress={() => navigation.navigate("")}
+          onPress={() => this.props.navigation.navigate("")}
         >
           Login with Facebook
         </Button>
         <Text
           style={styles.loginLink}
-          onPress={() => navigation.navigate("SignUpPhoneNumberScreen")}
+          onPress={() => this.props.navigation.navigate("SignUpPhoneNumberScreen")}
         >
           Sign up with phone number
         </Text>
       </View>
-    </View>
-  );
-};
+    </SafeAreaView>
+     );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
