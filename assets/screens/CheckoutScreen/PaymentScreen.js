@@ -6,59 +6,63 @@ import PlusIcon from "react-native-vector-icons/Feather"
 import Button from "react-native-button"
 
 class PaymentScreen extends Component {
-    state = {  }
-    render() { 
-        return ( 
-        <SafeAreaView style={styles.container}>
-          <View style={styles.iconContainer}>
-            <Icon 
-              name="credit-card" 
-              color="black" 
-              size={200}
-              style={{alignSelf: "center"}}
-            />
-          </View>
-          <View style={styles.cardsContainer}>
-            <View style={styles.cardContainer}>
-              <TouchableOpacity onPress={() => console.log("Chose")}>
-                <Text style={styles.cardInformationText}>
-                  Visa Ending in 4242
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.cardContainer}>
-              <TouchableOpacity onPress={() => console.log("Add")}>
-                <Text style={styles.cardInformationText}>
-                  <PlusIcon 
-                    name="plus" 
-                    color="black" 
-                    size={15}
-                    style={{paddingLeft: 20}}
-                  />
-                  &nbsp; &nbsp; Add new card
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentDetailScreen")}>
-              <Button
-              style={{
-                padding: 16,
-                width: "100%",
-                alignSelf: "center",
-                backgroundColor: "purple",
-                color: "white",
-                overflow: "hidden",
-              }}
-              >
-                Proceed
-              </Button>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView> 
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.state = { }
+  }
+  render() { 
+    return ( 
+    <SafeAreaView style={styles.container}>
+      <View style={styles.iconContainer}>
+        <Icon 
+          name="credit-card" 
+          color="black" 
+          size={200}
+          style={{alignSelf: "center"}}
+        />
+      </View>
+      <View style={styles.cardsContainer}>
+        <View style={styles.cardContainer}>
+          <TouchableOpacity onPress={() => console.log("Chose")}>
+            <Text style={styles.cardInformationText}>
+              Visa Ending in 4242
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.cardContainer}>
+          <TouchableOpacity onPress={() => console.log("Add")}>
+            <Text style={styles.cardInformationText}>
+              <PlusIcon 
+                name="plus" 
+                color="black" 
+                size={15}
+                style={{paddingLeft: 20}}
+              />
+              &nbsp; &nbsp; Add new card
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentDetailScreen")}>
+          <Button
+          style={{
+            padding: 16,
+            width: "100%",
+            alignSelf: "center",
+            backgroundColor: "purple",
+            color: "white",
+            overflow: "hidden",
+            marginBottom: 10
+          }}
+          >
+            Proceed
+          </Button>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView> 
+    );
+  }
 }
 
 const styles = StyleSheet.create({
