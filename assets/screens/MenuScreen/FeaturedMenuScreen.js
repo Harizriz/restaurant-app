@@ -1,15 +1,21 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, SafeAreaView } from "react-native";
 
-const FeaturedMenuScreen = () => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.headingContainer}>
-        <Text style={styles.headingText}>Featured Menu Screen</Text>
-      </View>
-    </View>
-  );
-};
+class FeaturedMenuScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  };
+  }
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.headingContainer}>
+          <Text style={styles.headingText}>Featured Menu Screen</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
