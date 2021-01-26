@@ -4,67 +4,73 @@ import Button from "react-native-button";
 
 import PromptTextInput from "../../components/InputText";
 
-const LoginScreen = ({ navigation }) => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.headingContainer}>
-        <Text style={styles.headingText}>Sign In</Text>
-      </View>
-      <View style={styles.promptContainer}>
-        <PromptTextInput placeholder="Email" />
-        <PromptTextInput placeholder="Password" />
-        <Text
-          style={styles.link}
-          onPress={() => navigation.navigate("ResetPasswordScreen")}
-        >
-          Forgot Password?
-        </Text>
-      </View>
-      <View style={styles.submitContainer}>
-        <Button
-          style={{
-            padding: 16,
-            width: 250,
-            borderRadius: 24,
-            alignItems: "center",
-            backgroundColor: "purple",
-            color: "white",
-            overflow: "hidden",
-            top: 30,
-          }}
-          onPress={() => navigation.navigate("FeaturedMenuScreen")}
-        >
-          Log In
-        </Button>
-      </View>
-      <View style={styles.or}>
-        <Text>OR</Text>
-      </View>
-      <View style={styles.bottomContainer}>
-        <Button
-          style={{
-            padding: 16,
-            width: 250,
-            borderRadius: 24,
-            alignItems: "center",
-            backgroundColor: "#3b5998",
-            color: "white",
-            overflow: "hidden",
-          }}
-          onPress={() => navigation.navigate("")}
-        >
-          Login with Facebook
-        </Button>
-        <Text
-          style={styles.loginLink}
-          onPress={() => navigation.navigate("LoginPhoneNumberScreen")}
-        >
-          Login with phone number
-        </Text>
-      </View>
-    </SafeAreaView>
-  );
-};
+class LoginScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  };
+  }
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.headingContainer}>
+          <Text style={styles.headingText}>Sign In</Text>
+        </View>
+        <View style={styles.promptContainer}>
+          <PromptTextInput placeholder="Email" />
+          <PromptTextInput placeholder="Password" />
+          <Text
+            style={styles.link}
+            onPress={() => this.props.navigation.navigate("ResetPasswordScreen")}
+          >
+            Forgot Password?
+          </Text>
+        </View>
+        <View style={styles.submitContainer}>
+          <Button
+            style={{
+              padding: 16,
+              width: 250,
+              borderRadius: 24,
+              alignItems: "center",
+              backgroundColor: "purple",
+              color: "white",
+              overflow: "hidden",
+              top: 30,
+            }}
+            onPress={() => this.props.navigation.navigate("FeaturedMenuScreen")}
+          >
+            Log In
+          </Button>
+        </View>
+        <View style={styles.or}>
+          <Text>OR</Text>
+        </View>
+        <View style={styles.bottomContainer}>
+          <Button
+            style={{
+              padding: 16,
+              width: 250,
+              borderRadius: 24,
+              alignItems: "center",
+              backgroundColor: "#3b5998",
+              color: "white",
+              overflow: "hidden",
+            }}
+            onPress={() => this.props.navigation.navigate("")}
+          >
+            Login with Facebook
+          </Button>
+          <Text
+            style={styles.loginLink}
+            onPress={() => this.props.navigation.navigate("LoginPhoneNumberScreen")}
+          >
+            Login with phone number
+          </Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
