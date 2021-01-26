@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import MenuIcon from "react-native-vector-icons/MaterialIcons";
 
-import MainScreen from "../MainScreen/MainScreen";
+import MainScreen from "../MainScreen/index";
 import SignUpScreen from "../SignUpScreen/SignUpScreen";
 import LoginScreen from "../LoginScreen/LoginScreen";
 import ResetPasswordScreen from "../LoginScreen/ResetPasswordScreen";
