@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, TextInput } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, SafeAreaView } from "react-native";
 import Button from "react-native-button";
 import NumInput from "react-native-numeric-input";
 import data from "../components/AppetizerDummyData";
@@ -7,7 +7,7 @@ import data from "../components/AppetizerDummyData";
 const ItemScreen = ({ navigation }) => {
   const [value, onChangeText] = React.useState();
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Garlic Bread</Text>
       </View>
@@ -78,7 +78,7 @@ const ItemScreen = ({ navigation }) => {
           Add to cart
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
