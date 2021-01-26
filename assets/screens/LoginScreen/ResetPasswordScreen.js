@@ -1,26 +1,32 @@
-import React from "react";
-import { StyleSheet, View, Text, Alert } from "react-native";
+import React, { Component } from 'react';
+import { SafeAreaView, StyleSheet, View, Text } from "react-native";
 import PromptTextInput from "../../components/InputText";
 import AlertButton from "../../components/AlertButton";
 
-const ResetPasswordScreen = () => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.headingContainer}>
-        <Text style={styles.headingText}>Reset Password</Text>
-      </View>
-      <View style={styles.promptContainer}>
-        <PromptTextInput placeholder="Email" />
-      </View>
-      <View style={styles.submitContainer}>
-        <AlertButton
-          buttonText="Send Link"
-          text="Link has been successfully sent to your Email!"
-        />
-      </View>
-    </View>
-  );
-};
+class ResetPasswordScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  };
+  }
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.headingContainer}>
+          <Text style={styles.headingText}>Reset Password</Text>
+        </View>
+        <View style={styles.promptContainer}>
+          <PromptTextInput placeholder="Email" />
+        </View>
+        <View style={styles.submitContainer}>
+          <AlertButton
+            buttonText="Send Link"
+            text="Link has been successfully sent to your Email!"
+          />
+        </View>
+      </SafeAreaView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
