@@ -5,7 +5,10 @@ import PromptTextInput from "../../components/InputText";
 import AlertButton from "../../components/AlertButton";
 
 class SignUpPhoneNumberScreen extends Component {
-  state = {  }
+  constructor(props) {
+    super(props);
+    this.state = { }
+  }
   render() { 
     return ( 
       <SafeAreaView style={styles.container}>
