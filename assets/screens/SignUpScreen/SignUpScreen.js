@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { SafeAreaView, StyleSheet, Text, View, TextInput, Alert } from "react-native";
 import Button from "react-native-button";
 
-import PromptTextInput from "../../components/InputText"; 
-import signup from "../../backend/signup";
-
 class SignUpScreen extends Component {
   constructor(props) {
     super(props);
@@ -16,20 +13,35 @@ class SignUpScreen extends Component {
     }
   }
   GetValueFunction = () => {
-    // console.log("Hello");
     const { FirstNameValueHolder, LastNameValueHolder, EmailValueHolder, PasswordValueHolder } = this.state;
     console.log(FirstNameValueHolder)
     console.log(LastNameValueHolder)
     console.log(EmailValueHolder)
     console.log(PasswordValueHolder) 
+
     const JSONObj = {
       firstName: FirstNameValueHolder,
       lastName: LastNameValueHolder,
       email: EmailValueHolder,
       password: PasswordValueHolder
     };
+
     const JSONObjString = JSON.stringify(JSONObj);
-    console.log(JSONObjString);   
+    console.log(JSONObjString);
+    
+    fetch('http://172.20.10.5:5000/api/users', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        firstName: FirstNameValueHolder,
+        lastName: LastNameValueHolder,
+        email: EmailValueHolder,
+        password: PasswordValueHolder
+      })
+    });   
   }
   render() { 
     return ( 
