@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, Alert } from "react-native";
+import { SafeAreaView, StyleSheet, View, Text } from "react-native";
 import InputText from "../../components/InputText";
 import Button from "react-native-button";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
-const createTwoButtonAlert = () => Alert.alert("Logging Out", "Are you sure you want to log out?", [
-  { text: "Cancel", onPress: () => console.log("cancelled!") },
-  { text: "Log out", onPress: () => console.log("logout!") },
-]);
+import createTwoButtonAlert from "../../components/TwoButtonAlert";
 
 class AccountScreen extends Component {
   constructor(props) {
