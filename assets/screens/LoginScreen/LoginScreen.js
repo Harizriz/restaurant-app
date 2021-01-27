@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { SafeAreaView, View, StyleSheet, Text } from "react-native";
+import { SafeAreaView, View, StyleSheet, Text, TextInput } from "react-native";
 import Button from "react-native-button";
-
-import PromptTextInput from "../../components/InputText";
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -16,8 +14,38 @@ class LoginScreen extends Component {
           <Text style={styles.headingText}>Sign In</Text>
         </View>
         <View style={styles.promptContainer}>
-          <PromptTextInput placeholder="Email" />
-          <PromptTextInput placeholder="Password" />
+          <TextInput
+            placeholder="Email"
+            placeholderTextColor="gray"
+            style={{
+              height: 50,
+              borderColor: "gray",
+              borderWidth: 2,
+              borderRadius: 10,
+              width: "75%",
+              left: 50,
+              paddingLeft: 20,
+              marginTop: 20,
+              top: 20,
+            }}
+            onChangeText={PasswordValueHolder => this.setState({PasswordValueHolder})}
+          />      
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor="gray"
+            style={{
+              height: 50,
+              borderColor: "gray",
+              borderWidth: 2,
+              borderRadius: 10,
+              width: "75%",
+              left: 50,
+              paddingLeft: 20,
+              marginTop: 20,
+              top: 20,
+            }}
+            onChangeText={PasswordValueHolder => this.setState({PasswordValueHolder})}
+          />      
           <Text
             style={styles.link}
             onPress={() => this.props.navigation.navigate("ResetPasswordScreen")}
@@ -39,7 +67,7 @@ class LoginScreen extends Component {
             }}
             onPress={() => this.props.navigation.navigate("FeaturedMenuScreen")}
           >
-            Log In
+            Sign In
           </Button>
         </View>
         <View style={styles.or}>
@@ -60,12 +88,12 @@ class LoginScreen extends Component {
           >
             Login with Facebook
           </Button>
-          <Text
+          {/* <Text
             style={styles.loginLink}
             onPress={() => this.props.navigation.navigate("LoginPhoneNumberScreen")}
           >
             Login with phone number
-          </Text>
+          </Text> */}
         </View>
       </SafeAreaView>
     );
@@ -92,10 +120,10 @@ const styles = StyleSheet.create({
     // backgroundColor: "green",
   },
   headingText: {
-    fontSize: 40,
+    fontSize: 35,
     color: "purple",
-    left: 50,
     top: 50,
+    alignSelf: "center"
   },
   link: {
     justifyContent: "flex-end",
