@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
     // backgroundColor: "yellow",
   },
   headingText: {
-    fontSize: 40,
+    fontSize: 35,
     color: "purple",
-    left: 50,
     top: 50,
+    alignSelf: "center"
   },
 });
 
