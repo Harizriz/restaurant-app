@@ -64,7 +64,7 @@ class SignUpScreen extends Component {
     return ( 
       <SafeAreaView style={styles.container}>
       <View style={styles.headingContainer}>
-        <Text style={styles.headingText}>Create new account</Text>
+        <Text style={styles.headingText}>Sign Up</Text>
       </View>
       <View style={styles.promptContainer}>
       <TextInput
@@ -74,7 +74,7 @@ class SignUpScreen extends Component {
           height: 50,
           borderColor: "gray",
           borderWidth: 2,
-          borderRadius: 25,
+          borderRadius: 10,
           width: "75%",
           left: 50,
           paddingLeft: 20,
@@ -90,7 +90,7 @@ class SignUpScreen extends Component {
           height: 50,
           borderColor: "gray",
           borderWidth: 2,
-          borderRadius: 25,
+          borderRadius: 10,
           width: "75%",
           left: 50,
           paddingLeft: 20,
@@ -106,7 +106,7 @@ class SignUpScreen extends Component {
           height: 50,
           borderColor: "gray",
           borderWidth: 2,
-          borderRadius: 25,
+          borderRadius: 10,
           width: "75%",
           left: 50,
           paddingLeft: 20,
@@ -122,7 +122,7 @@ class SignUpScreen extends Component {
           height: 50,
           borderColor: "gray",
           borderWidth: 2,
-          borderRadius: 25,
+          borderRadius: 10,
           width: "75%",
           left: 50,
           paddingLeft: 20,
@@ -142,10 +142,9 @@ class SignUpScreen extends Component {
             backgroundColor: "purple",
             color: "white",
             overflow: "hidden",
-            top: 20,
+            top: 50,
           }}
           onPress={() => {
-            // this.saveNewPerson();
             this.GetValueFunction();
             this.props.navigation.navigate("LoginScreen");
           }}
@@ -209,8 +208,8 @@ const styles = StyleSheet.create({
   headingText: {
     fontSize: 30,
     color: "purple",
-    left: 50,
     top: 50,
+    alignSelf: "center"
   },
   link: {
     justifyContent: "flex-end",
@@ -225,7 +224,8 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   or: {
-    height: 40,
+    height: 60,
+    justifyContent: "center",
     alignSelf: "center",
     // backgroundColor: "orange",
   },
