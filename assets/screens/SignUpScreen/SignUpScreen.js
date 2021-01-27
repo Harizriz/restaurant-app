@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { SafeAreaView, StyleSheet, Text, View, TextInput, Alert } from "react-native";
-import Button from "react-native-button";
+import Button from "react-native-button"; 
+import Parse from "parse/react-native";
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -41,7 +42,23 @@ class SignUpScreen extends Component {
         email: EmailValueHolder,
         password: PasswordValueHolder
       })
-    });   
+    });
+
+    const Person = Parse.Object.extend("Person");
+    const person = new Person();
+
+    person.set("firstname", FirstNameValueHolder);
+    person.set("lastname", LastNameValueHolder);
+    person.set("email", EmailValueHolder);
+    person.set("password", PasswordValueHolder);
+
+    try {
+        let result = person.save()
+        alert('New object created with objectId: ' + result.id);
+    }
+    catch(error) {
+        alert('Failed to create new object, with error code: ' + error.message);
+    }
   }
   render() { 
     return ( 
@@ -128,6 +145,7 @@ class SignUpScreen extends Component {
             top: 20,
           }}
           onPress={() => {
+            // this.saveNewPerson();
             this.GetValueFunction();
             this.props.navigation.navigate("LoginScreen");
           }}
