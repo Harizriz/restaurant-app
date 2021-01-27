@@ -28,8 +28,10 @@ const MainMenuScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.searchContainer}>
-        <SearchInput placeholder="What are you craving for" />
+      <View style={styles.headingContainer}>
+        <View style={styles.searchContainer}>
+          <SearchInput placeholder="What are you craving for?" />
+        </View>
       </View>
       <FlatList
         data={DATA}
@@ -52,6 +54,10 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
   },
+  headingContainer: {
+    height: 100,
+    justifyContent: "center"
+  },  
   searchContainer: {
     height: 50,
   },
