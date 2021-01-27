@@ -170,12 +170,12 @@ class SignUpScreen extends Component {
         >
           Login with Facebook
         </Button>
-        <Text
+        {/* <Text
           style={styles.loginLink}
           onPress={() => this.props.navigation.navigate("SignUpPhoneNumberScreen")}
         >
           Sign up with phone number
-        </Text>
+        </Text> */}
       </View>
     </SafeAreaView>
      );
