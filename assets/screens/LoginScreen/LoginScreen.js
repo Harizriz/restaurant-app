@@ -7,6 +7,13 @@ class LoginScreen extends Component {
     super(props);
     this.state = {  };
   }
+  // GetDataFromApi = async () => {
+  //   let response = await fetch(
+  //     'http://172.20.10.5:5000/api/users'
+  //   );
+  //   let json = await response.json();
+  //   return json.users;
+  // }
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -65,7 +72,10 @@ class LoginScreen extends Component {
               overflow: "hidden",
               top: 30,
             }}
-            onPress={() => this.props.navigation.navigate("FeaturedMenuScreen")}
+            onPress={() => {
+              // this.GetDataFromApi();
+              this.props.navigation.navigate("FeaturedMenuScreen")
+            }}
           >
             Sign In
           </Button>
