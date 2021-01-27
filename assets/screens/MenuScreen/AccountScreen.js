@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, Text } from "react-native";
-import InputText from "../../components/InputText";
+import { SafeAreaView, StyleSheet, View, Text, InputText } from "react-native";
 import Button from "react-native-button";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import createTwoButtonAlert from "../../components/TwoButtonAlert";
@@ -17,15 +16,21 @@ class AccountScreen extends Component {
           <Text style={styles.headingText}>My Account</Text>
         </View>
         <View style={styles.profileContainer}>
-          <InputText placeholder="Full Name" />
-          <InputText placeholder="Email" />
-          <InputText placeholder="Phone Number" />
-          <InputText placeholder="Date of Birth" />
+          <Text style={styles.primaryText}>First Name</Text>
+          <Text style={styles.secondaryText}>Hariz</Text>
+        </View>
+        <View style={styles.profileContainer}>
+          <Text style={styles.primaryText}>Last Name</Text>
+          <Text style={styles.secondaryText}>Tay</Text>
+        </View>
+        <View style={styles.profileContainer}>
+          <Text style={styles.primaryText}>Email</Text>
+          <Text style={styles.secondaryText}>hariz1807@gmail.com</Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button
             style={{
-              paddingRight: 130,
+              paddingRight: 142,
               paddingBottom: 10,
               width: "100%",
               color: "black",
@@ -37,7 +42,7 @@ class AccountScreen extends Component {
           </Button>
           <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("ChangePasswordScreen")}/>
         </View>
-        <View style={styles.button2Container}>
+        <View style={styles.buttonContainer}>
           <Button
             style={{
               paddingRight: 210,
@@ -64,17 +69,17 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
   },
   headingContainer: {
-    height: 100,
+    height: 125,
     // backgroundColor: "yellow",
   },
   headingText: {
-    fontSize: 40,
+    fontSize: 35,
     color: "purple",
-    left: 50,
     top: 50,
+    alignSelf: "center"
   },
   profileContainer: {
-    height: 325,
+    height: 70,
     // backgroundColor: "yellow",
   },
   buttonContainer: {
@@ -82,15 +87,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "flex-start",
     marginHorizontal: 55,
-    top: 10
+    top: 20,
+    // backgroundColor: "yellow",
   },
-  button2Container: {
-    height: 50,
-    flexDirection: "row",
-    alignSelf: "flex-start",
-    marginHorizontal: 55,
-    top: 20
+  primaryText: {
+    fontSize: 20,
+    color: "purple",
+    left: 50,
+    fontWeight: "bold"
   },
+  secondaryText: {
+    fontSize: 20,
+    color: "black",
+    left: 50,
+    top: 5
+  }
 });
 
 export default AccountScreen;
