@@ -32,10 +32,14 @@ const styles = StyleSheet.create({
   searchContainer: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "center",
     backgroundColor: "#fff",
     height: 50,
     // backgroundColor: "red",
+    width: "92%",
+    left: 16,
+    borderRadius: 5
+    // borderColor: "lightgray",
+    // borderWidth: 1
   },
   icon: {
     padding: 20,
@@ -46,15 +50,17 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
     paddingLeft: 0,
-    backgroundColor: "#fff",
-    color: "#424242",
+    borderLeftColor: "lightgray",
+    borderLeftWidth: 1,
+    // backgroundColor: "#fff",
+    // color: "#424242",
     // height: 40,
     // borderColor: "gray",
     // borderWidth: 2,
     // borderRadius: 5,
-    // width: "90%",
+    // width: "50%",
     // left: 20,
-    // paddingLeft: 20,
+    paddingLeft: 10,
     // marginTop: 10,
   },
 });
