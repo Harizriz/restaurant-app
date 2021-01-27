@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     position: "absolute",
-    top: 70,
+    top: 200,
     alignItems: "center",
   },
   textButton: {
