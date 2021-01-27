@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { SafeAreaView, StyleSheet, Text, View, TextInput, Alert } from "react-native";
 import Button from "react-native-button"; 
-import Parse from "parse/react-native";
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -13,12 +12,8 @@ class SignUpScreen extends Component {
       PasswordValueHolder: ''
     }
   }
-  GetValueFunction = () => {
+  GetValueFunction = async () => {
     const { FirstNameValueHolder, LastNameValueHolder, EmailValueHolder, PasswordValueHolder } = this.state;
-    console.log(FirstNameValueHolder)
-    console.log(LastNameValueHolder)
-    console.log(EmailValueHolder)
-    console.log(PasswordValueHolder) 
 
     const JSONObj = {
       firstName: FirstNameValueHolder,
@@ -28,37 +23,40 @@ class SignUpScreen extends Component {
     };
 
     const JSONObjString = JSON.stringify(JSONObj);
-    console.log(JSONObjString);
     
-    fetch('http://172.20.10.5:5000/api/users', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        firstName: FirstNameValueHolder,
-        lastName: LastNameValueHolder,
-        email: EmailValueHolder,
-        password: PasswordValueHolder
-      })
-    });
-
-    const Person = Parse.Object.extend("Person");
-    const person = new Person();
-
-    person.set("firstname", FirstNameValueHolder);
-    person.set("lastname", LastNameValueHolder);
-    person.set("email", EmailValueHolder);
-    person.set("password", PasswordValueHolder);
+    // try {
+    //   let response = await fetch(
+    //     'http://172.20.10.5:5000/api/users'
+    //   );
+    //   let json = await response.json();
+    //   return console.log(json);
+    // } catch (error) {
+    //   console.error(error);
+    // }
 
     try {
-        let result = person.save()
-        alert('New object created with objectId: ' + result.id);
+      let response = await fetch(
+        'http://172.20.10.5:5000/api/users', 
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            firstName: FirstNameValueHolder,
+            lastName: LastNameValueHolder,
+            email: EmailValueHolder,
+            password: PasswordValueHolder
+          })
+        }
+      );
+      let json = await response.json();
+      console.log(json);
+    } catch (error) {
+      console.error(error);
     }
-    catch(error) {
-        alert('Failed to create new object, with error code: ' + error.message);
-    }
+    
   }
   render() { 
     return ( 

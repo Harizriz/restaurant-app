@@ -4,8 +4,8 @@
   "description": "",
   "main": "register.js",
   "scripts": {
-    "start": "node express",
-    "dev": "nodemon express"
+    "start": "node routes",
+    "dev": "nodemon routes"
   },
   "author": "",
   "license": "ISC",
