@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   headingText: {
-    fontSize: 30,
+    fontSize: 35,
     color: "purple",
     top: 50,
     alignSelf: "center"
