@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { SafeAreaView, StyleSheet, Text, View, TextInput, Alert } from "react-native";
 import Button from "react-native-button"; 
+import SignUpAlert from "../../components/SignUpAlert";
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -22,8 +23,6 @@ class SignUpScreen extends Component {
       password: PasswordValueHolder
     };
 
-    const JSONObjString = JSON.stringify(JSONObj);
-    
     // try {
     //   let response = await fetch(
     //     'http://172.20.10.5:5000/api/users'
@@ -53,6 +52,18 @@ class SignUpScreen extends Component {
       );
       let json = await response.json();
       console.log(json);
+
+      if(!json.firstName || !json.lastName || !json.email || !json.password) {
+        Alert.alert("Too bad", json.msg,
+        { text: "Okay", onPress: () => console.log("Successful") });
+      
+        return;
+      }
+      
+      Alert.alert("Well done", "User created successfully!",
+        { text: "Okay", onPress: this.props.navigation.navigate("LoginScreen")
+      });
+
     } catch (error) {
       console.error(error);
     }
@@ -144,7 +155,6 @@ class SignUpScreen extends Component {
           }}
           onPress={() => {
             this.GetValueFunction();
-            this.props.navigation.navigate("LoginScreen");
           }}
         >
           Sign Up

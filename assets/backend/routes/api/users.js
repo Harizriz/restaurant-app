@@ -12,7 +12,7 @@ module.exports = {
         };
                 
         if(!newUser.firstName || !newUser.lastName || !newUser.email || !newUser.password) {
-            return res.status(400).json({ msg: 'Please include firstname, lastname, email and password' });
+            return res.status(400).send({ msg: 'Please fill all the fields!' });
         }
         
         // TODO read database to check existing users using email
