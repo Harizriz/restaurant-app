@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { SafeAreaView, StyleSheet, Text, View, TextInput, Alert } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, TextInput, Alert, Item } from "react-native";
 import Button from "react-native-button"; 
-import SignUpAlert from "../../components/SignUpAlert";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -10,28 +10,13 @@ class SignUpScreen extends Component {
       FirstNameValueHolder: '',
       LastNameValueHolder: '',
       EmailValueHolder: '',
-      PasswordValueHolder: ''
+      PasswordValueHolder: '',
+      icon: "eye-off",
+      password: true
     }
   }
   GetValueFunction = async () => {
     const { FirstNameValueHolder, LastNameValueHolder, EmailValueHolder, PasswordValueHolder } = this.state;
-
-    const JSONObj = {
-      firstName: FirstNameValueHolder,
-      lastName: LastNameValueHolder,
-      email: EmailValueHolder,
-      password: PasswordValueHolder
-    };
-
-    // try {
-    //   let response = await fetch(
-    //     'http://172.20.10.5:5000/api/users'
-    //   );
-    //   let json = await response.json();
-    //   return console.log(json);
-    // } catch (error) {
-    //   console.error(error);
-    // }
 
     try {
       let response = await fetch(
@@ -69,6 +54,12 @@ class SignUpScreen extends Component {
     }
     
   }
+  changeIcon() {
+    this.setState(prevState => ({
+        icon: prevState.icon === 'eye' ? 'eye-off' : 'eye',
+        password: !prevState.password
+    }));
+  }
   render() { 
     return ( 
       <SafeAreaView style={styles.container}>
@@ -76,70 +67,77 @@ class SignUpScreen extends Component {
         <Text style={styles.headingText}>Sign Up</Text>
       </View>
       <View style={styles.promptContainer}>
-      <TextInput
-        placeholder="First Name"
-        placeholderTextColor="gray"
-        style={{
-          height: 50,
-          borderColor: "gray",
-          borderWidth: 2,
-          borderRadius: 10,
-          width: "75%",
-          left: 50,
-          paddingLeft: 20,
-          marginTop: 20,
-          top: 20,
-        }}
-        onChangeText={FirstNameValueHolder => this.setState({FirstNameValueHolder})}
-      />
-      <TextInput
-        placeholder="Last Name"
-        placeholderTextColor="gray"
-        style={{
-          height: 50,
-          borderColor: "gray",
-          borderWidth: 2,
-          borderRadius: 10,
-          width: "75%",
-          left: 50,
-          paddingLeft: 20,
-          marginTop: 20,
-          top: 20,
-        }}
-        onChangeText={LastNameValueHolder => this.setState({LastNameValueHolder})}
-      />
-      <TextInput
-        placeholder="Email"
-        placeholderTextColor="gray"
-        style={{
-          height: 50,
-          borderColor: "gray",
-          borderWidth: 2,
-          borderRadius: 10,
-          width: "75%",
-          left: 50,
-          paddingLeft: 20,
-          marginTop: 20,
-          top: 20,
-        }}
-        onChangeText={EmailValueHolder => this.setState({EmailValueHolder})}
-      />        
-      <TextInput
-        placeholder="Password"
-        placeholderTextColor="gray"
-        style={{
-          height: 50,
-          borderColor: "gray",
-          borderWidth: 2,
-          borderRadius: 10,
-          width: "75%",
-          left: 50,
-          paddingLeft: 20,
-          marginTop: 20,
-          top: 20,
-        }}
-        onChangeText={PasswordValueHolder => this.setState({PasswordValueHolder})}
-      />      
+        <View style={styles.textInputContainer}>
+          <TextInput
+          placeholder="First Name"
+          placeholderTextColor="gray"
+          style={{
+            height: 50,
+            borderColor: "gray",
+            borderWidth: 2,
+            borderRadius: 10,
+            width: "75%",
+            paddingLeft: 20,
+            marginTop: 20,
+            top: 20,
+          }}
+          onChangeText={FirstNameValueHolder => this.setState({FirstNameValueHolder})}
+          />
+        </View>
+        <View style={styles.textInputContainer}>
+          <TextInput
+            placeholder="Last Name"
+            placeholderTextColor="gray"
+            style={{
+              height: 50,
+              borderColor: "gray",
+              borderWidth: 2,
+              borderRadius: 10,
+              width: "75%",
+              paddingLeft: 20,
+              marginTop: 20,
+              top: 20,
+            }}
+            onChangeText={LastNameValueHolder => this.setState({LastNameValueHolder})}
+          />
+        </View>
+        <View style={styles.textInputContainer}>
+          <TextInput
+          placeholder="Email"
+          placeholderTextColor="gray"
+          style={{
+            height: 50,
+            borderColor: "gray",
+            borderWidth: 2,
+            borderRadius: 10,
+            width: "75%",
+            paddingLeft: 20,
+            marginTop: 20,
+            top: 20,
+          }}
+          onChangeText={EmailValueHolder => this.setState({EmailValueHolder})}
+          />       
+        </View>
+        <View style={styles.textInputContainer}>
+          <TextInput
+          placeholder="Password"
+          placeholderTextColor="gray"
+          secureTextEntry={this.state.password}
+          style={{
+            height: 50,
+            borderColor: "gray",
+            borderWidth: 2,
+            borderRadius: 10,
+            width: "75%",
+            paddingLeft: 20,
+            marginTop: 20,
+            top: 20,
+            left: 8
+          }}
+          onChangeText={PasswordValueHolder => this.setState({PasswordValueHolder})}
+          />
+          <Icon name={this.state.icon} size={17} style={styles.icon} onPress={() => this.changeIcon()} />
+        </View>
       </View>
       <View style={styles.submitContainer}>
         <Button
@@ -213,6 +211,12 @@ const styles = StyleSheet.create({
     // backgroundColor: "green",
     alignSelf: "center",
   },
+  textInputContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
   headingText: {
     fontSize: 35,
     color: "purple",
@@ -242,6 +246,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     // backgroundColor: "pink",
   },
+  icon: {
+    right: 30,
+    top: 30,
+    // backgroundColor: "yellow",
+  }
 });
 
 export default SignUpScreen;
