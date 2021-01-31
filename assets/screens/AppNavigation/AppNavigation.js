@@ -101,6 +101,7 @@ export default function App() {
         <Stack.Screen
           name="FeaturedMenuScreen"
           component={MaterialBottomTabs}
+          options={{gestureEnabled: false}}
         />
         <Stack.Screen name="AppetizerScreen" component={AppetizerScreen} />
         <Stack.Screen name="SaladScreen" component={SaladScreen} />
