@@ -15,7 +15,7 @@ module.exports = {
             return res.status(400).send({ msg: 'Please fill all the fields!' });
         }
         
-        // TODO read database to check existing users using email
+        // read database to check existing users using email
         async function retrievePerson() {
             const Person = Parse.Object.extend("Person");
             const query = new Parse.Query(Person);
@@ -54,15 +54,35 @@ module.exports = {
     },
 
     getUser : (req, res) => {
-        res.send({
-            msg: 'Hello World'
-        });
+        const user = {
+            email: req.body.email,
+            password: req.body.password
+        };
 
-        // TODO read the database to get user's data given by email by frontend
-        // if email does not exist (fail) notify the user
-        // wrong password also need to display the user
+        if(!user.email || !user.password) {
+            return res.status(400).send({ msg: 'Please fill all the fields!' });
+        }
 
-        // TODO make sure password is the same as the database (compare)
+        // read database to check existing users for authentication
+        async function retrieveUser() {
+            const Person = Parse.Object.extend("Person");
+            const query = new Parse.Query(Person);
+            query.equalTo("email", user.email);
+            query.equalTo("password", user.password);
+
+            const person = await query.find();  
+            console.log(person);
+
+            if(person.length == 0) {
+                res.send({ msg: 'Incorrect email or password'});
+            }
+            else {
+                res.send(user);
+                res.send({ msg: 'Login successfully!'});
+            }
+        }
+
+        retrieveUser();
 
     }
 }

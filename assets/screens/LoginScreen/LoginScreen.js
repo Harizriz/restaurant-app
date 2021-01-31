@@ -1,19 +1,63 @@
 import React, { Component } from "react";
-import { SafeAreaView, View, StyleSheet, Text, TextInput } from "react-native";
+import { SafeAreaView, View, StyleSheet, Text, TextInput, Alert } from "react-native";
 import Button from "react-native-button";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class LoginScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {  };
+    this.state = { 
+      EmailValueHolder: '',
+      PasswordValueHolder: '',
+      isLoading: true,
+      dataSource: null,
+      icon: "eye-off",
+      password: true
+     };
   }
-  // GetDataFromApi = async () => {
-  //   let response = await fetch(
-  //     'http://172.20.10.5:5000/api/users'
-  //   );
-  //   let json = await response.json();
-  //   return json.users;
-  // }
+  GetDataFromApi = async () => {
+    const { EmailValueHolder, PasswordValueHolder } = this.state;
+
+    try {
+      let response = await fetch(
+        'http://172.20.10.5:5000/api/users/login', 
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: EmailValueHolder,
+            password: PasswordValueHolder
+          })
+        }
+      );
+      let json = await response.json();
+      console.log(json);
+
+      if(!json.email || !json.password) {
+        Alert.alert("Too bad", json.msg,
+        { text: "Okay", onPress: () => console.log("Successful") });
+      
+        return;
+      }
+      
+      Alert.alert("Well done", "Login successfully!",
+        { text: "Okay", onPress: this.props.navigation.navigate("FeaturedMenuScreen")
+      });
+
+    } catch (error) {
+      console.error(error);
+    }
+    
+  }
+  changeIcon() {
+    this.setState(prevState => ({
+        icon: prevState.icon === 'eye' ? 'eye-off' : 'eye',
+        password: !prevState.password
+    }));
+  }
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -21,38 +65,43 @@ class LoginScreen extends Component {
           <Text style={styles.headingText}>Sign In</Text>
         </View>
         <View style={styles.promptContainer}>
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor="gray"
-            style={{
-              height: 50,
-              borderColor: "gray",
-              borderWidth: 2,
-              borderRadius: 10,
-              width: "75%",
-              left: 50,
-              paddingLeft: 20,
-              marginTop: 20,
-              top: 20,
-            }}
-            onChangeText={PasswordValueHolder => this.setState({PasswordValueHolder})}
-          />      
-          <TextInput
-            placeholder="Password"
-            placeholderTextColor="gray"
-            style={{
-              height: 50,
-              borderColor: "gray",
-              borderWidth: 2,
-              borderRadius: 10,
-              width: "75%",
-              left: 50,
-              paddingLeft: 20,
-              marginTop: 20,
-              top: 20,
-            }}
-            onChangeText={PasswordValueHolder => this.setState({PasswordValueHolder})}
-          />      
+          <View style={styles.textInputContainer}>
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor="gray"
+              style={{
+                height: 50,
+                borderColor: "gray",
+                borderWidth: 2,
+                borderRadius: 10,
+                width: "75%",
+                paddingLeft: 20,
+                marginTop: 20,
+                top: 20,
+              }}
+              onChangeText={EmailValueHolder => this.setState({EmailValueHolder})}
+            />      
+          </View>
+          <View style={styles.textInputContainer}>
+            <TextInput
+              placeholder="Password"
+              placeholderTextColor="gray"
+              secureTextEntry={this.state.password}
+              style={{
+                height: 50,
+                borderColor: "gray",
+                borderWidth: 2,
+                borderRadius: 10,
+                width: "75%",
+                paddingLeft: 20,
+                marginTop: 20,
+                // top: 20,
+                left: 8
+              }}
+              onChangeText={PasswordValueHolder => this.setState({PasswordValueHolder})}
+            />     
+            <Icon name={this.state.icon} size={17} style={styles.icon} onPress={() => this.changeIcon()} /> 
+          </View>
           <Text
             style={styles.link}
             onPress={() => this.props.navigation.navigate("ResetPasswordScreen")}
@@ -73,8 +122,7 @@ class LoginScreen extends Component {
               top: 30,
             }}
             onPress={() => {
-              // this.GetDataFromApi();
-              this.props.navigation.navigate("FeaturedMenuScreen")
+              this.GetDataFromApi();
             }}
           >
             Sign In
@@ -129,6 +177,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     // backgroundColor: "green",
   },
+  textInputContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "yellow",
+    // borderWidth: 1,
+  },
   headingText: {
     fontSize: 35,
     color: "purple",
@@ -138,7 +194,6 @@ const styles = StyleSheet.create({
   link: {
     justifyContent: "flex-end",
     alignSelf: "flex-end",
-    top: 25,
     right: 50,
     color: "blue",
   },
@@ -158,6 +213,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     // backgroundColor: "pink",
   },
+  icon: {
+    right: 30,
+    top: 10,
+    // backgroundColor: "yellow",
+  }
 });
 
 export default LoginScreen;
