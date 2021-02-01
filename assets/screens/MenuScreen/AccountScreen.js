@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, InputText } from "react-native";
+import { SafeAreaView, StyleSheet, View, Text, Alert } from "react-native";
 import Button from "react-native-button";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import createTwoButtonAlert from "../../components/TwoButtonAlert";
 
 class AccountScreen extends Component {
   constructor(props) {
@@ -51,11 +50,21 @@ class AccountScreen extends Component {
               color: "black",
               // borderBottomWidth: 1,
             }}
-            onPress={createTwoButtonAlert}
+            onPress={
+              () => Alert.alert("Logging Out", "Are you sure you want to log out?", [
+                { text: "Cancel", onPress: () => console.log("cancelled!") },
+                { text: "Log out", onPress: () => this.props.navigation.navigate("MainScreen") },
+            ])
+            }
           >
             Log Out
           </Button>
-          <Icon name="chevron-right" color="black" size={26} onPress={createTwoButtonAlert}/>
+          <Icon name="chevron-right" color="black" size={26} onPress={
+            () => Alert.alert("Logging Out", "Are you sure you want to log out?", [
+              { text: "Cancel", onPress: () => console.log("cancelled!") },
+              { text: "Log out", onPress: () => this.props.navigation.navigate("MainScreen") },
+          ])
+          }/>
         </View>
       </SafeAreaView>
     );

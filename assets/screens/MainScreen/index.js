@@ -1,10 +1,15 @@
-import React from "react";
+import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Image, Text } from "react-native";
 import Button from "react-native-button";
 
-const MainScreen = ({ navigation }) => {
-  return (
-    <SafeAreaView style={styles.container}>
+class MainScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  };
+  }
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
@@ -25,7 +30,7 @@ const MainScreen = ({ navigation }) => {
               bottom: 20,
               overflow: "hidden",
             }}
-            onPress={() => navigation.navigate("LoginScreen")}
+            onPress={() => this.props.navigation.navigate("LoginScreen")}
           >
             Login
           </Button>
@@ -39,15 +44,16 @@ const MainScreen = ({ navigation }) => {
               color: "white",
               overflow: "hidden",
             }}
-            onPress={() => navigation.navigate("SignUpScreen")}
+            onPress={() => this.props.navigation.navigate("SignUpScreen")}
           >
             Sign Up
           </Button>
         </View>
       </View>
     </SafeAreaView>
-  );
-};
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
