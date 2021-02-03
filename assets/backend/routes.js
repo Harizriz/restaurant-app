@@ -29,10 +29,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // get member
-app.post('/api/users/login', users.getUser)
+app.post('/api/users/login', users.getUser);
 
 // users API routes
 app.post('/api/users', users.createUser);
+
+// get user info
+app.get('/api/users/:email', users.getUserInfo);
 
 const PORT = process.env.PORT || 5000
 

@@ -34,7 +34,6 @@ class LoginScreen extends Component {
         }
       );
       let json = await response.json();
-      console.log(json);
 
       if(!json.email || !json.password) {
         Alert.alert("Too bad", json.msg,
@@ -43,9 +42,8 @@ class LoginScreen extends Component {
         return;
       }
       
-      Alert.alert("Well done", "Login successfully!",
-        { text: "Okay", onPress: this.props.navigation.navigate("FeaturedMenuScreen")
-      });
+      // send user's email to AccountScreen
+      this.props.navigation.navigate("FeaturedMenuScreen", {params: {emailData: this.state.EmailValueHolder}, screen: "Account" })
 
     } catch (error) {
       console.error(error);

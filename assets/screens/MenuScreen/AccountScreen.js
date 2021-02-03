@@ -6,9 +6,26 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 class AccountScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {  };
+    this.state = { 
+      dataSource: ''
+    };
+  }
+  componentDidMount = async () => {
+    const { navigate }  = this.props.navigation;
+    let params = this.props.route.params.emailData;
+    fetch(`http://172.20.10.5:5000/api/users/${encodeURI(params)}`)
+    .then(response => response.json())
+    .then(responseJson => {
+      this.setState({
+        dataSource: responseJson[0]
+      });
+    })
+    .then(response => {
+      navigate('FeaturedMenuScreen', {screen: "Home"});
+    });
   }
   render() {
+    console.log(this.state.dataSource);
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.headingContainer}>
@@ -16,15 +33,15 @@ class AccountScreen extends Component {
         </View>
         <View style={styles.profileContainer}>
           <Text style={styles.primaryText}>First Name</Text>
-          <Text style={styles.secondaryText}>Hariz</Text>
+          <Text style={styles.secondaryText}>{this.state.dataSource.firstname}</Text>
         </View>
         <View style={styles.profileContainer}>
           <Text style={styles.primaryText}>Last Name</Text>
-          <Text style={styles.secondaryText}>Tay</Text>
+          <Text style={styles.secondaryText}>{this.state.dataSource.lastname}</Text>
         </View>
         <View style={styles.profileContainer}>
           <Text style={styles.primaryText}>Email</Text>
-          <Text style={styles.secondaryText}>hariz1807@gmail.com</Text>
+          <Text style={styles.secondaryText}>{this.state.dataSource.email}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button

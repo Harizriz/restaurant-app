@@ -4,7 +4,8 @@ import { StyleSheet, View, Text, SafeAreaView } from "react-native";
 class FeaturedMenuScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {  };
+    this.state = { 
+     };
   }
   render() {
     return (

@@ -36,7 +36,7 @@ module.exports = {
                 try {
                     let result = person.save()
                     console.log("Trying to save string");
-                    console.log(result)
+                    // console.log(result)
                 }
                 catch(error) {
                     console.log('Failed to create new object, with error code: ' + error.message);
@@ -71,7 +71,7 @@ module.exports = {
             query.equalTo("password", user.password);
 
             const person = await query.find();  
-            console.log(person);
+            // console.log(person);
 
             if(person.length == 0) {
                 res.send({ msg: 'Incorrect email or password'});
@@ -84,5 +84,23 @@ module.exports = {
 
         retrieveUser();
 
+    },
+
+    getUserInfo : (req, res) => {
+
+        // read database to get user's information
+        async function retrieveUser() {
+            const Person = Parse.Object.extend("Person");
+            const query = new Parse.Query(Person);
+            query.equalTo("email", req.params.email);
+
+            const person = await query.find();  
+            console.log(person);
+            res.send(person);
+        }
+
+        retrieveUser();
+
     }
+
 }
