@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import MenuIcon from "react-native-vector-icons/MaterialIcons";
+import QrIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import MainScreen from "../MainScreen/index";
 import SignUpScreen from "../SignUpScreen/SignUpScreen";
@@ -17,6 +18,7 @@ import OrderScreen from "../MenuScreen/OrderScreen";
 import AccountScreen from "../MenuScreen/AccountScreen";
 import ChangePasswordScreen from "../../components/ChangePasswordScreen";
 import MainMenuScreen from "../MenuScreen/MainMenuScreen";
+import QrCodeScreen from "../MenuScreen/QrCodeScreen";
 
 import AppetizerScreen from "../MenuListScreen/AppetizerScreen";
 import SaladScreen from "../MenuListScreen/SaladScreen";
@@ -52,6 +54,15 @@ const MaterialBottomTabs = () => {
         options={{
           tabBarIcon: ({ color }) => (
             <MenuIcon name="menu" color={color} size={26} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="QR Code Scanner"
+        component={QrCodeScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <QrIcon name="qrcode-scan" color={color} size={26} />
           ),
         }}
       />
