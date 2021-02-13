@@ -35,15 +35,25 @@ class LoginScreen extends Component {
       );
       let json = await response.json();
 
+      let approvalVariable = "admin"
+      let filteredData = String(json.password).includes(approvalVariable);
+
+      console.log(filteredData)
+
+      // check for TextInput
       if(!json.email || !json.password) {
         Alert.alert("Too bad", json.msg,
         { text: "Okay", onPress: () => console.log("Successful") });
-      
-        return;
       }
-      
-      // send user's email to AccountScreen
-      this.props.navigation.navigate("FeaturedMenuScreen", {params: {emailData: this.state.EmailValueHolder}, screen: "Account" })
+
+      if(filteredData) {
+        console.log("Here!");
+        this.props.navigation.navigate("VirtualQueueScreen");
+      }
+      else {
+        // send user's email to AccountScreen
+        this.props.navigation.navigate("FeaturedMenuScreen", {params: {emailData: this.state.EmailValueHolder}, screen: "Account" })
+      }
 
     } catch (error) {
       console.error(error);

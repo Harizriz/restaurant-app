@@ -102,7 +102,7 @@ const MaterialBottomTabsManager = () => {
         component={VirtualQueueScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <MenuIcon name="emoji-people" color={color} size={26} />
+            <MenuIcon name="people" color={color} size={26} />
           ),
         }}
       />
@@ -111,7 +111,59 @@ const MaterialBottomTabsManager = () => {
         component={TablesScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <QrIcon name="table-furniture" color={color} size={26} />
+            <QrIcon name="table-row" color={color} size={26} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Menu"
+        component={MenuManagerScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MenuIcon name="menu" color={color} size={26} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="QR Code Generator"
+        component={QrCodeManagerScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <QrIcon name="qrcode-scan" color={color} size={26} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Account"
+        component={AccountManagerScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MenuIcon name="account-circle" color={color} size={26} />
+          ),
+        }}
+      />
+    </BottomTab.Navigator>
+  );
+};
+
+const MaterialBottomTabsStaff = () => {
+  return (
+    <BottomTab.Navigator>
+      <BottomTab.Screen
+        name="Virtual Queue"
+        component={VirtualQueueScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MenuIcon name="people" color={color} size={26} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Tables"
+        component={TablesScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <QrIcon name="table-row" color={color} size={26} />
           ),
         }}
       />
