@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import MenuIcon from "react-native-vector-icons/MaterialIcons";
 import QrIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import ListIcon from "react-native-vector-icons/Octicons";
 
 import MainScreen from "../MainScreen/index";
 import SignUpScreen from "../SignUpScreen/SignUpScreen";
@@ -25,6 +26,12 @@ import TablesScreen from "../RestaurantManager/TablesScreen";
 import MenuManagerScreen from "../RestaurantManager/MenuManagerScreen";
 import QrCodeManagerScreen from "../RestaurantManager/QrCodeManagerScreen";
 import AccountManagerScreen from "../RestaurantManager/AccountManagerScreen";
+
+import KitchenOrderScreen from "../RestaurantStaff/KitchenOrderScreen";
+import VirtualQueueStaffScreen from "../RestaurantStaff/VirtualQueueStaffScreen";
+import OrderListScreen from "../RestaurantStaff/OrderListScreen";
+import CheckoutTableScreen from "../RestaurantStaff/CheckoutTableScreen";
+import AccountStaffScreen from "../RestaurantStaff/AccountStaffScreen";
 
 import AppetizerScreen from "../MenuListScreen/AppetizerScreen";
 import SaladScreen from "../MenuListScreen/SaladScreen";
@@ -94,12 +101,21 @@ const MaterialBottomTabs = () => {
   );
 };
 
-const MaterialBottomTabsManager = () => {
+const MaterialBottomTabsStaff = () => {
   return (
     <BottomTab.Navigator>
       <BottomTab.Screen
+        name="Kitchen Order"
+        component={KitchenOrderScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <QrIcon name="chef-hat" color={color} size={26} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
         name="Virtual Queue"
-        component={VirtualQueueScreen}
+        component={VirtualQueueStaffScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MenuIcon name="people" color={color} size={26} />
@@ -107,35 +123,26 @@ const MaterialBottomTabsManager = () => {
         }}
       />
       <BottomTab.Screen
-        name="Tables"
-        component={TablesScreen}
+        name="Order List"
+        component={OrderListScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <QrIcon name="table-row" color={color} size={26} />
+            <ListIcon name="list-ordered" color={color} size={26} />
           ),
         }}
       />
       <BottomTab.Screen
-        name="Menu"
-        component={MenuManagerScreen}
+        name="Checkout Table"
+        component={CheckoutTableScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <MenuIcon name="menu" color={color} size={26} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="QR Code Generator"
-        component={QrCodeManagerScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <QrIcon name="qrcode-scan" color={color} size={26} />
+            <QrIcon name="chair-school" color={color} size={26} />
           ),
         }}
       />
       <BottomTab.Screen
         name="Account"
-        component={AccountManagerScreen}
+        component={AccountStaffScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MenuIcon name="account-circle" color={color} size={26} />
@@ -146,7 +153,7 @@ const MaterialBottomTabsManager = () => {
   );
 };
 
-const MaterialBottomTabsStaff = () => {
+const MaterialBottomTabsManager = () => {
   return (
     <BottomTab.Navigator>
       <BottomTab.Screen
@@ -227,6 +234,11 @@ export default function App() {
         <Stack.Screen
           name="VirtualQueueScreen"
           component={MaterialBottomTabsManager}
+          options={{gestureEnabled: false}}
+        />
+        <Stack.Screen
+          name="KitchenOrderScreen"
+          component={MaterialBottomTabsStaff}
           options={{gestureEnabled: false}}
         />
         <Stack.Screen name="AppetizerScreen" component={AppetizerScreen} />

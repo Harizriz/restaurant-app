@@ -35,10 +35,13 @@ class LoginScreen extends Component {
       );
       let json = await response.json();
 
-      let approvalVariable = "admin"
-      let filteredData = String(json.password).includes(approvalVariable);
+      let approvalVariableManager = "admin"
+      let filteredPasswordManager = String(json.password).includes(approvalVariableManager);
 
-      console.log(filteredData)
+      console.log(filteredPasswordManager)
+
+      let approvalVariableStaff = "staff"
+      let filteredPasswordStaff = String(json.password).includes(approvalVariableStaff);
 
       // check for TextInput
       if(!json.email || !json.password) {
@@ -46,9 +49,13 @@ class LoginScreen extends Component {
         { text: "Okay", onPress: () => console.log("Successful") });
       }
 
-      if(filteredData) {
+      if(filteredPasswordManager) {
         console.log("Here!");
         this.props.navigation.navigate("VirtualQueueScreen");
+      }
+      else if(filteredPasswordStaff) {
+        console.log("Staff!");
+        this.props.navigation.navigate("KitchenOrderScreen");
       }
       else {
         // send user's email to AccountScreen
