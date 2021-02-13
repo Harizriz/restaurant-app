@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Alert, Text } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 class AccountStaffScreen extends Component {
     constructor(props) {
@@ -12,7 +13,19 @@ class AccountStaffScreen extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.headingContainer}>
-                    <Text style={styles.headingText}>Account Staff Screen</Text>
+                    <Text style={styles.headingText}>My Account</Text>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableHighlight onPress={
+                        () => Alert.alert("Logging Out", "Are you sure you want to log out?", [
+                            { text: "Cancel", onPress: () => console.log("cancelled!") },
+                            { text: "Log out", onPress: () => this.props.navigation.navigate("MainScreen") },
+                        ])}
+                        underlayColor="none">
+                        <View style={styles.button}>
+                            <Text style={styles.text}>Log Out</Text>
+                        </View>
+                    </TouchableHighlight>
                 </View>
             </SafeAreaView>
         );
@@ -23,18 +36,33 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        alignItems: "stretch",
     },
     headingContainer: {
         height: 125,
-        // backgroundColor: "yellow",
     },
-    headingText: {
+        headingText: {
         fontSize: 35,
         color: "purple",
         top: 50,
         alignSelf: "center"
     },
+    buttonContainer: {
+        flex: 1,
+        justifyContent: "center",
+        marginHorizontal: 100,
+        paddingBottom: 25,
+        borderRadius: 24
+    },
+    button: {
+        alignItems: "center",
+        backgroundColor: "purple",
+        padding: 15,
+        borderRadius: 24
+    },
+    text: {
+        fontSize: 20,
+        color: "white"
+    }
 });
 
 export default AccountStaffScreen;
