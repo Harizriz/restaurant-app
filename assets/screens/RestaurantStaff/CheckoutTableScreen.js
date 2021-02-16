@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
+import DATA from "../../components/DummyData";
+
+const Item = ({ title }) => (
+    <View style={styles.item}>
+      <Text style={styles.title}>{title}</Text>
+    </View>
+);
+
+const renderItem = ({ item }) => (
+    <Item title={item.id} />
+);
 
 class CheckoutTableScreen extends Component {
     constructor(props) {
@@ -14,6 +25,12 @@ class CheckoutTableScreen extends Component {
                 <View style={styles.headingContainer}>
                     <Text style={styles.headingText}>Checkout Table Screen</Text>
                 </View>
+                <FlatList
+                    data={DATA}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    numColumns={3}
+                />
             </SafeAreaView>
         );
     }
@@ -34,6 +51,21 @@ const styles = StyleSheet.create({
         color: "purple",
         top: 50,
         alignSelf: "center"
+    },
+    item: {
+        backgroundColor: '#f9c2ff',
+        // padding: 20,
+        marginVertical: 8,
+        marginHorizontal: 7,
+        width: Dimensions.get('window').width * 0.3,
+        height: 100,
+        borderWidth: 1,
+        borderColor: "black",
+        alignItems: 'center',
+        justifyContent: 'center'  
+    },
+    title: {
+        fontSize: 32,
     },
 });
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, FlatList, Dimensions, Button } from 'react-native';
-import { useState } from 'react';
 
 import DATA from "../../components/DummyData";
 import { TouchableHighlight } from 'react-native-gesture-handler';
@@ -11,16 +10,9 @@ const Item = ({ title }) => (
     </View>
 );
 
-// const setExampleState = useState(DATA)
-
 const renderItem = ({ item }) => (
     <Item title={item.id} />
 );
-
-const addElement = () => {
-    var newArray = [...DATA , {id : "2", text: "Object 3"}];
-    setExampleState(newArray);
-}
 
 class TablesScreen extends Component {
     constructor(props) {
