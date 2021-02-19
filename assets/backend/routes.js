@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const logger = require('./middleware/logger');
 const users = require('./routes/api/users');
+const tables = require('./routes/api/tables');
 const keys = require('./constants/keys');
 const Parse = require('parse/node');
 
@@ -31,11 +32,17 @@ app.use(express.urlencoded({ extended: false }));
 // get member
 app.post('/api/users/login', users.getUser);
 
-// users API routes
+// create member
 app.post('/api/users', users.createUser);
 
 // get user info
 app.get('/api/users/:email', users.getUserInfo);
+
+// create table
+app.post('/api/tables', tables.createTable);
+
+// get table
+app.get('/api/tables', tables.getTableInfo);
 
 const PORT = process.env.PORT || 5000
 

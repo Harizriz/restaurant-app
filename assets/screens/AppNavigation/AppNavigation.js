@@ -170,7 +170,7 @@ const MaterialBottomTabsManager = () => {
         component={TablesScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <QrIcon name="table-row" color={color} size={26} />
+            <QrIcon name="chair-school" color={color} size={26} />
           ),
         }}
       />
@@ -180,15 +180,6 @@ const MaterialBottomTabsManager = () => {
         options={{
           tabBarIcon: ({ color }) => (
             <MenuIcon name="menu" color={color} size={26} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="QR Code Generator"
-        component={QrCodeManagerScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <QrIcon name="qrcode-scan" color={color} size={26} />
           ),
         }}
       />
@@ -254,6 +245,7 @@ export default function App() {
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
         <Stack.Screen name="PaymentDetailScreen" component={PaymentDetailScreen} />
         <Stack.Screen name="PaymentLoadingScreen" component={PaymentLoadingScreen} />
+        <Stack.Screen name="QrCodeManagerScreen" component={QrCodeManagerScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     headingContainer: {
         height: 125,
     },
-        headingText: {
+    headingText: {
         fontSize: 35,
         color: "purple",
         top: 50,

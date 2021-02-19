@@ -47,6 +47,8 @@ class LoginScreen extends Component {
       if(!json.email || !json.password) {
         Alert.alert("Too bad", json.msg,
         { text: "Okay", onPress: () => console.log("Successful") });
+
+        return;
       }
 
       if(filteredPasswordManager) {

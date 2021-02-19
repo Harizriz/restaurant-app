@@ -1,40 +1,55 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, FlatList, Dimensions, Button } from 'react-native';
-
-import DATA from "../../components/DummyData";
+import { SafeAreaView, StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-
-const Item = ({ title }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-);
-
-const renderItem = ({ item }) => (
-    <Item title={item.id} />
-);
 
 class TablesScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-
+            dataSource: ''
         };
     }
+    componentDidMount = async () => {
+        fetch(`http://172.20.10.5:5000/api/tables`)
+        .then(response => response.json())
+        .then(responseJson => {
+            this.setState({
+            dataSource: responseJson
+            });
+        })
+        // auto-refresh the screen
+        this.props.navigation.addListener('focus', () => {
+            fetch(`http://172.20.10.5:5000/api/tables`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                dataSource: responseJson
+                });
+            })
+        });
+    }
+    
     render() {
+        const Item = ({ qrCodeValue, paxValue }) => (
+            <View style={styles.item}>
+              <Text style={styles.title}>{qrCodeValue}</Text>
+              <Text style={styles.content}>{paxValue}</Text>
+            </View>
+        );
+        
+        const renderItem = ({ item }) => (
+            <Item qrCodeValue={item.qrCodeValue} paxValue={item.paxValue}/>
+        );
         return (
             <SafeAreaView style={styles.container}>
-                <View style={styles.headingContainer}>
-                    <Text style={styles.headingText}>Tables Screen</Text>
-                </View>
                 <FlatList
-                    data={DATA}
+                    data={this.state.dataSource}
                     renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.objectId}
                     numColumns={3}
                 />
                 <View>
-                    <TouchableHighlight onPress={() => console.log("Added!")}
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate("QrCodeManagerScreen")}
                     underlayColor="none">
                         <View style={styles.button}>
                             <Text style={styles.text}>Add Table</Text>
@@ -76,6 +91,9 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32,
+    },
+    content: {
+        fontSize: 24
     },
     text: {
         fontSize: 16,
