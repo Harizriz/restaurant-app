@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 class TablesScreen extends Component {
     constructor(props) {
@@ -33,7 +34,8 @@ class TablesScreen extends Component {
         const Item = ({ qrCodeValue, paxValue }) => (
             <View style={styles.item}>
               <Text style={styles.title}>{qrCodeValue}</Text>
-              <Text style={styles.content}>{paxValue}</Text>
+              <Icon name="chair-school" color="gray" size={26}/>
+              <Text style={styles.content}>pax: {paxValue}</Text>
             </View>
         );
         
@@ -80,10 +82,10 @@ const styles = StyleSheet.create({
     item: {
         backgroundColor: '#f9c2ff',
         // padding: 20,
-        marginVertical: 8,
+        marginVertical: 7,
         marginHorizontal: 7,
         width: Dimensions.get('window').width * 0.3,
-        height: 100,
+        height: 107,
         borderWidth: 1,
         borderColor: "black",
         alignItems: 'center',
@@ -91,9 +93,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32,
+        // backgroundColor: "yellow"
     },
     content: {
-        fontSize: 24
+        top: 5,
+        fontSize: 24,
+        // backgroundColor: "lightblue"
     },
     text: {
         fontSize: 16,
