@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 class TablesScreen extends Component {
@@ -40,7 +40,9 @@ class TablesScreen extends Component {
         );
         
         const renderItem = ({ item }) => (
-            <Item qrCodeValue={item.qrCodeValue} paxValue={item.paxValue}/>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("EditTableScreen", {tableId: item.qrCodeValue, pax: item.paxValue})}>
+                <Item qrCodeValue={item.qrCodeValue} paxValue={item.paxValue}/>
+            </TouchableOpacity>
         );
         return (
             <SafeAreaView style={styles.container}>

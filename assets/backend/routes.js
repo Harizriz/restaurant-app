@@ -44,6 +44,12 @@ app.post('/api/tables', tables.createTable);
 // get table
 app.get('/api/tables', tables.getTableInfo);
 
+// delete a row in table
+app.delete('/api/tables/:id', tables.deleteTable);
+
+// update a row in table
+app.put('/api/tables/:id', tables.updateTable);
+
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => console.log('Server started on port ' + PORT));

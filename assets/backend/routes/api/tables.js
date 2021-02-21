@@ -20,7 +20,7 @@ module.exports = {
 
             const table = await query.find();  
             
-            // if the person's email does not exist in database, create newUser
+            // if the person's email does not exist in database, create newTable
             if(table.length == 0) {
                 const Table = Parse.Object.extend("Table");
                 const table = new Table();
@@ -67,5 +67,63 @@ module.exports = {
 
         retrieveTableInfo();
 
+    },
+
+    deleteTable: (req, res) => {
+        const deleteTable = {
+            tableId: req.body.tableId,
+        }
+
+        // delete a specific table in database
+        async function removeTable() {
+            
+            const Table = Parse.Object.extend("Table");
+            const query = new Parse.Query(Table)
+            query.equalTo("qrCodeValue", deleteTable.tableId)
+
+            const chosenTable = await query.find();  
+            console.log(chosenTable[0])
+            chosenTable[0].destroy().then((table) => {
+                // the object was deleted successfully
+                console.log(table + " is destroyed")
+                res.send({ msg: "table is destroyed" })
+            }, (error) => {
+                // delete operation failed
+                console.log(error)
+                res.send({ msg: "error" })
+            });
+
+        }
+        
+        removeTable();
+
+    },
+
+    updateTable: (req, res) => {
+        const newData = {
+            tableId: req.body.tableId,
+            newPaxValue: req.body.newPaxValue
+        }
+
+        async function updateTable() {
+            const Table = Parse.Object.extend("Table");
+            const query = new Parse.Query(Table)
+            query.equalTo("qrCodeValue", newData.tableId)
+
+            const chosenTable = await query.find();  
+            console.log(chosenTable[0])
+
+            chosenTable[0].save().then(() => {
+                // Now let's update it with some new data. In this case, only cheatMode and score
+                // will get sent to the cloud. playerName hasn't changed.
+                chosenTable[0].set("paxValue", newData.newPaxValue);
+                console.log(chosenTable[0].save());
+                res.send({ msg: "Table updated!" })
+                return chosenTable[0].save();
+            });
+        }
+
+        updateTable();
+    
     }
 }
