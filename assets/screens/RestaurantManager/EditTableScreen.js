@@ -22,13 +22,6 @@ class EditTableScreen extends Component {
             firstButtonText: "Cancel",
             secondButtonText: "Update"
         })
-        // if (this.state.firstButtonText == "Cancel" && this.state.secondButtonText == "Update") {
-        //     this.setState({
-        //         isDisabled: true,
-        //         firstButtonText: "Delete",
-        //         secondButtonText: "Edit"
-        //     })
-        // }
         if (this.state.secondButtonText == "Update") {
             this.setState({
                 isDisabled: true,
@@ -54,7 +47,7 @@ class EditTableScreen extends Component {
 
             Alert.alert("Well done", "Table updated successfully!",
             { text: "Okay" });
-            
+
         }
     }
     DeleteTable = async () => {
@@ -84,9 +77,6 @@ class EditTableScreen extends Component {
     render() {
         const tableId = this.props.route.params.tableId;
         const pax = this.props.route.params.pax;
-        // console.log(table)
-        // console.log(pax)
-        // console.log(this.state.isDisabled)
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.headingContainer}>
@@ -104,7 +94,6 @@ class EditTableScreen extends Component {
                             style={{
                                 top: 20,
                             }}
-                            // onChangeText={text => this.setState(text)}
                         />
                         <TextInput
                             label="Pax"
@@ -180,19 +169,15 @@ const styles = StyleSheet.create({
     },
     promptContainer: {
         height: 200,
-        // backgroundColor: "red",
-        // justifyContent: "center"
         alignItems: "center"
     },
     inputContainer: {
         width: "75%",
-        // backgroundColor: "yellow"
     },
     submitContainer: {
         height: 100,
         flexDirection: "row",
         alignSelf: "center",
-        // backgroundColor: "green",
     },
 });
 
