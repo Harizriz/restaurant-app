@@ -86,7 +86,7 @@ class EditTableScreen extends Component {
                     <View style={styles.inputContainer}>
                         {/* https://callstack.github.io/react-native-paper/text-input.html */}
                         <TextInput
-                            label="Table Number ID"
+                            label="  Table Number ID  "
                             mode="outlined"
                             placeholder="Eg. 1"
                             value={tableId}
@@ -96,7 +96,7 @@ class EditTableScreen extends Component {
                             }}
                         />
                         <TextInput
-                            label="Pax"
+                            label="  Pax  "
                             mode="outlined"
                             placeholder="Eg. 4"
                             defaultValue={pax}
@@ -124,7 +124,7 @@ class EditTableScreen extends Component {
                         onPress={() => {
                             this.state.firstButtonText == "Delete" ?
                             this.DeleteTable() :
-                            this.setState({ firstButtonText: "Delete", secondButtonText: "Edit" })
+                            this.setState({ firstButtonText: "Delete", secondButtonText: "Edit", isDisabled: true })
                         }}
                     >
                         {this.state.firstButtonText}
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
     },
     headingContainer: {
-        height: 125,
+        height: 100,
     },
     headingText: {
         fontSize: 35,

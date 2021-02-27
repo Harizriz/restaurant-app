@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, TextInput, TouchableHighlight, Alert } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Text, TouchableHighlight, Alert } from 'react-native';
+import { TextInput } from 'react-native-paper'
 import QRCode from 'react-native-qrcode-svg';
 
 class QrCodeManagerScreen extends Component {
@@ -71,40 +72,30 @@ class QrCodeManagerScreen extends Component {
                 <View style={styles.headingContainer}>
                     <Text style={styles.headingText}>Qr Code Screen</Text>
                 </View>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        placeholder="Table Number ID"
-                        placeholderTextColor="gray"
-                        style={{
-                            height: 50,
-                            borderColor: "gray",
-                            borderWidth: 2,
-                            borderRadius: 10,
-                            width: "75%",
-                            alignSelf: "center",
-                            paddingLeft: 20,
-                            marginTop: 20,
-                            // top: 20,
-                        }}
-                        onChangeText={QRCodeValueHolder => this.setState({QRCodeValueHolder})}
-                    />    
-                    <TextInput
-                        placeholder="Pax"
-                        placeholderTextColor="gray"
-                        style={{
-                            height: 50,
-                            borderColor: "gray",
-                            borderWidth: 2,
-                            borderRadius: 10,
-                            width: "75%",
-                            alignSelf: "center",
-                            paddingLeft: 20,
-                            marginTop: 20,
-                            // top: 20,
-                        }}
-                        onChangeText={PaxValueHolder => this.setState({PaxValueHolder})}
-                    /> 
-                </View> 
+                <View style={styles.promptContainer}>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            label="  Table Number ID  "
+                            mode="outlined"
+                            placeholder="Eg. 1"
+                            style={{
+                                top: 20,
+                                height: 50
+                            }}
+                            onChangeText={QRCodeValueHolder => this.setState({QRCodeValueHolder})}
+                        />    
+                        <TextInput
+                            label="  Pax  "
+                            mode="outlined"
+                            placeholder="Eg. 4"
+                            style={{
+                                top: 40,
+                                height: 50
+                            }}
+                            onChangeText={PaxValueHolder => this.setState({PaxValueHolder})}
+                        /> 
+                    </View> 
+                </View>
                 <View style={styles.QRcontainer}>
                     {this.state.QRCodeValueHolder ? 
                     <QRCode value={uniqueURL}
@@ -132,7 +123,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
     },
     headingContainer: {
-        height: 125,
+        height: 100,
     },
     headingText: {
         fontSize: 35,
@@ -141,10 +132,10 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     inputContainer: {
-        height: 150,
+        width: "75%",
         // flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
+        // justifyContent: "center",
+        // alignItems: "center",
         // marginHorizontal: 100,
         // paddingBottom: 25,
         // borderRadius: 24,
@@ -169,8 +160,8 @@ const styles = StyleSheet.create({
         // backgroundColor: "red",
         borderColor: "black",
         borderWidth: 2,
-        marginTop: 45,
-        marginBottom: 45,
+        marginTop: 20,
+        marginBottom: 20,
         marginLeft: 55,
         marginRight: 55
     },
@@ -179,7 +170,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignSelf: "center",
         bottom: 50
-    }
+    },
+    promptContainer: {
+        height: 200,
+        alignItems: "center",
+        // backgroundColor: "red"
+    },
 });
 
 export default QrCodeManagerScreen;

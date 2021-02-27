@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { SafeAreaView, StyleSheet, Text, View, TextInput, Alert, Item } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, Alert } from "react-native";
 import Button from "react-native-button"; 
+import { TextInput } from 'react-native-paper'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class SignUpScreen extends Component {
@@ -63,127 +64,102 @@ class SignUpScreen extends Component {
   render() { 
     return ( 
       <SafeAreaView style={styles.container}>
-      <View style={styles.headingContainer}>
-        <Text style={styles.headingText}>Sign Up</Text>
-      </View>
-      <View style={styles.promptContainer}>
-        <View style={styles.textInputContainer}>
-          <TextInput
-          placeholder="First Name"
-          placeholderTextColor="gray"
-          style={{
-            height: 50,
-            borderColor: "gray",
-            borderWidth: 2,
-            borderRadius: 10,
-            width: "75%",
-            paddingLeft: 20,
-            marginTop: 20,
-            top: 20,
-          }}
-          onChangeText={FirstNameValueHolder => this.setState({FirstNameValueHolder})}
-          />
+        <View style={styles.headingContainer}>
+          <Text style={styles.headingText}>Sign Up</Text>
         </View>
-        <View style={styles.textInputContainer}>
-          <TextInput
-            placeholder="Last Name"
-            placeholderTextColor="gray"
+        <View style={styles.promptContainer}>
+          <View style={styles.textInputContainer}>
+            <TextInput
+              label="  First Name  "
+              mode="outlined"
+              style={{
+                top: 20,
+                height: 50
+              }}
+              onChangeText={FirstNameValueHolder => this.setState({FirstNameValueHolder})}
+            />
+          </View>
+          <View style={styles.textInputContainer}>
+            <TextInput
+              label="  Last Name  "
+              mode="outlined"
+              style={{
+                  top: 20,
+                  height: 50
+              }}
+              onChangeText={LastNameValueHolder => this.setState({LastNameValueHolder})}
+            />
+          </View>
+          <View style={styles.textInputContainer}>
+            <TextInput
+              label="  Email  "
+              mode="outlined"
+              style={{
+                top: 20,
+                height: 50
+              }}
+            onChangeText={EmailValueHolder => this.setState({EmailValueHolder})}
+            />       
+          </View>
+          <View style={styles.textInputContainer}>
+            <TextInput
+              label="  Password  "
+              mode="outlined"
+              secureTextEntry={this.state.password}
+              style={{
+                top: 20,
+                height: 50
+              }}
+            onChangeText={PasswordValueHolder => this.setState({PasswordValueHolder})}
+            />
+            <Icon name={this.state.icon} size={17} style={styles.icon} onPress={() => this.changeIcon()} />
+          </View>
+        </View>
+        <View style={styles.submitContainer}>
+          <Button
             style={{
-              height: 50,
-              borderColor: "gray",
-              borderWidth: 2,
-              borderRadius: 10,
-              width: "75%",
-              paddingLeft: 20,
-              marginTop: 20,
-              top: 20,
+              padding: 16,
+              width: 250,
+              borderRadius: 24,
+              alignItems: "center",
+              backgroundColor: "purple",
+              color: "white",
+              overflow: "hidden",
+              top: 50,
             }}
-            onChangeText={LastNameValueHolder => this.setState({LastNameValueHolder})}
-          />
+            onPress={() => {
+              this.GetValueFunction();
+            }}
+          >
+            Sign Up
+          </Button>
         </View>
-        <View style={styles.textInputContainer}>
-          <TextInput
-          placeholder="Email"
-          placeholderTextColor="gray"
-          style={{
-            height: 50,
-            borderColor: "gray",
-            borderWidth: 2,
-            borderRadius: 10,
-            width: "75%",
-            paddingLeft: 20,
-            marginTop: 20,
-            top: 20,
-          }}
-          onChangeText={EmailValueHolder => this.setState({EmailValueHolder})}
-          />       
+        <View style={styles.or}>
+          <Text>OR</Text>
         </View>
-        <View style={styles.textInputContainer}>
-          <TextInput
-          placeholder="Password"
-          placeholderTextColor="gray"
-          secureTextEntry={this.state.password}
-          style={{
-            height: 50,
-            borderColor: "gray",
-            borderWidth: 2,
-            borderRadius: 10,
-            width: "75%",
-            paddingLeft: 20,
-            marginTop: 20,
-            top: 20,
-            left: 8
-          }}
-          onChangeText={PasswordValueHolder => this.setState({PasswordValueHolder})}
-          />
-          <Icon name={this.state.icon} size={17} style={styles.icon} onPress={() => this.changeIcon()} />
+        <View style={styles.bottomContainer}>
+          <Button
+            style={{
+              padding: 16,
+              width: 250,
+              borderRadius: 24,
+              alignItems: "center",
+              backgroundColor: "#3b5998",
+              color: "white",
+              overflow: "hidden",
+            }}
+            onPress={() => this.props.navigation.navigate("")}
+          >
+            Login with Facebook
+          </Button>
+          {/* <Text
+            style={styles.loginLink}
+            onPress={() => this.props.navigation.navigate("SignUpPhoneNumberScreen")}
+          >
+            Sign up with phone number
+          </Text> */}
         </View>
-      </View>
-      <View style={styles.submitContainer}>
-        <Button
-          style={{
-            padding: 16,
-            width: 250,
-            borderRadius: 24,
-            alignItems: "center",
-            backgroundColor: "purple",
-            color: "white",
-            overflow: "hidden",
-            top: 50,
-          }}
-          onPress={() => {
-            this.GetValueFunction();
-          }}
-        >
-          Sign Up
-        </Button>
-      </View>
-      <View style={styles.or}>
-        <Text>OR</Text>
-      </View>
-      <View style={styles.bottomContainer}>
-        <Button
-          style={{
-            padding: 16,
-            width: 250,
-            borderRadius: 24,
-            alignItems: "center",
-            backgroundColor: "#3b5998",
-            color: "white",
-            overflow: "hidden",
-          }}
-          onPress={() => this.props.navigation.navigate("")}
-        >
-          Login with Facebook
-        </Button>
-        {/* <Text
-          style={styles.loginLink}
-          onPress={() => this.props.navigation.navigate("SignUpPhoneNumberScreen")}
-        >
-          Sign up with phone number
-        </Text> */}
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
      );
   }
 }
@@ -204,6 +180,7 @@ const styles = StyleSheet.create({
   },
   promptContainer: {
     height: 300,
+    alignItems: "center",
     // backgroundColor: "red",
   },
   submitContainer: {
@@ -212,10 +189,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   textInputContainer: {
+    width: "75%",
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    // flexDirection: "row",
+    // justifyContent: "center",
+    // alignItems: "center",
     // borderWidth: 1
   },
   headingText: {
@@ -248,8 +226,9 @@ const styles = StyleSheet.create({
     // backgroundColor: "pink",
   },
   icon: {
-    right: 30,
-    top: 30,
+    left: 125,
+    bottom: 13,
+    marginHorizontal: 147,
     // backgroundColor: "yellow",
   }
 });

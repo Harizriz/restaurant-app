@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { SafeAreaView, View, StyleSheet, Text, TextInput, Alert } from "react-native";
+import { SafeAreaView, View, StyleSheet, Text, Alert } from "react-native";
 import Button from "react-native-button";
+import { TextInput } from 'react-native-paper'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class LoginScreen extends Component {
@@ -84,36 +85,23 @@ class LoginScreen extends Component {
         <View style={styles.promptContainer}>
           <View style={styles.textInputContainer}>
             <TextInput
-              placeholder="Email"
-              placeholderTextColor="gray"
+              label="  Email  "
+              mode="outlined"
               style={{
-                height: 50,
-                borderColor: "gray",
-                borderWidth: 2,
-                borderRadius: 10,
-                width: "75%",
-                paddingLeft: 20,
-                marginTop: 20,
-                top: 20,
+                  top: 20,
+                  height: 50
               }}
               onChangeText={EmailValueHolder => this.setState({EmailValueHolder})}
             />      
           </View>
           <View style={styles.textInputContainer}>
             <TextInput
-              placeholder="Password"
-              placeholderTextColor="gray"
+              label="  Password  "
+              mode="outlined"
               secureTextEntry={this.state.password}
               style={{
-                height: 50,
-                borderColor: "gray",
-                borderWidth: 2,
-                borderRadius: 10,
-                width: "75%",
-                paddingLeft: 20,
-                marginTop: 20,
-                // top: 20,
-                left: 8
+                top: 5,
+                height: 50
               }}
               onChangeText={PasswordValueHolder => this.setState({PasswordValueHolder})}
             />     
@@ -187,6 +175,7 @@ const styles = StyleSheet.create({
   },
   promptContainer: {
     height: 200,
+    alignItems: "center",
     // backgroundColor: "red",
   },
   submitContainer: {
@@ -195,10 +184,11 @@ const styles = StyleSheet.create({
     // backgroundColor: "green",
   },
   textInputContainer: {
+    width: "75%",
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    // flexDirection: "row",
+    // justifyContent: "center",
+    // alignItems: "center",
     // backgroundColor: "yellow",
     // borderWidth: 1,
   },
@@ -213,6 +203,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     right: 50,
     color: "blue",
+    // backgroundColor: "red",
+    bottom: 20
   },
   loginLink: {
     alignSelf: "center",
@@ -231,8 +223,9 @@ const styles = StyleSheet.create({
     // backgroundColor: "pink",
   },
   icon: {
-    right: 30,
-    top: 10,
+    left: 125,
+    bottom: 27,
+    marginHorizontal: 147,
     // backgroundColor: "yellow",
   }
 });

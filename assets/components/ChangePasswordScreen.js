@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Alert, SafeAreaView, TextInput } from "react-native";
+import { StyleSheet, View, Text, Alert, SafeAreaView } from "react-native";
 import Button from "react-native-button";
+import { TextInput } from 'react-native-paper'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class ChangePasswordScreen extends Component {
@@ -27,62 +28,43 @@ class ChangePasswordScreen extends Component {
           <Text style={styles.headingText}>Change Password</Text>
         </View>
         <View style={styles.promptContainer}>
-          <Text style={styles.text}>Current password</Text>
+          {/* <Text style={styles.text}>Current password</Text> */}
           <View style={styles.textInputContainer}>
             <TextInput
-              placeholderTextColor="gray"
+              label="  Current password  "
+              mode="outlined"
               secureTextEntry={this.state.password}
               style={{
-                height: 50,
-                borderColor: "gray",
-                borderWidth: 2,
-                borderRadius: 10,
-                width: "75%",
-                paddingLeft: 20,
-                marginTop: 20,
-                left: 8
+                top: 20,
+                height: 50
               }}
               onChangeText={CurrentPasswordValueHolder => this.setState({CurrentPasswordValueHolder})}
             />   
             <Icon name={this.state.icon} size={17} style={styles.icon} onPress={() => this.changeIcon()} />
           </View>
-        </View>
-        <View style={styles.promptContainer}>
-          <Text style={styles.text}>New password</Text>
+          {/* <Text style={styles.text}>New password</Text> */}
           <View style={styles.textInputContainer}>
             <TextInput
-              placeholderTextColor="gray"
+              label="  New password  "
+              mode="outlined"
               secureTextEntry={this.state.password}
               style={{
-                height: 50,
-                borderColor: "gray",
-                borderWidth: 2,
-                borderRadius: 10,
-                width: "75%",
-                paddingLeft: 20,
-                marginTop: 20,
-                left: 8
-              }}
+                top: 20,
+                height: 50
+              }}  
               onChangeText={NewPasswordPasswordValueHolder => this.setState({NewPasswordPasswordValueHolder})}
             />   
             <Icon name={this.state.icon} size={17} style={styles.icon} onPress={() => this.changeIcon()} />   
           </View>
-        </View>
-        <View style={styles.promptContainer}>
-          <Text style={styles.text}>Confirm New password</Text>
+          {/* <Text style={styles.text}>Confirm New password</Text> */}
           <View style={styles.textInputContainer}>
             <TextInput
-              placeholderTextColor="gray"
+              label="  Confirm new password  "
+              mode="outlined"
               secureTextEntry={this.state.password}
               style={{
-                height: 50,
-                borderColor: "gray",
-                borderWidth: 2,
-                borderRadius: 10,
-                width: "75%",
-                paddingLeft: 20,
-                marginTop: 20,
-                left: 8
+                top: 20,
+                height: 50
               }}
               onChangeText={ConfirmPasswordValueHolder => this.setState({ConfirmPasswordValueHolder})}
             />   
@@ -90,37 +72,33 @@ class ChangePasswordScreen extends Component {
           </View>
         </View>
         <View style={styles.submitContainer}>
-        <Button
-          style={{
-              fontSize: 15,
+          <Button
+            style={{
               padding: 16,
-              width: 200,
-              borderRadius: 5,
+              width: 150,
+              borderRadius: 24,
+              alignItems: "center",
+              backgroundColor: "purple",
+              color: "white",
+              overflow: "hidden",
+            }}
+            onPress={() => this.props.navigation.goBack()}>
+            Cancel
+          </Button>
+          <Button
+            style={{
+              padding: 16,
+              width: 150,
+              borderRadius: 24,
               alignItems: "center",
               backgroundColor: "#007aff",
               color: "white",
               overflow: "hidden",
-              top: 30,
-          }}
-          onPress={() => Alert.alert("Password changed successfully!")}>
-          Update password
-        </Button>
-        {/* <Button
-          style={{
-              fontSize: 15,
-              padding: 16,
-              width: 100,
-              borderRadius: 5,
-              alignItems: "center",
-              backgroundColor: "grey",
-              color: "white",
-              overflow: "hidden",
-              top: 30,
-              left: 50
-          }}
-          onPress={() => this.props.navigation.goBack()}>
-          Cancel
-        </Button> */}
+              left: 10,
+            }}
+            onPress={() => Alert.alert("Password changed successfully!")}>
+            Update
+          </Button>
         </View>
       </SafeAreaView>
     );
@@ -138,23 +116,24 @@ const styles = StyleSheet.create({
     // backgroundColor: "yellow",
   },
   promptContainer: {
-    height: 125,
-    top: 5
+    height: 250,
+    alignItems: "center",
     // backgroundColor: "red",
   },
   submitContainer: {
     height: 100,
     flexDirection: "row",
     justifyContent: "center",
-    // alignContent: "center",
+    alignItems: "center",
     // backgroundColor: "green",
     // marginHorizontal: 50,
   },
   textInputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    width: "75%",
+    // flex: 1,
+    // flexDirection: "row",
+    // justifyContent: "center",
+    // alignItems: "center",
     // backgroundColor: "yellow"
   },
   headingText: {
@@ -171,8 +150,9 @@ const styles = StyleSheet.create({
     color: "purple",
   },
   icon: {
-    right: 30,
-    top: 10,
+    left: 125,
+    bottom: 13,
+    marginHorizontal: 147,
     // backgroundColor: "yellow",
   }
 });
