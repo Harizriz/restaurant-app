@@ -52,11 +52,11 @@ class AccountScreen extends Component {
               color: "black",
               // borderBottomWidth: 1,
             }}
-            onPress={() => this.props.navigation.navigate("ChangePasswordScreen")}
+            onPress={() => this.props.navigation.navigate("ChangePasswordScreen", {userId: this.state.dataSource.objectId, password: this.state.dataSource.password})}
           >
             Change Password
           </Button>
-          <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("ChangePasswordScreen")}/>
+          <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("ChangePasswordScreen", {userId: this.state.dataSource.objectId, password: this.state.dataSource.password})}/>
         </View>
         <View style={styles.buttonContainer}>
           <Button

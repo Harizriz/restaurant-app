@@ -101,6 +101,35 @@ module.exports = {
 
         retrieveUser();
 
+    },
+
+    updateUserPassword: (req, res) => {
+        const passwordInformation = {
+            userId: req.body.userId,
+            newPassword: req.body.newPassword,
+            confirmNewPassword: req.body.confirmNewPassword
+        }
+
+        async function updatePassword() {
+            const Person = Parse.Object.extend("Person");
+            const query = new Parse.Query(Person)
+            query.equalTo("objectId", passwordInformation.userId)
+
+            const password = await query.find();  
+            console.log(password[0])
+
+            password[0].save().then(() => {
+                // Now let's update it with some new data. In this case, only cheatMode and score
+                // will get sent to the cloud. playerName hasn't changed.
+                password[0].set("password", passwordInformation.confirmNewPassword);
+                console.log(password[0].save());
+                res.send({ msg: "Password updated!" })
+                return password[0].save();
+            });
+        }
+
+        updatePassword();
+
     }
 
 }

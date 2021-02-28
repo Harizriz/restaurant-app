@@ -38,6 +38,9 @@ app.post('/api/users', users.createUser);
 // get user info
 app.get('/api/users/:email', users.getUserInfo);
 
+// update user password
+app.put('/api/users/:id', users.updateUserPassword);
+
 // create table
 app.post('/api/tables', tables.createTable);
 

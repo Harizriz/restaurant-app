@@ -9,17 +9,57 @@ class ChangePasswordScreen extends Component {
     super(props);
     this.state = { 
       CurrentPasswordValueHolder: '',
-      NewPasswordPasswordValueHolder: '',
+      NewPasswordValueHolder: '',
       ConfirmPasswordValueHolder: '',
       icon: "eye-off",
       password: true
-     };
+    };
   }
   changeIcon() {
     this.setState(prevState => ({
         icon: prevState.icon === 'eye' ? 'eye-off' : 'eye',
         password: !prevState.password
     }));
+  }
+  UpdatePassword = () => {
+    const { NewPasswordValueHolder, ConfirmPasswordValueHolder } = this.state;
+
+    const userId = this.props.route.params.userId;
+    const currentPassword = this.props.route.params.password;
+    if(this.state.CurrentPasswordValueHolder == '' || this.state.NewPasswordValueHolder == '' || this.state.ConfirmPasswordValueHolder == '') {
+      Alert.alert("Too bad", "Please fill in the fields!",
+      { text: "Okay", onPress: () => console.log("Successful") });
+    }
+    else if(this.state.CurrentPasswordValueHolder != currentPassword) {
+      Alert.alert("Too bad", "Current password does not match",
+      { text: "Okay", onPress: () => console.log("Successful") });
+    }
+    else if(this.state.NewPasswordValueHolder != this.state.ConfirmPasswordValueHolder) {
+      Alert.alert("Too bad", "Passwords do not match",
+      { text: "Okay", onPress: () => console.log("Successful") });
+    }
+    else {
+      fetch(`http://172.20.10.5:5000/api/users/${encodeURI(userId)}`, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userId: userId,
+            newPassword: NewPasswordValueHolder,
+            confirmNewPassword: ConfirmPasswordValueHolder
+        })
+      })
+      .then(response => response.json())
+      .then(responseJson => {
+          console.log(responseJson)
+      })
+
+      Alert.alert("Well done", "Password updated successfully",
+      [{ text: 'OK', onPress: () => this.props.navigation.goBack() }]);
+
+    }
   }
   render() {
     return (
@@ -52,7 +92,7 @@ class ChangePasswordScreen extends Component {
                 top: 20,
                 height: 50
               }}  
-              onChangeText={NewPasswordPasswordValueHolder => this.setState({NewPasswordPasswordValueHolder})}
+              onChangeText={NewPasswordValueHolder => this.setState({NewPasswordValueHolder})}
             />   
             <Icon name={this.state.icon} size={17} style={styles.icon} onPress={() => this.changeIcon()} />   
           </View>
@@ -96,7 +136,7 @@ class ChangePasswordScreen extends Component {
               overflow: "hidden",
               left: 10,
             }}
-            onPress={() => Alert.alert("Password changed successfully!")}>
+            onPress={() => this.UpdatePassword()}>
             Update
           </Button>
         </View>
@@ -152,7 +192,7 @@ const styles = StyleSheet.create({
   icon: {
     left: 125,
     bottom: 13,
-    marginHorizontal: 147,
+    alignSelf: "center",
     // backgroundColor: "yellow",
   }
 });
