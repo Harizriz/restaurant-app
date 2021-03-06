@@ -3,6 +3,7 @@ const path = require('path');
 const logger = require('./middleware/logger');
 const users = require('./routes/api/users');
 const tables = require('./routes/api/tables');
+const menus = require('./routes/api/menus')
 const keys = require('./constants/keys');
 const Parse = require('parse/node');
 
@@ -52,6 +53,12 @@ app.delete('/api/tables/:id', tables.deleteTable);
 
 // update a row in table
 app.put('/api/tables/:id', tables.updateTable);
+
+// create a menu
+app.post('/api/menus', menus.createMenu);
+
+// get menus
+app.get('/api/menus', menus.getMenus);
 
 const PORT = process.env.PORT || 5000
 
