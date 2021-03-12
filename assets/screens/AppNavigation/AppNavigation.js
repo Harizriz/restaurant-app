@@ -21,6 +21,7 @@ import ChangePasswordScreen from "../../components/ChangePasswordScreen";
 import MainMenuScreen from "../MenuScreen/MainMenuScreen";
 import QrCodeScreen from "../MenuScreen/QrCodeScreen";
 import DishesScreen from "../MenuScreen/DishesScreen";
+import DishDetailsScreen from "../MenuScreen/DishDetailsScreen";
 
 import VirtualQueueScreen from "../RestaurantManager/VirtualQueueScreen";
 import TablesScreen from "../RestaurantManager/TablesScreen";
@@ -230,6 +231,7 @@ export default function App() {
           options={{gestureEnabled: false}}
         />
         <Stack.Screen name="DishesScreen" component={DishesScreen} />
+        <Stack.Screen name="DishDetailsScreen" component={DishDetailsScreen} />
         <Stack.Screen name="ItemScreen" component={ItemScreen} />
         <Stack.Screen name="DummyScreen" component={DummyScreen} />
         <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />

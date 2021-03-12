@@ -15,17 +15,26 @@ class DishesScreen extends Component {
         };
     }
     componentDidMount = async () => {
-        fetch(`http://172.20.10.5:5000/api/menus`)
+        const menuId = this.props.route.params.menuId;
+        fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({
                 dataSource: responseJson
             });
         })
+        // auto-refresh the screen
+        this.props.navigation.addListener('focus', () => {
+            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        });
     }
     render() {
-        const menuId = this.props.route.params.menuId;
-
         const Item = ({ dishName, dishImage, dishDescription, dishPrice }) => (
             <View style={styles.item}>
                 <View style={styles.textContainer}>
@@ -40,7 +49,13 @@ class DishesScreen extends Component {
         );
           
         const renderItem = ({ item }) => (
-            <TouchableOpacity onPress={() => console.log("Here!")}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("DishDetailsScreen",
+                {dishId: item.objectId, 
+                dishName: item.dishName, 
+                dishDescription: item.dishDescription,
+                dishPrice: item.dishPrice
+                // dishImage: item.dishImage, 
+                })}>
                 <Item 
                     dishName={item.dishName} 
                     dishDescription={item.dishDescription} 
@@ -55,20 +70,11 @@ class DishesScreen extends Component {
                         <SearchInput placeholder="What are you craving for?" />
                     </View>
                 </View>
-                {/* if there's no data in database, just put an empty flatlist */}
                 <FlatList
                     data={this.state.dataSource}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
                 />
-                <View>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("AddDishScreen", {menuId: menuId})}
-                        underlayColor="none">
-                        <View style={styles.button}>
-                            <Text style={styles.text}>Add Dish</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
             </SafeAreaView>
         );
     }
@@ -114,15 +120,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: "black",
         top: 2
-    },
-    button: {
-        backgroundColor: "purple",
-        padding: 15,
-    },
-    text: {
-        fontSize: 16,
-        alignSelf: "center",
-        color: "white"
     },
     modalContainer: {
         justifyContent: "center",
