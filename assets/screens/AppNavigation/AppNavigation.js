@@ -20,6 +20,7 @@ import AccountScreen from "../MenuScreen/AccountScreen";
 import ChangePasswordScreen from "../../components/ChangePasswordScreen";
 import MainMenuScreen from "../MenuScreen/MainMenuScreen";
 import QrCodeScreen from "../MenuScreen/QrCodeScreen";
+import DishesScreen from "../MenuScreen/DishesScreen";
 
 import VirtualQueueScreen from "../RestaurantManager/VirtualQueueScreen";
 import TablesScreen from "../RestaurantManager/TablesScreen";
@@ -35,13 +36,6 @@ import VirtualQueueStaffScreen from "../RestaurantStaff/VirtualQueueStaffScreen"
 import OrderListScreen from "../RestaurantStaff/OrderListScreen";
 import CheckoutTableScreen from "../RestaurantStaff/CheckoutTableScreen";
 import AccountStaffScreen from "../RestaurantStaff/AccountStaffScreen";
-
-import AppetizerScreen from "../MenuListScreen/AppetizerScreen";
-import SaladScreen from "../MenuListScreen/SaladScreen";
-import MainDishScreen from "../MenuListScreen/MainDishScreen";
-import WesternScreen from "../MenuListScreen/WesternScreen";
-import DessertScreen from "../MenuListScreen/DessertScreen";
-import DrinksScreen from "../MenuListScreen/DrinksScreen";
 
 import PaymentScreen from "../CheckoutScreen/PaymentScreen";
 import PaymentDetailScreen from "../CheckoutScreen/PaymentDetailScreen";
@@ -235,12 +229,7 @@ export default function App() {
           component={MaterialBottomTabsStaff}
           options={{gestureEnabled: false}}
         />
-        <Stack.Screen name="AppetizerScreen" component={AppetizerScreen} />
-        <Stack.Screen name="SaladScreen" component={SaladScreen} />
-        <Stack.Screen name="MainDishScreen" component={MainDishScreen} />
-        <Stack.Screen name="WesternScreen" component={WesternScreen} />
-        <Stack.Screen name="DessertScreen" component={DessertScreen} />
-        <Stack.Screen name="DrinksScreen" component={DrinksScreen} />
+        <Stack.Screen name="DishesScreen" component={DishesScreen} />
         <Stack.Screen name="ItemScreen" component={ItemScreen} />
         <Stack.Screen name="DummyScreen" component={DummyScreen} />
         <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />

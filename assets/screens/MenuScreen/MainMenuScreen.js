@@ -27,7 +27,7 @@ class MainMenuScreen extends Component {
         );
           
         const renderItem = ({ item }) => (
-            <TouchableOpacity onPress={() => console.log("Here!")}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("DishesManagerScreen", {menuId: item.objectId})}>
                 <Item menuName={item.menuName} />
             </TouchableOpacity>
         );
