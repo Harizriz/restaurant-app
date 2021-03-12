@@ -60,6 +60,12 @@ app.post('/api/menus', menus.createMenu);
 // get menus
 app.get('/api/menus', menus.getMenus);
 
+// create a dish
+app.post('/api/menus/dishes', menus.createDish);
+
+// get dishes
+app.get('/api/menus/:menuId', menus.getDishes);
+
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => console.log('Server started on port ' + PORT));

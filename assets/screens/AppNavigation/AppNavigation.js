@@ -27,6 +27,8 @@ import MenuManagerScreen from "../RestaurantManager/MenuManagerScreen";
 import QrCodeManagerScreen from "../RestaurantManager/QrCodeManagerScreen";
 import AccountManagerScreen from "../RestaurantManager/AccountManagerScreen";
 import EditTableScreen from "../RestaurantManager/EditTableScreen";
+import DishesManagerScreen from "../RestaurantManager/DishesManagerScreen";
+import AddDishScreen from "../RestaurantManager/AddDishScreen";
 
 import KitchenOrderScreen from "../RestaurantStaff/KitchenOrderScreen";
 import VirtualQueueStaffScreen from "../RestaurantStaff/VirtualQueueStaffScreen";
@@ -248,6 +250,8 @@ export default function App() {
         <Stack.Screen name="PaymentLoadingScreen" component={PaymentLoadingScreen} />
         <Stack.Screen name="QrCodeManagerScreen" component={QrCodeManagerScreen} />
         <Stack.Screen name="EditTableScreen" component={EditTableScreen} />
+        <Stack.Screen name="DishesManagerScreen" component={DishesManagerScreen} />
+        <Stack.Screen name="AddDishScreen" component={AddDishScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

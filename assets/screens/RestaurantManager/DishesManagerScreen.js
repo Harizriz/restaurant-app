@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Button, Alert } from 'react-native';
+import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Button, Alert, Image } from 'react-native';
 import SearchInput from "../../components/SearchInput";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { TextInput } from 'react-native-paper'
 
-class MenuManagerScreen extends Component {
+class DishesManagerScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
             isModalVisible: false,
             setModalVisible: false,
-            menuNameValueHolder: '',
-            dishNameValueHolder: '',
             dataSource: ''
         };
     }
     componentDidMount = async () => {
-        fetch(`http://172.20.10.5:5000/api/menus`)
+        const menuId = this.props.route.params.menuId;
+        fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({
@@ -26,61 +25,22 @@ class MenuManagerScreen extends Component {
         })
         // auto-refresh the screen
         this.props.navigation.addListener('focus', () => {
-            fetch(`http://172.20.10.5:5000/api/menus`)
-            .then(response => response.json())
-            .then(responseJson => {
-                this.setState({
-                dataSource: responseJson
-                });
-            })
-        });
-    }
-    AddMenu = async () => {
-        const { menuNameValueHolder, dishNameValueHolder } = this.state;
-
-        try {
-            let response = await fetch(
-              'http://172.20.10.5:5000/api/menus', 
-              {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  menuName: menuNameValueHolder,
-                  dishName: dishNameValueHolder
-                })
-              }
-            );
-            let json = await response.json();
-            console.log(json);
-
-            this.setState({
-                isModalVisible: false
-            })
-
-            // reload the screen *hack*
-            fetch(`http://172.20.10.5:5000/api/menus`)
+            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
                     dataSource: responseJson
                 });
             })
-            
-            setTimeout(() => {
-                Alert.alert("", json.msg,
-                { text: "Okay", onPress: () => console.log("Successful") });
-            }, 1000)  
-            
-
-        } catch (error) {
-            console.error(error);
-        }
-
+        });
     }
     render() {
+        const menuId = this.props.route.params.menuId;
+        const menuName = this.props.route.params.menuName;
+        // console.log(menuId)
+        // console.log(menuName)
+        console.log(this.state.dataSource[2]);
+
         const toggleModal = () => {
             if(this.state.isModalVisible == false) {
                 this.setState({
@@ -93,51 +53,46 @@ class MenuManagerScreen extends Component {
                 })
             }
         }
-        const Item = ({ menuName }) => (
+        const Item = ({ dishName, dishImage, dishDescription, dishPrice }) => (
             <View style={styles.item}>
-              <Text style={styles.title}>{menuName}</Text>
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>{dishName}</Text>
+                    <Text style={styles.description}>{dishDescription}</Text>
+                    <Text style={styles.price}>{dishPrice}</Text>
+                </View>
+                <View style={styles.imageContainer}>
+                    <Image style={styles.image} source={{uri: dishImage }} />
+                </View>
             </View>
         );
           
         const renderItem = ({ item }) => (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("DishesManagerScreen", {menuName: item.menuName, menuId: item.objectId})}>
-                <Item menuName={item.menuName} />
+            <TouchableOpacity onPress={() => console.log("Here!")}>
+                <Item 
+                    dishName={item.dishName} 
+                    dishDescription={item.dishDescription} 
+                    dishPrice={item.dishPrice} 
+                    dishImage={item.dishImage} />
             </TouchableOpacity>
         );
         return (
             <SafeAreaView style={styles.container}>
-                <Modal isVisible={this.state.isModalVisible}>
-                    <View style={styles.modalContainer}>
-                        <Text style={styles.modalHeadingText}>Add Menu</Text>
-                            <TextInput
-                                label="  Menu Name  "
-                                mode="outlined"
-                                style={{
-                                    width: "75%"
-                                }}
-                                onChangeText={menuNameValueHolder => this.setState({menuNameValueHolder})}
-                            />
-                        <View style={styles.modalButtonContainer}>
-                            <Button title="Cancel" onPress={toggleModal} />
-                            <Button title="Create Menu" onPress={this.AddMenu} />
-                        </View>
-                    </View>
-                </Modal>
                 <View style={styles.headingContainer}>
                     <View style={styles.searchContainer}>
                         <SearchInput placeholder="What are you craving for?" />
                     </View>
                 </View>
+                {/* if there's no data in database, just put an empty flatlist */}
                 <FlatList
                     data={this.state.dataSource}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
                 />
                 <View>
-                    <TouchableOpacity onPress={toggleModal}
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("AddDishScreen", {menuId: menuId})}
                         underlayColor="none">
                         <View style={styles.button}>
-                            <Text style={styles.text}>Add Menu</Text>
+                            <Text style={styles.text}>Add Dish</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -178,6 +133,15 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
     },
+    price: {
+        fontSize: 25,
+        top: 20
+    },
+    description: {
+        fontSize: 15,
+        color: "black",
+        top: 2
+    },
     button: {
         backgroundColor: "purple",
         padding: 15,
@@ -207,7 +171,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         // backgroundColor: "yellow",
         justifyContent: "space-between"
-    }
+    },
+    textContainer: {
+        flexDirection: "column",
+        width: "70%",
+        height: 80
+      },
+    imageContainer: {
+        flexDirection: "column",
+    },
 });
 
-export default MenuManagerScreen;
+export default DishesManagerScreen;
