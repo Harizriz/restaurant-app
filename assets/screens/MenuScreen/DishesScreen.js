@@ -74,9 +74,10 @@ class DishesScreen extends Component {
                     data={this.state.dataSource}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
+                    style={{top: 30}}
                 />
                 <View>
-                    <TouchableOpacity onPress={() => console.log("Cart!")}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen")}>
                         <View style={styles.button}>
                             <Text style={styles.text}>View Cart</Text>
                         </View>
@@ -98,7 +99,8 @@ const styles = StyleSheet.create({
     headingContainer: {
         height: 100,
         // backgroundColor: "yellow",
-        justifyContent: "center"
+        justifyContent: "center",
+        top: 30
     },
     headingText: {
         fontSize: 35,

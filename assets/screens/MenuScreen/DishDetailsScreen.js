@@ -14,6 +14,7 @@ class DishDetailsScreen extends Component {
     }
     AddCart = async () => {
         const dishName = this.props.route.params.dishName;
+        const dishPrice = this.props.route.params.dishPrice;
 
         const { remarksValueHolder, dishQuantityHolder } = this.state;
 
@@ -28,6 +29,7 @@ class DishDetailsScreen extends Component {
                 },
                 body: JSON.stringify({
                     dishName: dishName,
+                    dishPrice: dishPrice,
                     dishQuantity: dishQuantityHolder,
                     dishRemarks: remarksValueHolder
                 })

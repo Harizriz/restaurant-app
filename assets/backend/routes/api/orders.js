@@ -7,6 +7,7 @@ module.exports = {
             dishName: req.body.dishName,
             dishQuantity: req.body.dishQuantity,
             dishRemarks: req.body.dishRemarks,
+            dishPrice: req.body.dishPrice,
         }
 
         if(!newOrder.dishQuantity) {
@@ -22,6 +23,7 @@ module.exports = {
             order.set("dishName", newOrder.dishName);
             order.set("dishQuantity", newOrder.dishQuantity);
             order.set("dishRemarks", newOrder.dishRemarks);
+            order.set("dishPrice", newOrder.dishPrice);
 
             try {
                 let result = order.save()

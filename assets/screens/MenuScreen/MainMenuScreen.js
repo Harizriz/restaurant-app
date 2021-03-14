@@ -44,7 +44,7 @@ class MainMenuScreen extends Component {
                     keyExtractor={(item) => item.objectId}
                 />
                 <View>
-                    <TouchableOpacity onPress={() => console.log("Cart!")}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen")}>
                         <View style={styles.button}>
                             <Text style={styles.text}>View Cart</Text>
                         </View>
