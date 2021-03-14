@@ -43,6 +43,13 @@ class MainMenuScreen extends Component {
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
                 />
+                <View>
+                    <TouchableOpacity onPress={() => console.log("Cart!")}>
+                        <View style={styles.button}>
+                            <Text style={styles.text}>View Cart</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </SafeAreaView>
         );
     }
@@ -80,6 +87,19 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
     },
+    text: {
+        fontSize: 20,
+        alignSelf: "center",
+        color: "white"
+    },
+    button: {
+        backgroundColor: "purple",
+        padding: 20,
+        borderRadius: 30,
+        width: "75%",
+        alignSelf: "center",
+        marginBottom: 20,
+    }
 });
 
 export default MainMenuScreen;

@@ -1,14 +1,49 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, Image, SafeAreaView, Alert } from "react-native";
 import Button from "react-native-button";
 import NumInput from "react-native-numeric-input";
+import { TextInput } from 'react-native-paper'
 
 class DishDetailsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            
+            remarksValueHolder: '',
+            dishQuantityHolder: ''
         };
+    }
+    AddCart = async () => {
+        const dishName = this.props.route.params.dishName;
+
+        const { remarksValueHolder, dishQuantityHolder } = this.state;
+
+        try {
+            let response = await fetch(
+              'http://172.20.10.5:5000/api/orders', 
+              {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    dishName: dishName,
+                    dishQuantity: dishQuantityHolder,
+                    dishRemarks: remarksValueHolder
+                })
+              }
+            );
+            let json = await response.json();
+            console.log(json); 
+
+            Alert.alert(json.msg, "",
+            { text: "Okay", onPress: () => console.log("Successful") });
+
+            this.props.navigation.goBack();
+
+        } catch (error) {
+            console.error(error);
+        }
     }
     render() {
         const dishId = this.props.route.params.dishId;
@@ -35,29 +70,18 @@ class DishDetailsScreen extends Component {
                     <Text style={styles.price}>{dishPrice}</Text>
                 </View>
                 <View style={styles.remarksContainer}>
-                    <Text style={styles.remarksTitle}>Additional Information</Text>
                     <TextInput
-                    placeholder="E.g. Less sugar"
-                    placeholderTextColor="black"
-                    style={{
-                        height: 50,
-                        borderColor: "gray",
-                        borderWidth: 2,
-                        borderRadius: 5,
-                        width: "90%",
-                        left: 20,
-                        paddingLeft: 20,
-                        marginTop: 20,
-                        top: 10,
-                    }}
-                    // onChangeText={(text) => onChangeText(text)}
-                    // value={value}
+                        label="  Additional Information  "
+                        mode="outlined"
+                        style={{
+                        }}
+                        onChangeText={remarksValueHolder => this.setState({remarksValueHolder})}
                     />
                 </View>
                 <View style={styles.numberInputContainer}>
                     <NumInput
                         style={styles.numberInput}
-                        onChange={(value) => console.log(value)}
+                        onChange={(dishQuantityHolder) => this.setState({dishQuantityHolder})}
                         totalWidth={150}
                         totalHeight={40}
                         iconSize={25}
@@ -83,7 +107,7 @@ class DishDetailsScreen extends Component {
                         color: "white",
                         overflow: "hidden",
                     }}
-                    onPress={() => navigation.navigate("CartPageScreen")}
+                    onPress={() => this.AddCart()}
                     >
                     Add to cart
                     </Button>
@@ -146,13 +170,10 @@ const styles = StyleSheet.create({
     },
     remarksContainer: {
         height: 110,
-    },
-    remarksTitle: {
-        fontSize: 20,
-        color: "black",
-        width: "90%",
-        top: 20,
-        alignSelf: "center",
+        marginHorizontal: "6%",
+        justifyContent: "center",
+        // alignItems: "center",
+        // backgroundColor: "yellow"
     },
 });
 

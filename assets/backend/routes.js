@@ -3,7 +3,8 @@ const path = require('path');
 const logger = require('./middleware/logger');
 const users = require('./routes/api/users');
 const tables = require('./routes/api/tables');
-const menus = require('./routes/api/menus')
+const menus = require('./routes/api/menus');
+const orders = require('./routes/api/orders');
 const keys = require('./constants/keys');
 const Parse = require('parse/node');
 
@@ -65,6 +66,9 @@ app.post('/api/menus/dishes', menus.createDish);
 
 // get dishes
 app.get('/api/menus/:menuId', menus.getDishes);
+
+// add dish to cart
+app.post('/api/orders', orders.createOrder);
 
 const PORT = process.env.PORT || 5000
 
