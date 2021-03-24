@@ -25,7 +25,8 @@ class AccountScreen extends Component {
     });
   }
   render() {
-    console.log(this.state.dataSource);
+    // console.log(this.state.dataSource);
+    // console.log(this.state.dataSource.firstname);
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.headingContainer}>

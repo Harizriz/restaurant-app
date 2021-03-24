@@ -13,17 +13,17 @@ class PaymentLoadingScreen extends Component {
         return ( 
             <SafeAreaView style={styles.container}>
                  <View style={styles.mainContainer}>
-                 <LottieView
+                 {/* <LottieView
                     ref={animation => {
                     this.animation = animation;
                     }}
                     source={require('./walking-burger-animation.json')}
                     autoPlay
                     style={{width: 200, alignSelf: "center"}}
-                />
+                /> */}
                 <Text style={styles.headingText}>Placing Order</Text>
                 {/* output below if order has been placed */}
-                {/* <LottieView
+                <LottieView
                     ref={animation => {
                     this.animation = animation;
                     }}
@@ -31,7 +31,7 @@ class PaymentLoadingScreen extends Component {
                     loop={false}
                     style={{width: 200, alignSelf: "center"}}
                 />
-                <Text style={styles.headingText}>Order Placed</Text> */}
+                <Text style={styles.headingText}>Order Placed</Text>
                 </View>
             </SafeAreaView>
          );

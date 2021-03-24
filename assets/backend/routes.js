@@ -70,6 +70,15 @@ app.get('/api/menus/:menuId', menus.getDishes);
 // add dish to cart
 app.post('/api/orders', orders.createOrder);
 
+// get orders for cart
+app.get('/api/orders', orders.getOrder);
+
+// update an item in the cart
+app.put('/api/orders/:itemId', orders.updateOrder);
+
+// remove an item from the cart
+app.delete('/api/orders/:itemId', orders.deleteOrder);
+
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => console.log('Server started on port ' + PORT));

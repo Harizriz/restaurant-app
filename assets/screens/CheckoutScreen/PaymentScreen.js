@@ -44,21 +44,11 @@ class PaymentScreen extends Component {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentDetailScreen")}>
-          <Button
-          style={{
-            padding: 16,
-            width: "100%",
-            alignSelf: "center",
-            backgroundColor: "purple",
-            color: "white",
-            overflow: "hidden",
-            marginBottom: 10
-          }}
-          >
-            Proceed
-          </Button>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentDetailScreen")}>
+              <View style={styles.button}>
+                  <Text style={styles.buttonText}>Proceed</Text>
+              </View>
+          </TouchableOpacity>
       </View>
     </SafeAreaView> 
     );
@@ -79,7 +69,7 @@ const styles = StyleSheet.create({
       borderBottomColor: "black"
     },
     cardsContainer: {
-      height: "20%",
+      flex: 1,
       // backgroundColor: "orange",
       marginTop: 10
     },
@@ -89,8 +79,8 @@ const styles = StyleSheet.create({
       justifyContent: "center"
     },
     buttonContainer: {
-      height: "50%",
-      justifyContent: "flex-end"
+      justifyContent: "flex-end",
+      // backgroundColor: "yellow"
     },
     headingText: {
       fontSize: 40,
@@ -103,6 +93,19 @@ const styles = StyleSheet.create({
       paddingLeft: 20,
       // alignSelf: "center"
     },
+    buttonText: {
+      fontSize: 20,
+      alignSelf: "center",
+      color: "white"
+    },
+    button: {
+      backgroundColor: "purple",
+      padding: 20,
+      borderRadius: 30,
+      width: "75%",
+      alignSelf: "center",
+      marginBottom: 20,
+    }
   });
  
 export default PaymentScreen;

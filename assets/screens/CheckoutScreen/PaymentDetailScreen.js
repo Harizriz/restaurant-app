@@ -51,18 +51,9 @@ class PaymentDetailScreen extends Component {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentLoadingScreen")}>
-          <Button
-          style={{
-            padding: 16,
-            width: "100%",
-            alignSelf: "center",
-            backgroundColor: "purple",
-            color: "white",
-            overflow: "hidden",
-          }}
-          >
-            Place Order
-          </Button>
+            <View style={styles.button}>
+                <Text style={styles.buttonText}>Place Order</Text>
+            </View>
         </TouchableOpacity>
       </View>
     </SafeAreaView> 
@@ -77,11 +68,17 @@ const styles = StyleSheet.create({
       alignItems: "stretch",
     },
     headingContainer: {
-      height: "12%",
+      height: 125,
       // backgroundColor: "yellow",
+      justifyContent: "center"
+    },
+    headingText: {
+      fontSize: 35,
+      color: "purple",
+      alignSelf: "center",
     },
     informationContainer: {
-      height: "18%",
+      flex: 1
       // backgroundColor: "orange"
     },  
     infoContainer: {
@@ -100,15 +97,8 @@ const styles = StyleSheet.create({
       // backgroundColor: "red"
     },
     buttonContainer: {
-      height: "70%",
       justifyContent: "flex-end",
       // backgroundColor: "pink"
-    },
-    headingText: {
-      fontSize: 40,
-      color: "purple",
-      left: 30,
-      top: 30,
     },
     textTitle: {
       fontSize: 18,
@@ -121,6 +111,19 @@ const styles = StyleSheet.create({
       right: 30,
       color: "black",
       alignSelf: "flex-end",
+    },
+    buttonText: {
+      fontSize: 20,
+      alignSelf: "center",
+      color: "white"
+    },
+    button: {
+      backgroundColor: "purple",
+      padding: 20,
+      borderRadius: 30,
+      width: "75%",
+      alignSelf: "center",
+      marginBottom: 20,
     }
   });
  
