@@ -14,6 +14,7 @@ class CartPageScreen extends Component {
         newQuantityValueHolder: '',
         itemId: '',
         itemName: '',
+        totalPrice: ''
     }
     componentDidMount = async () => {
         fetch(`http://172.20.10.5:5000/api/orders`)
@@ -183,11 +184,11 @@ class CartPageScreen extends Component {
         ); 
         const renderItem = ({ item }) => (
             <Item 
-                dishName={item.dishName} 
-                dishQuantity={item.dishQuantity} 
-                dishPrice={item.dishPrice} 
-                dishRemarks={item.dishRemarks} 
-                objectId={item.objectId} />
+            dishName={item.dishName} 
+            dishQuantity={item.dishQuantity} 
+            dishPrice={item.dishPrice} 
+            dishRemarks={item.dishRemarks} 
+            objectId={item.objectId} />
         );
         return ( 
         <SafeAreaView style={styles.container}>
@@ -230,6 +231,10 @@ class CartPageScreen extends Component {
                 keyExtractor={(item) => item.objectId}
                 extraData={this.state}
             />
+            <View style={styles.totalContainer}>
+                <Text style={styles.text}>Total</Text>
+                <Text style={styles.text}>RM60.00</Text>
+            </View>
             <View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentScreen")}>
                     <View style={styles.button}>
@@ -261,17 +266,6 @@ const styles = StyleSheet.create({
         color: "purple",
         alignSelf: "center"
     },
-    secondaryContainer: {
-        flex: 1,
-        flexDirection: "column-reverse",
-        // backgroundColor: "purple"
-    },
-    buttonContainer: {
-        height: 50,
-        justifyContent: "space-between",
-        // alignSelf: "flex-start",
-        // backgroundColor: "red"
-    },
     itemContainer: {
         height: 50,
         // backgroundColor: "yellow",
@@ -296,13 +290,13 @@ const styles = StyleSheet.create({
     },
     foodContainer: {
         height: 50,
-        width: "45%",
+        width: "40%",
         // backgroundColor: "lightblue",
         justifyContent: "center"
     },
     priceContainer: {
         height: 50,
-        width: "15%",
+        width: "20%",
         // backgroundColor: "pink",
         justifyContent: "center"
     },
@@ -314,29 +308,18 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     totalContainer: {
-        height: 50,
+        height: 70,
         // backgroundColor: "lightblue",
         flexDirection: "row",
-        justifyContent: "center"
+        justifyContent: "space-around",
+        alignItems: "center"
     },
     dialogContentContainer: {
         justifyContent: "center",
         // backgroundColor: "yellow"
     },
-    totalText: {
-        height: 50,
-        width: "60%",
-        // backgroundColor: "pink",
-        justifyContent: "center"
-    },
-    totalPrice: {
-        height: 50,
-        width: "25%",
-        // backgroundColor: "yellow",
-        justifyContent: "center"
-    },
     text: {
-        fontSize: 15,
+        fontSize: 17,
     },
     number: {
         fontSize: 15,
