@@ -172,14 +172,18 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
     },
-    button: {
-        backgroundColor: "purple",
-        padding: 15,
-    },
     text: {
-        fontSize: 16,
+        fontSize: 20,
         alignSelf: "center",
         color: "white"
+    },
+    button: {
+        backgroundColor: "purple",
+        padding: 20,
+        borderRadius: 30,
+        width: "75%",
+        alignSelf: "center",
+        marginBottom: 20,
     },
     modalContainer: {
         justifyContent: "center",

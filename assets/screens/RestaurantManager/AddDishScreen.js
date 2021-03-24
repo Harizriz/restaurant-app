@@ -87,7 +87,7 @@ class AddDishScreen extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.headingContainer}>
-                    <Text style={styles.headingText}>Add New Dish</Text>
+                    <Text style={styles.headingText}>Create New Dish</Text>
                 </View>
                 <View style={styles.promptContainer}>
                     <View style={styles.inputContainer}>
@@ -134,7 +134,7 @@ class AddDishScreen extends Component {
                     <TouchableOpacity onPress={() => this.AddDish()}
                         underlayColor="none">
                         <View style={styles.button}>
-                            <Text style={styles.buttonText}>Add Dish</Text>
+                            <Text style={styles.buttonText}>Create Dish</Text>
                         </View>
                     </TouchableOpacity>
                 </View>

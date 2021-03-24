@@ -52,7 +52,7 @@ class TablesScreen extends Component {
                     keyExtractor={(item) => item.objectId}
                     numColumns={3}
                 />
-                <View>
+                <View style={{top: 6}}>
                     <TouchableHighlight onPress={() => this.props.navigation.navigate("QrCodeManagerScreen")}
                     underlayColor="none">
                         <View style={styles.button}>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
         marginVertical: 7,
         marginHorizontal: 7,
         width: Dimensions.get('window').width * 0.3,
-        height: 107,
+        height: 101,
         borderWidth: 1,
         borderColor: "black",
         alignItems: 'center',
@@ -103,13 +103,17 @@ const styles = StyleSheet.create({
         // backgroundColor: "lightblue"
     },
     text: {
-        fontSize: 16,
+        fontSize: 20,
         alignSelf: "center",
         color: "white"
     },
     button: {
         backgroundColor: "purple",
-        padding: 15,
+        padding: 20,
+        borderRadius: 30,
+        width: "75%",
+        alignSelf: "center",
+        marginBottom: 20,
     }
 });
 
