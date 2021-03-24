@@ -130,6 +130,13 @@ class CartPageScreen extends Component {
 
     }
     render() { 
+        // calculate total price for cart
+        let totalPrice = 0;
+        for(let i = 0; i < this.state.dataSource.length; i++) {
+            totalPrice += this.state.dataSource[i].dishQuantity * this.state.dataSource[i].dishPrice
+        }
+        totalPrice = totalPrice.toFixed(2)
+
         const toggleModal = () => {
             if(this.state.isModalVisible == false) {
                 this.setState({
@@ -154,7 +161,7 @@ class CartPageScreen extends Component {
                         <Text style={styles.text}>{dishName}</Text>
                     </View>
                     <View style={styles.priceContainer}>
-                        <Text style={styles.text}>{dishPrice}</Text>
+                        <Text style={styles.text}>RM {dishPrice}</Text>
                     </View>
                     <View style={styles.editContainer}>
                         <View style={styles.icon}>
@@ -184,11 +191,12 @@ class CartPageScreen extends Component {
         ); 
         const renderItem = ({ item }) => (
             <Item 
-            dishName={item.dishName} 
-            dishQuantity={item.dishQuantity} 
-            dishPrice={item.dishPrice} 
-            dishRemarks={item.dishRemarks} 
-            objectId={item.objectId} />
+                dishName={item.dishName} 
+                dishQuantity={item.dishQuantity} 
+                dishPrice={item.dishPrice} 
+                dishRemarks={item.dishRemarks} 
+                objectId={item.objectId} 
+            />
         );
         return ( 
         <SafeAreaView style={styles.container}>
@@ -233,7 +241,7 @@ class CartPageScreen extends Component {
             />
             <View style={styles.totalContainer}>
                 <Text style={styles.text}>Total</Text>
-                <Text style={styles.text}>RM60.00</Text>
+                <Text style={styles.text}>RM {totalPrice}</Text>
             </View>
             <View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentScreen")}>
@@ -322,7 +330,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
     },
     number: {
-        fontSize: 15,
+        fontSize: 17,
         alignSelf: "center"
     },
     icon: {
@@ -337,8 +345,8 @@ const styles = StyleSheet.create({
     item: {
         borderColor: "black",
         borderWidth: 1,
-        padding: 5,
-        marginVertical: 5,
+        padding: 8,
+        marginVertical: 8,
         marginHorizontal: 16,
         // backgroundColor: "yellow"
     },
