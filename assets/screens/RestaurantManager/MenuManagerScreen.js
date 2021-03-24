@@ -67,13 +67,7 @@ class MenuManagerScreen extends Component {
                 this.setState({
                     dataSource: responseJson
                 });
-            })
-            
-            setTimeout(() => {
-                Alert.alert("", json.msg,
-                { text: "Okay", onPress: () => console.log("Successful") });
-            }, 1000)  
-            
+            }) 
 
         } catch (error) {
             console.error(error);

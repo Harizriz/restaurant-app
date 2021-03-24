@@ -10,7 +10,7 @@ class AddDishScreen extends Component {
         super(props);
         this.state = { 
             DishNameValueHolder: '',
-            DishPriceValueHolder: 'RM ',
+            DishPriceValueHolder: '',
             DishDescriptionValueHolder: '',
             menuId: this.props.route.params.menuId,
             imageUri: null,
@@ -40,8 +40,15 @@ class AddDishScreen extends Component {
  
     };
     AddDish = async () => {
+
+        // convert string to float with two decimals
+        let val = this.state.DishPriceValueHolder
+        let converted = parseFloat(val)
+        let dec = converted.toFixed(2)
+        this.state.DishPriceValueHolder = dec
+
         this.setState({
-            imageUri: this.state.imageUri
+            imageUri: this.state.imageUri,
         })
 
         const { DishNameValueHolder, DishPriceValueHolder, DishDescriptionValueHolder, imageUri, menuId } = this.state;

@@ -127,8 +127,8 @@ class LoginScreen extends Component {
               top: 30,
             }}
             onPress={() => {
-              this.GetDataFromApi();
-              // this.props.navigation.navigate("FeaturedMenuScreen")
+              // this.GetDataFromApi();
+              this.props.navigation.navigate("FeaturedMenuScreen")
             }}
           >
             Sign In

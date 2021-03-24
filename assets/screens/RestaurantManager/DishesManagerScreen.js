@@ -23,16 +23,18 @@ class DishesManagerScreen extends Component {
                 dataSource: responseJson
             });
         })
-        // auto-refresh the screen
-        this.props.navigation.addListener('focus', () => {
-            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
-            .then(response => response.json())
-            .then(responseJson => {
-                this.setState({
-                    dataSource: responseJson
-                });
-            })
-        });
+        setTimeout(() => {
+            // auto-refresh the screen
+            this.props.navigation.addListener('focus', () => {
+                fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+                .then(response => response.json())
+                .then(responseJson => {
+                    this.setState({
+                        dataSource: responseJson
+                    });
+                })
+            });
+        }, 1000)  
     }
     render() {
         const menuId = this.props.route.params.menuId;
@@ -58,7 +60,7 @@ class DishesManagerScreen extends Component {
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>{dishName}</Text>
                     <Text style={styles.description}>{dishDescription}</Text>
-                    <Text style={styles.price}>{dishPrice}</Text>
+                    <Text style={styles.price}>RM {dishPrice}</Text>
                 </View>
                 <View style={styles.imageContainer}>
                     <Image style={styles.image} source={{uri: dishImage }} />

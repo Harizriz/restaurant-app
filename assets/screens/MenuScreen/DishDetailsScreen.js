@@ -69,7 +69,7 @@ class DishDetailsScreen extends Component {
                     <Text style={styles.description}>
                     {dishDescription}
                     </Text>
-                    <Text style={styles.price}>{dishPrice}</Text>
+                    <Text style={styles.price}>RM {dishPrice}</Text>
                 </View>
                 <View style={styles.remarksContainer}>
                     <TextInput
