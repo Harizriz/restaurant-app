@@ -4,8 +4,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Button from "react-native-button";
 
 class PaymentDetailScreen extends Component {
-  state = {  }
+  constructor(props) {
+    super(props);
+    this.state = { }
+  }
   render() { 
+    const totalPrice = this.props.route.params.cartTotalPrice
+    console.log(totalPrice)
     return ( 
     <SafeAreaView style={styles.container}>
       <View style={styles.headingContainer}>
@@ -44,7 +49,7 @@ class PaymentDetailScreen extends Component {
           </View>
           <View style={styles.rightContainer}>
             <Text style={styles.textInfo}>
-              RM68.00
+              RM {totalPrice}
             </Text>
           </View>
         </View>

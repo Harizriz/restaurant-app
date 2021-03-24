@@ -244,7 +244,8 @@ class CartPageScreen extends Component {
                 <Text style={styles.text}>RM {totalPrice}</Text>
             </View>
             <View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentScreen")}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentScreen", 
+                    {cartTotalPrice: totalPrice})}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Checkout</Text>
                     </View>
