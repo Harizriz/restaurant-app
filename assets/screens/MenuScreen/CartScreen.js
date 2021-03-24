@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, Platform, StatusBar, Button, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
+import DeleteIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import NumInput from "react-native-numeric-input";
 import Modal from 'react-native-modal';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -23,6 +24,39 @@ class CartPageScreen extends Component {
             });
         })
     }   
+    // delete an item from order
+    deleteItem = (id) => {
+        const dishId = id
+
+        fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(dishId)}`, {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                dishId: dishId,
+            })
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson)
+        })
+
+        this.setState({
+            isModalVisible: false
+        })
+
+        setTimeout(() => {
+            fetch(`http://172.20.10.5:5000/api/orders`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        }, 1000) 
+    }
     // when updating, need to get the tableNumber
     updateValue = (id) => {
         const { newQuantityValueHolder } = this.state;
@@ -58,7 +92,7 @@ class CartPageScreen extends Component {
                     });
                 })
             }, 1000) 
-            
+
         }
         else {
             fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(dishId)}`, {
@@ -127,12 +161,20 @@ class CartPageScreen extends Component {
                                 name="edit" 
                                 color="black" 
                                 size={20} 
+                                style={{right: 7}}
                                 onPress={() => {
                                     this.setState({ newQuantityValueHolder: dishQuantity, 
                                         itemId: objectId,
                                         itemName: dishName }, 
                                         toggleModal);
                                 }}
+                            />
+                            <DeleteIcon 
+                                name="delete-outline" 
+                                color="black" 
+                                size={20}
+                                style={{left: 10}}
+                                onPress={() => this.deleteItem(objectId)}
                             />
                         </View>
                     </View>
@@ -254,7 +296,7 @@ const styles = StyleSheet.create({
     },
     foodContainer: {
         height: 50,
-        width: "60%",
+        width: "45%",
         // backgroundColor: "lightblue",
         justifyContent: "center"
     },
@@ -266,9 +308,10 @@ const styles = StyleSheet.create({
     },
     editContainer: {
         height: 50,
-        width: "10%",
+        width: "25%",
         // backgroundColor: "lightgreen",
-        justifyContent: "center"
+        // justifyContent: "center"
+        justifyContent: "center",
     },
     totalContainer: {
         height: 50,
@@ -279,9 +322,6 @@ const styles = StyleSheet.create({
     dialogContentContainer: {
         justifyContent: "center",
         // backgroundColor: "yellow"
-    },
-    flatlist: {
-        top: 20
     },
     totalText: {
         height: 50,
@@ -303,7 +343,8 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     icon: {
-        alignSelf: "center"
+        flexDirection: "row",
+        alignSelf: "center",
     },
     dialogText: {
         fontSize: 20,
@@ -313,9 +354,10 @@ const styles = StyleSheet.create({
     item: {
         borderColor: "black",
         borderWidth: 1,
-        padding: 20,
-        marginVertical: 8,
+        padding: 5,
+        marginVertical: 5,
         marginHorizontal: 16,
+        // backgroundColor: "yellow"
     },
     buttonText: {
         fontSize: 20,
