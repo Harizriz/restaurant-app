@@ -203,7 +203,10 @@ class CartPageScreen extends Component {
             <View style={styles.headingContainer}>
                 <Text style={styles.headingText}>Cart</Text>
             </View>
-            <Modal isVisible={this.state.isModalVisible}>
+            <Modal 
+                isVisible={this.state.isModalVisible}
+                animationOutTiming={1}
+                onBackdropPress={() => toggleModal()}>
                 <View style={styles.modalContainer}>
                     <Text style={styles.modalHeadingText}>{this.state.itemName}</Text>
                     <NumInput
@@ -225,9 +228,11 @@ class CartPageScreen extends Component {
                     />
                     <View style={styles.modalButtonContainer}>
                         <View style={styles.leftButtonContainer}>
-                            <Button title="Cancel" onPress={toggleModal}/>                        </View>
+                            <Button title="Cancel" onPress={toggleModal}/>                        
+                        </View>
                         <View style={styles.rightButtonContainer}>
-                            <Button title="Update" onPress={() => this.updateValue(this.state.itemId)}/>                        </View>
+                            <Button title="Update" onPress={() => this.updateValue(this.state.itemId)}/>                        
+                        </View>
                     </View>
                 </View>
             </Modal>
