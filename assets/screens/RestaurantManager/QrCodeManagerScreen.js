@@ -74,10 +74,17 @@ class QrCodeManagerScreen extends Component {
                 </View>
                 <View style={styles.promptContainer}>
                     <View style={styles.inputContainer}>
+                        {/* for android number pad, https://stackoverflow.com/questions/48798415/react-native-how-to-key-number-pad-only-without-punctuations */}
                         <TextInput
                             label="  Table Number ID  "
                             mode="outlined"
                             placeholder="Eg. 1"
+                            textContentType="oneTimeCode"
+                            keyboardType="number-pad"
+                            // next cant be applied because there is no template for this according to react-native-bot
+                            // https://github.com/facebook/react-native/issues/26885
+                            returnKeyType="done"
+                            onSubmitEditing={() => { this.secondTextInput.focus(); }}
                             style={{
                                 top: 20,
                                 height: 50
@@ -88,6 +95,9 @@ class QrCodeManagerScreen extends Component {
                             label="  Pax  "
                             mode="outlined"
                             placeholder="Eg. 4"
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            ref={(input) => { this.secondTextInput = input; }}
                             style={{
                                 top: 40,
                                 height: 50
