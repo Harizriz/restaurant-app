@@ -160,8 +160,8 @@ const styles = StyleSheet.create({
         // backgroundColor: "red",
         borderColor: "black",
         borderWidth: 2,
-        marginTop: 20,
-        marginBottom: 20,
+        marginTop: 33,
+        marginBottom: 33,
         marginLeft: 55,
         marginRight: 55
     },
