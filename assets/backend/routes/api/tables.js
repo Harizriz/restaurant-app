@@ -16,7 +16,6 @@ module.exports = {
             const Table = Parse.Object.extend("Table");
             const query = new Parse.Query(Table);
             query.equalTo("qrCodeValue", newTable.qrCodeValue);
-            query.equalTo("paxValue", newTable.paxValue);
 
             const table = await query.find();  
             
