@@ -9,10 +9,40 @@ class QrCodeManagerScreen extends Component {
         this.state = { 
             QRCodeValueHolder: '',
             PaxValueHolder: '',
-            viewQrCode: false
+            viewQrCode: false,
+            isErrorID: false,
+            isErrorPax: false
         };
     }
-    GetValueFunction = async () => {
+    GetValueFunction = async (ID, Pax) => {
+
+        // validate text input
+        if(ID.trim() == "") {
+            this.setState({
+                QRCodeValueHolder: ID,
+                isErrorID: true
+            })
+        }
+        else {
+            this.setState({
+                QRCodeValueHolder: ID,
+                isErrorID: false
+            })
+        }
+
+        if(Pax.trim() == "") {
+            this.setState({
+                PaxValueHolder: Pax,
+                isErrorPax: true
+            })
+        }
+        else {
+            this.setState({
+                PaxValueHolder: Pax,
+                isErrorPax: false
+            })
+        }
+
         const { QRCodeValueHolder, PaxValueHolder } = this.state;
 
         try {
@@ -79,6 +109,7 @@ class QrCodeManagerScreen extends Component {
                             label="  Table Number ID  "
                             mode="outlined"
                             placeholder="Eg. 1"
+                            error={this.state.isErrorID}
                             textContentType="oneTimeCode"
                             keyboardType="number-pad"
                             // next cant be applied because there is no template for this according to react-native-bot
@@ -95,6 +126,7 @@ class QrCodeManagerScreen extends Component {
                             label="  Pax  "
                             mode="outlined"
                             placeholder="Eg. 4"
+                            error={this.state.isErrorPax}
                             keyboardType="number-pad"
                             returnKeyType="done"
                             ref={(input) => { this.secondTextInput = input; }}
@@ -114,7 +146,10 @@ class QrCodeManagerScreen extends Component {
                     : null}
                 </View> 
                 <View style={styles.submitContainer}>
-                    <TouchableHighlight onPress={() => this.GetValueFunction()}
+                    <TouchableHighlight onPress={() => this.GetValueFunction(
+                            this.state.QRCodeValueHolder,
+                            this.state.PaxValueHolder
+                        )}
                         underlayColor="none">
                         <View style={styles.button}>
                             <Text style={styles.text}>Create Table</Text>
@@ -157,7 +192,6 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 24,
         width: 250,
-        marginTop: 30
     },
     text: {
         fontSize: 20,
@@ -170,8 +204,8 @@ const styles = StyleSheet.create({
         // backgroundColor: "red",
         borderColor: "black",
         borderWidth: 2,
-        marginTop: 33,
-        marginBottom: 33,
+        marginTop: 53,
+        marginBottom: 53,
         marginLeft: 55,
         marginRight: 55
     },

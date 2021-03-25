@@ -102,7 +102,7 @@ class MenuManagerScreen extends Component {
             <SafeAreaView style={styles.container}>
                 <Modal isVisible={this.state.isModalVisible}>
                     <View style={styles.modalContainer}>
-                        <Text style={styles.modalHeadingText}>Create New Menu</Text>
+                        <Text style={styles.modalHeadingText}>Add Menu</Text>
                             <TextInput
                                 label="  Menu Name  "
                                 mode="outlined"
@@ -112,12 +112,8 @@ class MenuManagerScreen extends Component {
                                 onChangeText={menuNameValueHolder => this.setState({menuNameValueHolder})}
                             />
                         <View style={styles.modalButtonContainer}>
-                            <View style={styles.leftButtonContainer}>
-                                <Button title="Cancel" onPress={toggleModal}/>                        
-                            </View>
-                            <View style={styles.rightButtonContainer}>
-                                <Button title="Create Menu" onPress={this.AddMenu}/>                        
-                            </View>
+                            <Button title="Cancel" onPress={toggleModal} />
+                            <Button title="Create Menu" onPress={this.AddMenu} />
                         </View>
                     </View>
                 </Modal>
@@ -205,17 +201,11 @@ const styles = StyleSheet.create({
     },
     modalButtonContainer: {
         top: 20,
-        width: "100%",
+        width: "75%",
         flexDirection: "row",
         // backgroundColor: "yellow",
-        justifyContent: "space-around",
-    },
-    leftButtonContainer: {
-        width: "50%",
-    },
-    rightButtonContainer: {
-        width: "50%",
-    },
+        justifyContent: "space-between"
+    }
 });
 
 export default MenuManagerScreen;
