@@ -131,7 +131,7 @@ class MenuManagerScreen extends Component {
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
                 />
-                <View>
+                <View style={{top: 6}}>
                     <TouchableOpacity onPress={toggleModal}
                         underlayColor="none">
                         <View style={styles.button}>
