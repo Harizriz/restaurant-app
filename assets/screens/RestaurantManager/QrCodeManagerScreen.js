@@ -179,10 +179,10 @@ const styles = StyleSheet.create({
         height: 150,
         justifyContent: "center",
         alignSelf: "center",
-        bottom: 50
+        bottom: 60
     },
     promptContainer: {
-        height: 200,
+        height: 160,
         alignItems: "center",
         // backgroundColor: "red"
     },
