@@ -12,7 +12,10 @@ class ChangePasswordScreen extends Component {
       NewPasswordValueHolder: '',
       ConfirmPasswordValueHolder: '',
       icon: "eye-off",
-      password: true
+      password: true,
+      isErrorCurrentPassword: false,
+      isErrorNewPassword: false,
+      isErrorConfirmPassword: false
     };
   }
   changeIcon() {
@@ -21,7 +24,47 @@ class ChangePasswordScreen extends Component {
         password: !prevState.password
     }));
   }
-  UpdatePassword = () => {
+  UpdatePassword = (currentPass, newPass, confirmPass) => {
+
+    if(currentPass.trim() == "") {
+      this.setState({
+        CurrentPasswordValueHolder: currentPass,
+        isErrorCurrentPassword: true
+      })
+    }
+    else {
+      this.setState({
+        CurrentPasswordValueHolder: currentPass,
+        isErrorCurrentPassword: false
+      })
+    }
+
+    if(newPass.trim() == "") {
+      this.setState({
+        NewPasswordValueHolder: newPass,
+        isErrorNewPassword: true
+      })
+    }
+    else {
+      this.setState({
+        NewPasswordValueHolder: newPass,
+        isErrorNewPassword: false
+      })
+    }
+
+    if(confirmPass.trim() == "") {
+      this.setState({
+        ConfirmPasswordValueHolder: confirmPass,
+        isErrorConfirmPassword: true
+      })
+    }
+    else {
+      this.setState({
+        ConfirmPasswordValueHolder: confirmPass,
+        isErrorConfirmPassword: false
+      })
+    }
+
     const { NewPasswordValueHolder, ConfirmPasswordValueHolder } = this.state;
 
     const userId = this.props.route.params.userId;
@@ -31,10 +74,16 @@ class ChangePasswordScreen extends Component {
       { text: "Okay", onPress: () => console.log("Successful") });
     }
     else if(this.state.CurrentPasswordValueHolder != currentPassword) {
+      this.setState({
+        isErrorCurrentPassword: true
+      })
       Alert.alert("Too bad", "Current password does not match",
       { text: "Okay", onPress: () => console.log("Successful") });
     }
     else if(this.state.NewPasswordValueHolder != this.state.ConfirmPasswordValueHolder) {
+      this.setState({
+        isErrorConfirmPassword: true
+      })
       Alert.alert("Too bad", "Passwords do not match",
       { text: "Okay", onPress: () => console.log("Successful") });
     }
@@ -68,11 +117,11 @@ class ChangePasswordScreen extends Component {
           <Text style={styles.headingText}>Change Password</Text>
         </View>
         <View style={styles.promptContainer}>
-          {/* <Text style={styles.text}>Current password</Text> */}
           <View style={styles.textInputContainer}>
             <TextInput
               label="  Current password  "
               mode="outlined"
+              error={this.state.isErrorCurrentPassword}
               secureTextEntry={this.state.password}
               style={{
                 top: 20,
@@ -82,11 +131,11 @@ class ChangePasswordScreen extends Component {
             />   
             <Icon name={this.state.icon} size={17} style={styles.icon} onPress={() => this.changeIcon()} />
           </View>
-          {/* <Text style={styles.text}>New password</Text> */}
           <View style={styles.textInputContainer}>
             <TextInput
               label="  New password  "
               mode="outlined"
+              error={this.state.isErrorNewPassword}
               secureTextEntry={this.state.password}
               style={{
                 top: 20,
@@ -96,11 +145,11 @@ class ChangePasswordScreen extends Component {
             />   
             <Icon name={this.state.icon} size={17} style={styles.icon} onPress={() => this.changeIcon()} />   
           </View>
-          {/* <Text style={styles.text}>Confirm New password</Text> */}
           <View style={styles.textInputContainer}>
             <TextInput
               label="  Confirm new password  "
               mode="outlined"
+              error={this.state.isErrorConfirmPassword}
               secureTextEntry={this.state.password}
               style={{
                 top: 20,
@@ -136,7 +185,11 @@ class ChangePasswordScreen extends Component {
               overflow: "hidden",
               left: 10,
             }}
-            onPress={() => this.UpdatePassword()}>
+            onPress={() => this.UpdatePassword(
+              this.state.CurrentPasswordValueHolder,
+              this.state.NewPasswordValueHolder,
+              this.state.ConfirmPasswordValueHolder
+            )}>
             Update
           </Button>
         </View>

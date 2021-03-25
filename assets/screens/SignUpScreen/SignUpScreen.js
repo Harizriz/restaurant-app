@@ -13,45 +13,114 @@ class SignUpScreen extends Component {
       EmailValueHolder: '',
       PasswordValueHolder: '',
       icon: "eye-off",
-      password: true
+      password: true,
+      isErrorEmail: false,
+      isErrorPassword: false,
+      isErrorFirstName: false,
+      isErrorLastName: false
     }
   }
-  GetValueFunction = async () => {
-    const { FirstNameValueHolder, LastNameValueHolder, EmailValueHolder, PasswordValueHolder } = this.state;
+  GetValueFunction = async (email, password, firstName, lastName) => {
 
-    try {
-      let response = await fetch(
-        'http://172.20.10.5:5000/api/users', 
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            firstName: FirstNameValueHolder,
-            lastName: LastNameValueHolder,
-            email: EmailValueHolder,
-            password: PasswordValueHolder
-          })
+    // check for inputs in inputtext
+    if(email == "" || password == "" || firstName == "" || lastName == "") {
+      Alert.alert("Please fill all the fields!", "",
+      { text: "Okay", onPress: () => console.log("Successful") });
+    }
+
+    // validate password
+    if(password.trim() == "") {
+      this.setState({
+        PasswordValueHolder: password,
+        isErrorPassword: true
+      })
+    }
+    else {
+      this.setState({
+        PasswordValueHolder: password,
+        isErrorPassword: false
+      })
+    }
+
+    // validate first name
+    if(firstName.trim() == "") {
+      this.setState({
+        FirstNameValueHolder: firstName,
+        isErrorFirstName: true
+      })
+    }
+    else {
+      this.setState({
+        FirstNameValueHolder: firstName,
+        isErrorFirstName: false
+      })
+    }
+
+    // validate last name
+    if(lastName.trim() == "") {
+      this.setState({
+        LastNameValueHolder: lastName,
+        isErrorLastName: true
+      })
+    }
+    else {
+      this.setState({
+        LastNameValueHolder: lastName,
+        isErrorLastName: false
+      })
+    }
+
+    // validate email
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/;
+    if(reg.test(email) === false) {
+      this.setState({ 
+        EmailValueHolder: email, 
+        isErrorEmail: true
+      })
+    }
+    else {
+      this.setState({ 
+        EmailValueHolder: email,
+        isErrorEmail: false
+      })
+
+      const { FirstNameValueHolder, LastNameValueHolder, EmailValueHolder, PasswordValueHolder } = this.state;
+
+      try {
+        let response = await fetch(
+          'http://172.20.10.5:5000/api/users', 
+          {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              firstName: FirstNameValueHolder,
+              lastName: LastNameValueHolder,
+              email: EmailValueHolder,
+              password: PasswordValueHolder
+            })
+          }
+        );
+        let json = await response.json();
+        console.log(json);
+
+        if(!json.firstName || !json.lastName || !json.email || !json.password) {
+          Alert.alert("Too bad", json.msg,
+          { text: "Okay", onPress: () => console.log("Successful") });
+        
+          return;
         }
-      );
-      let json = await response.json();
-      console.log(json);
+        
+        Alert.alert("Well done", "User created successfully!",
+          { text: "Okay", onPress: this.props.navigation.navigate("LoginScreen")
+        });
 
-      if(!json.firstName || !json.lastName || !json.email || !json.password) {
-        Alert.alert("Too bad", json.msg,
-        { text: "Okay", onPress: () => console.log("Successful") });
-      
-        return;
+      } catch (error) {
+        console.error(error);
       }
-      
-      Alert.alert("Well done", "User created successfully!",
-        { text: "Okay", onPress: this.props.navigation.navigate("LoginScreen")
-      });
 
-    } catch (error) {
-      console.error(error);
     }
     
   }
@@ -72,6 +141,7 @@ class SignUpScreen extends Component {
             <TextInput
               label="  First Name  "
               mode="outlined"
+              error={this.state.isErrorFirstName}
               style={{
                 top: 20,
                 height: 50
@@ -83,6 +153,7 @@ class SignUpScreen extends Component {
             <TextInput
               label="  Last Name  "
               mode="outlined"
+              error={this.state.isErrorLastName}
               style={{
                   top: 20,
                   height: 50
@@ -94,6 +165,8 @@ class SignUpScreen extends Component {
             <TextInput
               label="  Email  "
               mode="outlined"
+              textContentType="oneTimeCode"
+              error={this.state.isErrorEmail}
               style={{
                 top: 20,
                 height: 50
@@ -105,7 +178,9 @@ class SignUpScreen extends Component {
             <TextInput
               label="  Password  "
               mode="outlined"
+              error={this.state.isErrorPassword}
               secureTextEntry={this.state.password}
+              textContentType="oneTimeCode"
               style={{
                 top: 20,
                 height: 50
@@ -128,7 +203,12 @@ class SignUpScreen extends Component {
               top: 50,
             }}
             onPress={() => {
-              this.GetValueFunction();
+              this.GetValueFunction(
+                this.state.EmailValueHolder,
+                this.state.PasswordValueHolder,
+                this.state.FirstNameValueHolder,
+                this.state.LastNameValueHolder  
+              );
             }}
           >
             Sign Up

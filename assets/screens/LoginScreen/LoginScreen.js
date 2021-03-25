@@ -13,10 +13,41 @@ class LoginScreen extends Component {
       isLoading: true,
       dataSource: null,
       icon: "eye-off",
-      password: true
+      password: true,
+      isErrorEmail: false,
+      isErrorPassword: false
      };
   }
-  GetDataFromApi = async () => {
+  GetDataFromApi = async (email, password) => {
+
+    // validate email and password
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/;
+    if(reg.test(email) === false) {
+      this.setState({ 
+        EmailValueHolder: email, 
+        isErrorEmail: true
+      })
+    }
+    else {
+      this.setState({ 
+        EmailValueHolder: email,
+        isErrorEmail: false
+      })
+    }
+
+    if(password.trim() == "") {
+      this.setState({
+        PasswordValueHolder: password,
+        isErrorPassword: true
+      })
+    }
+    else {
+      this.setState({
+        PasswordValueHolder: password,
+        isErrorPassword: false
+      })
+    }
+
     const { EmailValueHolder, PasswordValueHolder } = this.state;
 
     try {
@@ -46,6 +77,10 @@ class LoginScreen extends Component {
 
       // check for TextInput
       if(!json.email || !json.password) {
+        this.setState({
+          isErrorEmail: true,
+          isErrorPassword: true
+        })
         Alert.alert("Too bad", json.msg,
         { text: "Okay", onPress: () => console.log("Successful") });
 
@@ -87,6 +122,7 @@ class LoginScreen extends Component {
             <TextInput
               label="  Email  "
               mode="outlined"
+              error={this.state.isErrorEmail}
               style={{
                   top: 20,
                   height: 50
@@ -99,6 +135,7 @@ class LoginScreen extends Component {
               label="  Password  "
               mode="outlined"
               secureTextEntry={this.state.password}
+              error={this.state.isErrorPassword}
               style={{
                 top: 5,
                 height: 50
@@ -127,7 +164,7 @@ class LoginScreen extends Component {
               top: 30,
             }}
             onPress={() => {
-              this.GetDataFromApi();
+              this.GetDataFromApi(this.state.EmailValueHolder, this.state.PasswordValueHolder);
               // this.props.navigation.navigate("FeaturedMenuScreen")
             }}
           >
