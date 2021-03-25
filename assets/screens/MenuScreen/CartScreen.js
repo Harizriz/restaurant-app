@@ -224,12 +224,10 @@ class CartPageScreen extends Component {
                         // https://www.npmjs.com/package/react-native-numeric-input
                     />
                     <View style={styles.modalButtonContainer}>
-                        <TouchableOpacity onPress={toggleModal}>
-                            <Text>Cancel</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.updateValue(this.state.itemId)}>
-                            <Text>Update</Text>
-                        </TouchableOpacity>
+                        <View style={styles.leftButtonContainer}>
+                            <Button title="Cancel" onPress={toggleModal}/>                        </View>
+                        <View style={styles.rightButtonContainer}>
+                            <Button title="Update" onPress={() => this.updateValue(this.state.itemId)}/>                        </View>
                     </View>
                 </View>
             </Modal>
@@ -378,10 +376,16 @@ const styles = StyleSheet.create({
     },
     modalButtonContainer: {
         top: 20,
-        width: "75%",
+        width: "100%",
         flexDirection: "row",
         // backgroundColor: "yellow",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
+    },
+    leftButtonContainer: {
+        width: "50%",
+    },
+    rightButtonContainer: {
+        width: "50%",
     },
     buttonText: {
         fontSize: 20,
