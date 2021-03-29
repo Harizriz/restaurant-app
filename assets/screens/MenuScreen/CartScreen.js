@@ -11,7 +11,7 @@ class CartPageScreen extends Component {
         isModalVisible: false,
         setModalVisible: false,
         dataSource: '',
-        newQuantityValueHolder: '',
+        newQuantityValueHolder: 0,
         itemId: '',
         itemName: '',
         totalPrice: ''
@@ -124,7 +124,7 @@ class CartPageScreen extends Component {
                         dataSource: responseJson
                     });
                 })
-            }, 1000) 
+            }, 1500) 
 
         }
 
@@ -161,7 +161,7 @@ class CartPageScreen extends Component {
                         <Text style={styles.text}>{dishName}</Text>
                     </View>
                     <View style={styles.priceContainer}>
-                        <Text style={styles.text}>RM {dishPrice}</Text>
+                        <Text style={styles.text}>RM {dishPrice = (dishPrice * dishQuantity).toFixed(2)}</Text>
                     </View>
                     <View style={styles.editContainer}>
                         <View style={styles.icon}>

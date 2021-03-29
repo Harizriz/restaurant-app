@@ -18,23 +18,39 @@ module.exports = {
         async function createOrder() {
             
             const Order = Parse.Object.extend("Order");
-            const order = new Order();
+            const order = new Parse.Query(Order);
+            order.equalTo("dishName", newOrder.dishName)
 
-            order.set("dishName", newOrder.dishName);
-            order.set("dishQuantity", newOrder.dishQuantity);
-            order.set("dishRemarks", newOrder.dishRemarks);
-            order.set("dishPrice", newOrder.dishPrice);
-
-            try {
-                let result = order.save()
-                console.log("Trying to save string");
-                // console.log(result)
-            }
-            catch(error) {
-                console.log('Failed to create new object, with error code: ' + error.message);
-            }         
+            const chosenOrder = await order.find();  
             
-            // res.send(newOrder);
+            // check if order exists in database else update the quantity
+            if(chosenOrder.length == 0) {
+                order.set("dishName", newOrder.dishName);
+                order.set("dishQuantity", newOrder.dishQuantity);
+                order.set("dishRemarks", newOrder.dishRemarks);
+                order.set("dishPrice", newOrder.dishPrice);
+
+                try {
+                    let result = order.save()
+                    console.log("Trying to save string");
+                    // console.log(result)
+                }
+                catch(error) {
+                    console.log('Failed to create new object, with error code: ' + error.message);
+                }         
+            }
+            else {
+                let item = chosenOrder[0].get("dishQuantity")
+                chosenOrder[0].save().then(() => {
+                    // Now let's update it with some new data. In this case, only cheatMode and score
+                    // will get sent to the cloud. playerName hasn't changed.
+                    chosenOrder[0].set("dishQuantity", newOrder.dishQuantity + item);
+                    console.log(chosenOrder[0].save());
+                    res.send({ msg: "Order updated without duplicating!" })
+                    return chosenOrder[0].save();
+                });
+            }
+            
             res.send({ msg: "Dish added to cart!" });
            
         }
