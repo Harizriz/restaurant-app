@@ -142,6 +142,8 @@ class SignUpScreen extends Component {
               label="  First Name  "
               mode="outlined"
               error={this.state.isErrorFirstName}
+              returnKeyType="next"
+              onSubmitEditing={() => { this.lastNameTextInput.focus(); }}
               style={{
                 top: 20,
                 height: 50
@@ -154,6 +156,9 @@ class SignUpScreen extends Component {
               label="  Last Name  "
               mode="outlined"
               error={this.state.isErrorLastName}
+              returnKeyType="next"
+              onSubmitEditing={() => { this.emailTextInput.focus(); }}
+              ref={(input) => { this.lastNameTextInput = input; }}
               style={{
                   top: 20,
                   height: 50
@@ -167,6 +172,9 @@ class SignUpScreen extends Component {
               mode="outlined"
               textContentType="oneTimeCode"
               error={this.state.isErrorEmail}
+              returnKeyType="next"
+              onSubmitEditing={() => { this.passwordTextInput.focus(); }}
+              ref={(input) => { this.emailTextInput = input; }}
               style={{
                 top: 20,
                 height: 50
@@ -179,6 +187,8 @@ class SignUpScreen extends Component {
               label="  Password  "
               mode="outlined"
               error={this.state.isErrorPassword}
+              returnKeyType="done"
+              ref={(input) => { this.passwordTextInput = input; }}
               secureTextEntry={this.state.password}
               textContentType="oneTimeCode"
               style={{

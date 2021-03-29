@@ -123,6 +123,8 @@ class LoginScreen extends Component {
               label="  Email  "
               mode="outlined"
               error={this.state.isErrorEmail}
+              returnKeyType="next"
+              onSubmitEditing={() => { this.passwordTextInput.focus(); }}
               style={{
                   top: 20,
                   height: 50
@@ -136,6 +138,8 @@ class LoginScreen extends Component {
               mode="outlined"
               secureTextEntry={this.state.password}
               error={this.state.isErrorPassword}
+              returnKeyType="done"
+              ref={(input) => { this.passwordTextInput = input; }}
               style={{
                 top: 5,
                 height: 50

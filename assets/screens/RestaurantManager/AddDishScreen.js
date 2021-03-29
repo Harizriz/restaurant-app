@@ -96,14 +96,17 @@ class AddDishScreen extends Component {
                             label="  Name  "
                             mode="outlined"
                             textContentType="oneTimeCode"
-                            // style={{
-                            // }}
+                            returnKeyType="next"
+                            onSubmitEditing={() => { this.priceTextInput.focus(); }}
                             onChangeText={DishNameValueHolder => this.setState({DishNameValueHolder})}
                         />
                         <TextInput
                             label="  Price  "
                             mode="outlined"
                             value={this.state.DishPriceValueHolder}
+                            returnKeyType="next"
+                            onSubmitEditing={() => { this.descTextInput.focus(); }}
+                            ref={(input) => { this.priceTextInput = input; }}
                             style={{
                                 top: 20
                             }}
@@ -114,6 +117,8 @@ class AddDishScreen extends Component {
                             mode="outlined"
                             defaultValue="Optional"
                             clearTextOnFocus={true}
+                            returnKeyType="done"
+                            ref={(input) => { this.descTextInput = input; }}
                             style={{
                                 top: 40
                             }}

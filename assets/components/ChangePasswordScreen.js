@@ -123,6 +123,8 @@ class ChangePasswordScreen extends Component {
               mode="outlined"
               error={this.state.isErrorCurrentPassword}
               secureTextEntry={this.state.password}
+              returnKeyType="next"
+              onSubmitEditing={() => { this.newPasswordTextInput.focus(); }}
               style={{
                 top: 20,
                 height: 50
@@ -137,6 +139,9 @@ class ChangePasswordScreen extends Component {
               mode="outlined"
               error={this.state.isErrorNewPassword}
               secureTextEntry={this.state.password}
+              returnKeyType="next"
+              onSubmitEditing={() => { this.confirmPasswordTextInput.focus(); }}
+              ref={(input) => { this.newPasswordTextInput = input; }}
               style={{
                 top: 20,
                 height: 50
@@ -151,6 +156,8 @@ class ChangePasswordScreen extends Component {
               mode="outlined"
               error={this.state.isErrorConfirmPassword}
               secureTextEntry={this.state.password}
+              returnKeyType="done"
+              ref={(input) => { this.confirmPasswordTextInput = input; }}
               style={{
                 top: 20,
                 height: 50
