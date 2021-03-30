@@ -21,7 +21,7 @@ class AccountScreen extends Component {
       });
     })
     .then(response => {
-      navigate('FeaturedMenuScreen', {screen: "Home"});
+      navigate('MainMenuScreen', {screen: "Menu"});
     });
   }
   render() {

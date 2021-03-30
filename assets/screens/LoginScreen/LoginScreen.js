@@ -97,7 +97,7 @@ class LoginScreen extends Component {
       }
       else {
         // send user's email to AccountScreen
-        this.props.navigation.navigate("FeaturedMenuScreen", {params: {emailData: this.state.EmailValueHolder}, screen: "Account" })
+        this.props.navigation.navigate("MainMenuScreen", {params: {emailData: this.state.EmailValueHolder}, screen: "Account" })
       }
 
     } catch (error) {
@@ -168,8 +168,8 @@ class LoginScreen extends Component {
               top: 30,
             }}
             onPress={() => {
-              this.GetDataFromApi(this.state.EmailValueHolder, this.state.PasswordValueHolder);
-              // this.props.navigation.navigate("FeaturedMenuScreen")
+              // this.GetDataFromApi(this.state.EmailValueHolder, this.state.PasswordValueHolder);
+              this.props.navigation.navigate("MainMenuScreen")
             }}
           >
             Sign In

@@ -21,7 +21,7 @@ export default function QrCodeScreen({ navigation }) {
     setScanned(true);
     // alert(`${data}`);
     Alert.alert("Table " + data, "")
-    navigation.navigate("FeaturedMenuScreen", { screen: "Home" })
+    navigation.navigate("MainMenuScreen", { screen: "Menu" })
 
     try {
       let response = await fetch(

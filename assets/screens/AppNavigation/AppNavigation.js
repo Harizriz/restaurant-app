@@ -15,7 +15,6 @@ import ResetPasswordScreen from "../LoginScreen/ResetPasswordScreen";
 import LoginPhoneNumberScreen from "../LoginScreen/LoginPhoneNumberScreen";
 import SignUpPhoneNumberScreen from "../SignUpScreen/SignUpPhoneNumberScreen";
 
-import FeaturedMenuScreen from "../MenuScreen/FeaturedMenuScreen";
 import OrderScreen from "../MenuScreen/OrderScreen";
 import AccountScreen from "../MenuScreen/AccountScreen";
 import ChangePasswordScreen from "../../components/ChangePasswordScreen";
@@ -52,15 +51,6 @@ const BottomTab = createBottomTabNavigator();
 const MaterialBottomTabs = () => {
   return (
     <BottomTab.Navigator>
-      <BottomTab.Screen
-        name="Home"
-        component={FeaturedMenuScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="home" color={color} size={26} />
-          ),
-        }}
-      />
       <BottomTab.Screen
         name="Menu"
         component={MainMenuScreen}
@@ -221,7 +211,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="FeaturedMenuScreen"
+          name="MainMenuScreen"
           component={MaterialBottomTabs}
           options={{gestureEnabled: false, headerShown: false}}
         />
