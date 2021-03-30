@@ -58,6 +58,52 @@ module.exports = {
         createOrder();
     },
 
+    createTableIdOrder : (req, res) => {
+        const newTableIdOrder = {
+            tableId: req.body.tableId,
+        }
+
+        if(!newTableIdOrder.tableId) {
+            return res.status(400).send({ msg: 'Please fill the field!' });
+        }
+
+        // read database to check existing users using email
+        async function generateTableIdForOrder() {
+            const Order = Parse.Object.extend("Order");
+            const query = new Parse.Query(Order);
+            query.equalTo("tableId", newTableIdOrder.tableId);
+
+            const tableOrder = await query.find();  
+            
+            // if the menu does not exist in database, create newMenu
+            if(tableOrder.length == 0) {
+                const Order = Parse.Object.extend("Order");
+                const tableOrder = new Order();
+    
+                tableOrder.set("tableId", newTableIdOrder.tableId);
+    
+                try {
+                    let result = tableOrder.save()
+                    console.log("Trying to save string");
+                    // console.log(result)
+                }
+                catch(error) {
+                    console.log('Failed to create new object, with error code: ' + error.message);
+                }         
+                
+                res.send({ msg: "New table order created successfully!" });
+
+            }
+            else {
+                // POST request in postman
+                res.send({ msg: "Table order already exist!" });
+            }
+        }
+
+        generateTableIdForOrder()
+
+    },
+
     getOrder: (req, res) => {
 
         // get order by unique idNumber because there are

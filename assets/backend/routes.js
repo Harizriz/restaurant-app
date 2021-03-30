@@ -70,6 +70,9 @@ app.get('/api/menus/:menuId', menus.getDishes);
 // add dish to cart
 app.post('/api/orders', orders.createOrder);
 
+// add table number to order list
+app.post('/api/orders/tableId', orders.createTableIdOrder);
+
 // get orders for cart
 app.get('/api/orders', orders.getOrder);
 

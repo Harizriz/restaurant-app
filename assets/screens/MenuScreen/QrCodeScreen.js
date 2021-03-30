@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, StyleSheet, Button, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { useNavigation } from '@react-navigation/native';
 
-export default function QrCodeScreen() {
+export default function QrCodeScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [tableId, setTableId] = useState(null)
+  // const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
@@ -13,9 +16,38 @@ export default function QrCodeScreen() {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = async ({ type, data }) => {
+    setTableId(data);
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    // alert(`${data}`);
+    Alert.alert("Table " + data, "")
+    navigation.navigate("FeaturedMenuScreen", { screen: "Home" })
+
+    try {
+      let response = await fetch(
+        'http://172.20.10.5:5000/api/orders/tableId', 
+        {
+          method: 'POST',
+          headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              tableId: data
+          })
+        }
+      );
+      let json = await response.json();
+      console.log(json); 
+
+      // Alert.alert(json.msg, "",
+      // { text: "Okay", onPress: () => console.log("Successful") });
+
+      // this.props.navigation.goBack();
+
+    } catch (error) {
+        console.error(error);
+    }
   };
 
   if (hasPermission === null) {

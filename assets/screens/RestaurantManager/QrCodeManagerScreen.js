@@ -140,7 +140,7 @@ class QrCodeManagerScreen extends Component {
                 </View>
                 <View style={styles.QRcontainer}>
                     {this.state.QRCodeValueHolder ? 
-                    <QRCode value={uniqueURL}
+                    <QRCode value={this.state.QRCodeValueHolder}
                         size={300}
                         backgroundColor="none"/>
                     : null}
