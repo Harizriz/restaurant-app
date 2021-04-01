@@ -3,7 +3,8 @@ import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Button, Aler
 import SearchInput from "../../components/SearchInput";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
-import { TextInput } from 'react-native-paper'
+import { TextInput } from 'react-native-paper';
+import DeleteIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class MenuManagerScreen extends Component {
     constructor(props) {
@@ -74,6 +75,56 @@ class MenuManagerScreen extends Component {
         }
 
     }
+    // delete menu
+    // might consider updating the "name" of the menu
+    deleteMenu = (menuId) => {
+        Alert.alert("Delete Menu", "Are you sure you want to delete the menu permanently?", [
+            { text: "Cancel", onPress: () => console.log("cancelled!") },
+            { text: "Delete", onPress: () => {
+                fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`, {
+                    method: 'DELETE',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        menuId: menuId
+                    })
+                })
+                .then(response => response.json())
+                .then(responseJson => {
+                    console.log(responseJson)
+                });
+
+                fetch(`http://172.20.10.5:5000/api/menus/dishes/${encodeURI(menuId)}`, {
+                    method: 'DELETE',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        menuId: menuId
+                    })
+                })
+                .then(response => response.json())
+                .then(responseJson => {
+                    console.log(responseJson)
+                });
+
+                }
+            },
+        ])
+
+        setTimeout(() => {
+            fetch(`http://172.20.10.5:5000/api/menus`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        }, 2000) 
+    }
     render() {
         const toggleModal = () => {
             if(this.state.isModalVisible == false) {
@@ -87,16 +138,19 @@ class MenuManagerScreen extends Component {
                 })
             }
         }
-        const Item = ({ menuName }) => (
+        const Item = ({ menuName, objectId }) => (
             <View style={styles.item}>
-              <Text style={styles.title}>{menuName}</Text>
+                <Text style={styles.title}>{menuName}</Text>
             </View>
         );
           
         const renderItem = ({ item }) => (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("DishesManagerScreen", {menuName: item.menuName, menuId: item.objectId})}>
-                <Item menuName={item.menuName} />
-            </TouchableOpacity>
+            <View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("DishesManagerScreen", {menuName: item.menuName, menuId: item.objectId})}
+                    onLongPress={() => this.deleteMenu(item.objectId)}>
+                    <Item menuName={item.menuName} /> 
+                </TouchableOpacity>
+            </View>
         );
         return (
             <SafeAreaView style={styles.container}>
@@ -117,11 +171,12 @@ class MenuManagerScreen extends Component {
                         </View>
                     </View>
                 </Modal>
-                <View style={styles.headingContainer}>
+                {/* This is the search button and text input */}
+                {/* <View style={styles.headingContainer}>
                     <View style={styles.searchContainer}>
                         <SearchInput placeholder="What are you craving for?" />
                     </View>
-                </View>
+                </View> */}
                 <FlatList
                     data={this.state.dataSource}
                     renderItem={renderItem}
@@ -165,12 +220,15 @@ const styles = StyleSheet.create({
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
+        flexDirection: "row",
+        // backgroundColor: "yellow"
     },
     searchContainer: {
         height: 50,
     },
     title: {
         fontSize: 25,
+        width: "80%"
     },
     text: {
         fontSize: 20,
@@ -205,6 +263,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         // backgroundColor: "yellow",
         justifyContent: "space-between"
+    },
+    editContainer: {
+        height: 25,
+        width: "20%",
+        // backgroundColor: "lightgreen",
+        justifyContent: "center"
+    },
+    icon: {
+        alignSelf: "center",
     }
 });
 

@@ -25,15 +25,13 @@ class DishesManagerScreen extends Component {
         })
         setTimeout(() => {
             // auto-refresh the screen
-            this.props.navigation.addListener('focus', () => {
-                fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
-                .then(response => response.json())
-                .then(responseJson => {
-                    this.setState({
-                        dataSource: responseJson
-                    });
-                })
-            });
+            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
         }, 1000)  
     }
     render() {
@@ -79,11 +77,11 @@ class DishesManagerScreen extends Component {
         );
         return (
             <SafeAreaView style={styles.container}>
-                <View style={styles.headingContainer}>
+                {/* <View style={styles.headingContainer}>
                     <View style={styles.searchContainer}>
                         <SearchInput placeholder="What are you craving for?" />
                     </View>
-                </View>
+                </View> */}
                 {/* if there's no data in database, just put an empty flatlist */}
                 <FlatList
                     data={this.state.dataSource}

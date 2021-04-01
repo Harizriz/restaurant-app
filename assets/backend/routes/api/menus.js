@@ -66,6 +66,68 @@ module.exports = {
 
     },
 
+    deleteMenu: (req, res) => {
+        const menu = {
+            menuId: req.body.menuId,
+        }
+
+        // delete a specific menu in database
+        async function removeMenu() {
+            
+            const Menu = Parse.Object.extend("Menu");
+            const query = new Parse.Query(Menu)
+            query.equalTo("objectId", menu.menuId)
+
+            const chosenMenu = await query.find();  
+            console.log(chosenMenu[0])
+            // res.send(chosenMenu[0])
+            chosenMenu[0].destroy().then((menu) => {
+                // the object was deleted successfully
+                console.log(menu + " is destroyed")
+                res.send({ msg: "menu is destroyed" })
+            }, (error) => {
+                // delete operation failed
+                console.log(error)
+                res.send({ msg: "error" })
+            });
+
+        }
+        
+        removeMenu();
+    },
+
+    deleteDishes: (req, res) => {
+        const menu = {
+            menuId: req.body.menuId,
+        }
+
+        // delete a specific menu in database
+        async function removeDishes() {
+            
+            const Menu = Parse.Object.extend("Menu");
+            const query = new Parse.Query(Menu)
+            query.equalTo("menuId", menu.menuId)
+
+            const chosenDishes = await query.find();  
+            for(i = 0; i < chosenDishes.length; i++) {
+                console.log(chosenDishes[i])
+                // res.send(chosenDishes[i])
+                chosenDishes[i].destroy().then((dishes) => {
+                    // the object was deleted successfully
+                    console.log(dishes + " is destroyed")
+                    res.send({ msg: "dishes is destroyed" })
+                }, (error) => {
+                    // delete operation failed
+                    console.log(error)
+                    res.send({ msg: "error" })
+                });
+            }
+        }
+
+        removeDishes()
+
+    },
+
     createDish: (req, res) => {
         const newDish = {
             menuId: req.body.menuId,

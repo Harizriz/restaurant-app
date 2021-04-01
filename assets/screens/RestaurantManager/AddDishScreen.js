@@ -103,8 +103,9 @@ class AddDishScreen extends Component {
                         <TextInput
                             label="  Price  "
                             mode="outlined"
+                            keyboardType="number-pad"
                             value={this.state.DishPriceValueHolder}
-                            returnKeyType="next"
+                            returnKeyType="done"
                             onSubmitEditing={() => { this.descTextInput.focus(); }}
                             ref={(input) => { this.priceTextInput = input; }}
                             style={{

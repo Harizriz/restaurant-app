@@ -61,6 +61,12 @@ app.post('/api/menus', menus.createMenu);
 // get menus
 app.get('/api/menus', menus.getMenus);
 
+// delete a menu
+app.delete('/api/menus/:id', menus.deleteMenu);
+
+// delete all dishes if the menu is deleted
+app.delete('/api/menus/dishes/:id', menus.deleteDishes);
+
 // create a dish
 app.post('/api/menus/dishes', menus.createDish);
 
