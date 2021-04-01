@@ -14,6 +14,12 @@ class EditTableScreen extends Component {
             secondButtonText: "Edit"
         };
     }
+    componentDidMount = () => {
+        const pax = this.props.route.params.pax;
+        this.setState({
+            newPaxValueHolder: pax
+        })
+    }
     EditAndUpdatePaxValue = () => {
         const { newPaxValueHolder } = this.state;
 
@@ -98,6 +104,7 @@ class EditTableScreen extends Component {
                         <TextInput
                             label="  Pax  "
                             mode="outlined"
+                            keyboardType="number-pad"
                             placeholder="Eg. 4"
                             defaultValue={pax}
                             disabled={this.state.isDisabled}
