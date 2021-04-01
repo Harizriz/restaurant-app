@@ -8,6 +8,7 @@ module.exports = {
             dishQuantity: req.body.dishQuantity,
             dishRemarks: req.body.dishRemarks,
             dishPrice: req.body.dishPrice,
+            tableId: req.body.tableId
         }
 
         if(!newOrder.dishQuantity) {
@@ -25,10 +26,14 @@ module.exports = {
             
             // check if order exists in database else update the quantity
             if(chosenOrder.length == 0) {
+                const Order = Parse.Object.extend("Order");
+                const order = new Order();
+
                 order.set("dishName", newOrder.dishName);
                 order.set("dishQuantity", newOrder.dishQuantity);
                 order.set("dishRemarks", newOrder.dishRemarks);
                 order.set("dishPrice", newOrder.dishPrice);
+                order.set("tableId", newOrder.tableId);
 
                 try {
                     let result = order.save()

@@ -12,6 +12,8 @@ class PaymentScreen extends Component {
   }
   render() { 
     const totalPrice = this.props.route.params.cartTotalPrice
+    const tableOrderId = this.props.route.params.tableId
+    console.log(tableOrderId)
     return ( 
     <SafeAreaView style={styles.container}>
       <View style={styles.iconContainer}>
@@ -46,7 +48,9 @@ class PaymentScreen extends Component {
       </View>
       <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentDetailScreen",
-          { cartTotalPrice: totalPrice })}>
+          { cartTotalPrice: totalPrice,
+          tableId: tableOrderId }
+          )}>
               <View style={styles.button}>
                   <Text style={styles.buttonText}>Proceed</Text>
               </View>

@@ -15,7 +15,7 @@ class LoginScreen extends Component {
       icon: "eye-off",
       password: true,
       isErrorEmail: false,
-      isErrorPassword: false
+      isErrorPassword: false,
      };
   }
   GetDataFromApi = async (email, password) => {
@@ -169,7 +169,7 @@ class LoginScreen extends Component {
             }}
             onPress={() => {
               // this.GetDataFromApi(this.state.EmailValueHolder, this.state.PasswordValueHolder);
-              this.props.navigation.navigate("MainMenuScreen")
+              this.props.navigation.navigate("MainMenuScreen", { params: {tableId: "" }, screen: "Menu"})
             }}
           >
             Sign In

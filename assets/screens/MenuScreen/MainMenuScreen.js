@@ -7,10 +7,25 @@ class MainMenuScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            dataSource: ''
+            dataSource: '',
+            tableId: ''
         };
     }
     componentDidMount = async () => {
+        // check if tableId exist yet to be sent to the dish screens
+        if(!this.props.route.params.tableId) {
+            console.log("tableId does not exist yet")
+        }
+        else {
+            const tableId = this.props.route.params.tableId;
+            console.log(tableId)
+            this.setState({
+                tableId: tableId
+            })
+        }
+
+        console.log(this.state.tableId)
+
         fetch(`http://172.20.10.5:5000/api/menus`)
         .then(response => response.json())
         .then(responseJson => {
@@ -22,12 +37,12 @@ class MainMenuScreen extends Component {
     render() {
         const Item = ({ menuName }) => (
             <View style={styles.item}>
-              <Text style={styles.title}>{menuName}</Text>
+                <Text style={styles.title}>{menuName}</Text>
             </View>
         );
           
         const renderItem = ({ item }) => (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("DishesScreen", {menuId: item.objectId})}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("DishesScreen", {tableId: this.state.tableId, menuId: item.objectId})}>
                 <Item menuName={item.menuName} />
             </TouchableOpacity>
         );
@@ -44,7 +59,7 @@ class MainMenuScreen extends Component {
                     keyExtractor={(item) => item.objectId}
                 />
                 <View>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen")}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen", {screenName: "MainMenuScreen", tableId: this.state.tableId})}>
                         <View style={styles.button}>
                             <Text style={styles.text}>View Cart</Text>
                         </View>

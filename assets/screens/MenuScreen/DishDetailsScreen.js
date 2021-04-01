@@ -15,6 +15,8 @@ class DishDetailsScreen extends Component {
     AddCart = async () => {
         const dishName = this.props.route.params.dishName;
         const dishPrice = this.props.route.params.dishPrice;
+        const tableId = this.props.route.params.tableId;
+        console.log("Detail Added " + tableId)
 
         const { remarksValueHolder, dishQuantityHolder } = this.state;
 
@@ -31,7 +33,8 @@ class DishDetailsScreen extends Component {
                     dishName: dishName,
                     dishPrice: dishPrice,
                     dishQuantity: dishQuantityHolder,
-                    dishRemarks: remarksValueHolder
+                    dishRemarks: remarksValueHolder,
+                    tableId: tableId
                 })
               }
             );
@@ -52,6 +55,8 @@ class DishDetailsScreen extends Component {
         const dishName = this.props.route.params.dishName;
         const dishDescription = this.props.route.params.dishDescription;
         const dishPrice = this.props.route.params.dishPrice;
+        const tableId = this.props.route.params.tableId;
+        console.log("Detail " + tableId)
 
         return (
             <SafeAreaView style={styles.container}>

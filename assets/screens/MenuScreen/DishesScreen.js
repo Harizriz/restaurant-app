@@ -16,6 +16,7 @@ class DishesScreen extends Component {
     }
     componentDidMount = async () => {
         const menuId = this.props.route.params.menuId;
+        console.log(menuId)
         fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
         .then(response => response.json())
         .then(responseJson => {
@@ -35,6 +36,8 @@ class DishesScreen extends Component {
         });
     }
     render() {
+        let tableOrderId = this.props.route.params.tableId;
+        console.log(tableOrderId)
         const Item = ({ dishName, dishImage, dishDescription, dishPrice }) => (
             <View style={styles.item}>
                 <View style={styles.textContainer}>
@@ -53,8 +56,9 @@ class DishesScreen extends Component {
                 {dishId: item.objectId, 
                 dishName: item.dishName, 
                 dishDescription: item.dishDescription,
-                dishPrice: item.dishPrice
+                dishPrice: item.dishPrice,
                 // dishImage: item.dishImage, 
+                tableId: tableOrderId
                 })}>
                 <Item 
                     dishName={item.dishName} 
@@ -77,7 +81,8 @@ class DishesScreen extends Component {
                     style={{top: 30}}
                 />
                 <View>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen")}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen", {tableId: tableOrderId })}>
+                    {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen")}> */}
                         <View style={styles.button}>
                             <Text style={styles.text}>View Cart</Text>
                         </View>

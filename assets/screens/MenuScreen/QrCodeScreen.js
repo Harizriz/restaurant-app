@@ -21,33 +21,34 @@ export default function QrCodeScreen({ navigation }) {
     setScanned(true);
     // alert(`${data}`);
     Alert.alert("Table " + data, "")
-    navigation.navigate("MainMenuScreen", { screen: "Menu" })
+    // navigation.navigate("MainMenuScreen", { screen: "Menu", params: {tableId: data} })
+    navigation.navigate("CartScreen", {tableId: data, screenName: "QrCodeScreen"})
 
-    try {
-      let response = await fetch(
-        'http://172.20.10.5:5000/api/orders/tableId', 
-        {
-          method: 'POST',
-          headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-              tableId: data
-          })
-        }
-      );
-      let json = await response.json();
-      console.log(json); 
+    // try {
+    //   let response = await fetch(
+    //     'http://172.20.10.5:5000/api/orders/tableId', 
+    //     {
+    //       method: 'POST',
+    //       headers: {
+    //           Accept: 'application/json',
+    //           'Content-Type': 'application/json'
+    //       },
+    //       body: JSON.stringify({
+    //           tableId: data
+    //       })
+    //     }
+    //   );
+    //   let json = await response.json();
+    //   console.log(json); 
 
-      // Alert.alert(json.msg, "",
-      // { text: "Okay", onPress: () => console.log("Successful") });
+    //   // Alert.alert(json.msg, "",
+    //   // { text: "Okay", onPress: () => console.log("Successful") });
 
-      // this.props.navigation.goBack();
+    //   // this.props.navigation.goBack();
 
-    } catch (error) {
-        console.error(error);
-    }
+    // } catch (error) {
+    //     console.error(error);
+    // }
   };
 
   if (hasPermission === null) {

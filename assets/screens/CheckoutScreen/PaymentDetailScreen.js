@@ -10,6 +10,8 @@ class PaymentDetailScreen extends Component {
   }
   render() { 
     const totalPrice = this.props.route.params.cartTotalPrice
+    const tableOrderId = this.props.route.params.tableId
+    console.log(tableOrderId)
     console.log(totalPrice)
     return ( 
     <SafeAreaView style={styles.container}>
@@ -37,7 +39,7 @@ class PaymentDetailScreen extends Component {
           </View>
           <View style={styles.rightContainer}>
             <Text style={styles.textInfo}>
-              10
+              {tableOrderId}
             </Text>
           </View>
         </View>

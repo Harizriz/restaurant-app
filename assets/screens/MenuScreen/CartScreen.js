@@ -5,7 +5,7 @@ import DeleteIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import NumInput from "react-native-numeric-input";
 import Modal from 'react-native-modal';
 import { TouchableOpacity } from 'react-native-gesture-handler';
- 
+
 class CartPageScreen extends Component {
     state = { 
         isModalVisible: false,
@@ -14,16 +14,42 @@ class CartPageScreen extends Component {
         newQuantityValueHolder: 0,
         itemId: '',
         itemName: '',
-        totalPrice: ''
+        totalPrice: '',
+        tableId: ''
     }
     componentDidMount = async () => {
-        fetch(`http://172.20.10.5:5000/api/orders`)
-        .then(response => response.json())
-        .then(responseJson => {
+        if(this.props.route.params.screenName == "QrCodeScreen") {
+            console.log("This is from QRCodeScreen")
+            const { navigate }  = this.props.navigation;
+            let tableOrderId = this.props.route.params.tableId;
+            console.log(tableOrderId)
             this.setState({
-                dataSource: responseJson
+                tableId: tableOrderId
+            })
+            console.log(this.state.tableId)
+            fetch(`http://172.20.10.5:5000/api/orders`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+            .then(response => {
+                navigate('MainMenuScreen', {screen: "Menu", params: {tableId: tableOrderId}});
             });
-        })
+        }
+        else {
+            console.log("This is not from QRCodeScreen")
+            fetch(`http://172.20.10.5:5000/api/orders`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            });
+            let tableOrderId = this.props.route.params.tableId;
+            console.log("Cart " + tableOrderId)
+        }
     }   
     // delete an item from order
     deleteItem = (id) => {
@@ -129,13 +155,20 @@ class CartPageScreen extends Component {
         }
 
     }
-    render() { 
+    render() {
+        let tableOrderId = this.props.route.params.tableId;
+        console.log("Cart render " + tableOrderId)
         // calculate total price for cart
         let totalPrice = 0;
+        // put an if statement here if the tableId is the same from the 
+        // scanned QR code then can loop to find the orders with the same and current tableId
         for(let i = 0; i < this.state.dataSource.length; i++) {
             totalPrice += this.state.dataSource[i].dishQuantity * this.state.dataSource[i].dishPrice
         }
         totalPrice = totalPrice.toFixed(2)
+
+        // let tableOrderId = this.props.route.params.tableId;
+        // console.log(tableOrderId)
 
         const toggleModal = () => {
             if(this.state.isModalVisible == false) {
@@ -248,7 +281,9 @@ class CartPageScreen extends Component {
             </View>
             <View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentScreen", 
-                    {cartTotalPrice: totalPrice})}>
+                    {cartTotalPrice: totalPrice,
+                    tableId: tableOrderId}
+                    )}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Checkout</Text>
                     </View>
