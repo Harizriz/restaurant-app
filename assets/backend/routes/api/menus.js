@@ -183,6 +183,69 @@ module.exports = {
 
     },
 
+    deleteDish: (req, res) => {
+        const menu = {
+            dishId: req.body.dishId,
+        }
+
+        // delete a specific menu in database
+        async function removeDish() {
+            
+            const Menu = Parse.Object.extend("Menu");
+            const query = new Parse.Query(Menu)
+            query.equalTo("objectId", menu.dishId)
+
+            const chosenDish = await query.find();  
+            console.log(chosenDish[0])
+            chosenDish[0].destroy().then((dish) => {
+                // the object was deleted successfully
+                console.log(dish + " is destroyed")
+                res.send({ msg: "dish is destroyed" })
+            }, (error) => {
+                // delete operation failed
+                console.log(error)
+                res.send({ msg: "error" })
+            });
+        }
+
+        removeDish()
+
+    },
+
+    updateDish: (req, res) => {
+        const newDish = {
+            dishId: req.body.dishId,
+            newDishName: req.body.newDishName,
+            newDishPrice: req.body.newDishPrice,
+            newDishDescription: req.body.newDishDescription,
+            newimageUri: req.body.newimageUri
+        }
+
+        async function updateDish() {
+            const Menu = Parse.Object.extend("Menu");
+            const query = new Parse.Query(Menu)
+            query.equalTo("objectId", newDish.dishId)
+
+            const chosenDish = await query.find();  
+            console.log(chosenDish[0])
+
+            chosenDish[0].save().then(() => {
+                // Now let's update it with some new data. In this case, only cheatMode and score
+                // will get sent to the cloud. playerName hasn't changed.
+                chosenDish[0].set("dishName", newDish.newDishName);
+                chosenDish[0].set("dishPrice", newDish.newDishPrice);
+                chosenDish[0].set("dishDescription", newDish.newDishDescription);
+                chosenDish[0].set("dishImage", newDish.newImageUri);
+                console.log(chosenDish[0].save());
+                res.send({ msg: "Dish updated!" })
+                return chosenDish[0].save();
+            });
+        }
+
+        updateDish();
+    
+    },
+
     getDishes: (req, res) => {
 
         // read database to get user's information

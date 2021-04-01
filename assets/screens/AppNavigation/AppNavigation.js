@@ -32,6 +32,7 @@ import AccountManagerScreen from "../RestaurantManager/AccountManagerScreen";
 import EditTableScreen from "../RestaurantManager/EditTableScreen";
 import DishesManagerScreen from "../RestaurantManager/DishesManagerScreen";
 import AddDishScreen from "../RestaurantManager/AddDishScreen";
+import EditDishScreen from "../RestaurantManager/EditDishScreen";
 
 import KitchenOrderScreen from "../RestaurantStaff/KitchenOrderScreen";
 import VirtualQueueStaffScreen from "../RestaurantStaff/VirtualQueueStaffScreen";
@@ -239,6 +240,7 @@ export default function App() {
         <Stack.Screen name="EditTableScreen" component={EditTableScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="DishesManagerScreen" component={DishesManagerScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
         <Stack.Screen name="AddDishScreen" component={AddDishScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
+        <Stack.Screen name="EditDishScreen" component={EditDishScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -9,8 +9,6 @@ class DishesManagerScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            isModalVisible: false,
-            setModalVisible: false,
             dataSource: ''
         };
     }
@@ -23,8 +21,8 @@ class DishesManagerScreen extends Component {
                 dataSource: responseJson
             });
         })
-        setTimeout(() => {
-            // auto-refresh the screen
+        // auto-refresh the screen if using navigation.goBack()
+        this.props.navigation.addListener('focus', () => {
             fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
             .then(response => response.json())
             .then(responseJson => {
@@ -32,28 +30,56 @@ class DishesManagerScreen extends Component {
                     dataSource: responseJson
                 });
             })
-        }, 1000)  
+        });
+
+        setTimeout(() => {
+            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        }, 2000) 
+    }
+    deleteDish = (dishId) => {
+        const menuId = this.props.route.params.menuId;
+
+        Alert.alert("Delete Dish", "Are you sure you want to delete the dish permanently?", [
+            { text: "Cancel", onPress: () => console.log("cancelled!") },
+            { text: "Delete", onPress: () => {
+                fetch(`http://172.20.10.5:5000/api/menus/dish/${encodeURI(dishId)}`, {
+                    method: 'DELETE',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        dishId: dishId
+                    })
+                })
+                .then(response => response.json())
+                .then(responseJson => {
+                    console.log(responseJson)
+                });
+                }
+            },
+        ])
+
+        setTimeout(() => {
+            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        }, 2000) 
     }
     render() {
         const menuId = this.props.route.params.menuId;
-        const menuName = this.props.route.params.menuName;
-        // console.log(menuId)
-        // console.log(menuName)
-        console.log(this.state.dataSource[2]);
 
-        const toggleModal = () => {
-            if(this.state.isModalVisible == false) {
-                this.setState({
-                    isModalVisible: true
-                })
-            }
-            else {
-                this.setState({
-                    isModalVisible: false
-                })
-            }
-        }
-        const Item = ({ dishName, dishImage, dishDescription, dishPrice }) => (
+        const Item = ({ dishName, dishImage, dishDescription, dishPrice, objectId }) => (
             <View style={styles.item}>
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>{dishName}</Text>
@@ -67,7 +93,14 @@ class DishesManagerScreen extends Component {
         );
           
         const renderItem = ({ item }) => (
-            <TouchableOpacity onPress={() => console.log("Here!")}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("EditDishScreen", {
+                dishName: item.dishName,
+                dishDescription: item.dishDescription,
+                dishPrice: item.dishPrice,
+                dishImage: item.dishImage,
+                dishId: item.objectId
+            })}
+                onLongPress={() => this.deleteDish(item.objectId)}>
                 <Item 
                     dishName={item.dishName} 
                     dishDescription={item.dishDescription} 
