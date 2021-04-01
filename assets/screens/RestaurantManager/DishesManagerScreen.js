@@ -84,6 +84,7 @@ class DishesManagerScreen extends Component {
                 </View> */}
                 {/* if there's no data in database, just put an empty flatlist */}
                 <FlatList
+                    style={styles.flatlist}
                     data={this.state.dataSource}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
@@ -108,6 +109,9 @@ const styles = StyleSheet.create({
         alignItems: "stretch",
         marginTop: StatusBar.currentHeight || 0,
         // backgroundColor: "red"
+    },
+    flatlist: {
+        marginTop: 50
     },
     headingContainer: {
         height: 100,

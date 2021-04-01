@@ -237,8 +237,8 @@ export default function App() {
         <Stack.Screen name="PaymentLoadingScreen" component={PaymentLoadingScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="QrCodeManagerScreen" component={QrCodeManagerScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="EditTableScreen" component={EditTableScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="DishesManagerScreen" component={DishesManagerScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="AddDishScreen" component={AddDishScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="DishesManagerScreen" component={DishesManagerScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
+        <Stack.Screen name="AddDishScreen" component={AddDishScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
