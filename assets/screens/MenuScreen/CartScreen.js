@@ -18,38 +18,47 @@ class CartPageScreen extends Component {
         tableId: ''
     }
     componentDidMount = async () => {
-        if(this.props.route.params.screenName == "QrCodeScreen") {
-            console.log("This is from QRCodeScreen")
-            const { navigate }  = this.props.navigation;
-            let tableOrderId = this.props.route.params.tableId;
-            console.log(tableOrderId)
+        // if(this.props.route.params.screenName == "QrCodeScreen") {
+        //     console.log("This is from QRCodeScreen")
+        //     const { navigate }  = this.props.navigation;
+        //     let tableOrderId = this.props.route.params.tableId;
+        //     console.log(tableOrderId)
+        //     this.setState({
+        //         tableId: tableOrderId
+        //     })
+        //     console.log(this.state.tableId)
+        //     fetch(`http://172.20.10.5:5000/api/orders`)
+        //     .then(response => response.json())
+        //     .then(responseJson => {
+        //         this.setState({
+        //             dataSource: responseJson
+        //         });
+        //     })
+        //     .then(response => {
+        //         navigate('MainMenuScreen', {screen: "Menu", params: {tableId: tableOrderId}});
+        //     });
+        // }
+        // else {
+        //     console.log("This is not from QRCodeScreen")
+        //     fetch(`http://172.20.10.5:5000/api/orders`)
+        //     .then(response => response.json())
+        //     .then(responseJson => {
+        //         this.setState({
+        //             dataSource: responseJson
+        //         });
+        //     });
+        //     let tableOrderId = this.props.route.params.tableId;
+        //     console.log("Cart " + tableOrderId)
+        // }
+        fetch(`http://172.20.10.5:5000/api/orders`)
+        .then(response => response.json())
+        .then(responseJson => {
             this.setState({
-                tableId: tableOrderId
-            })
-            console.log(this.state.tableId)
-            fetch(`http://172.20.10.5:5000/api/orders`)
-            .then(response => response.json())
-            .then(responseJson => {
-                this.setState({
-                    dataSource: responseJson
-                });
-            })
-            .then(response => {
-                navigate('MainMenuScreen', {screen: "Menu", params: {tableId: tableOrderId}});
+                dataSource: responseJson
             });
-        }
-        else {
-            console.log("This is not from QRCodeScreen")
-            fetch(`http://172.20.10.5:5000/api/orders`)
-            .then(response => response.json())
-            .then(responseJson => {
-                this.setState({
-                    dataSource: responseJson
-                });
-            });
-            let tableOrderId = this.props.route.params.tableId;
-            console.log("Cart " + tableOrderId)
-        }
+        });
+        let tableOrderId = this.props.route.params.tableId;
+        console.log("Cart " + tableOrderId)
     }   
     // delete an item from order
     deleteItem = (id) => {

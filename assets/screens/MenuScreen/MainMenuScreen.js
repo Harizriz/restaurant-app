@@ -12,27 +12,49 @@ class MainMenuScreen extends Component {
         };
     }
     componentDidMount = async () => {
-        // check if tableId exist yet to be sent to the dish screens
-        if(!this.props.route.params.tableId) {
-            console.log("tableId does not exist yet")
-        }
-        else {
+        // // check if tableId exist yet to be sent to the dish screens
+        // if(!this.props.route.params.tableId) {
+        //     console.log("tableId does not exist yet")
+        // }
+        // else {
+        //     const tableId = this.props.route.params.tableId;
+        //     console.log(tableId)
+        //     this.setState({
+        //         tableId: tableId
+        //     })
+        // }
+
+        // console.log("MainMenuScreen " + this.state.tableId)
+
+        // fetch(`http://172.20.10.5:5000/api/menus`)
+        // .then(response => response.json())
+        // .then(responseJson => {
+        //     this.setState({
+        //         dataSource: responseJson
+        //     });
+        // }) 
+
+        // const tableId = this.props.route.params.tableId;
+        // console.log("MainMenuScreen " + tableId)
+
+        // auto-refresh the screen to listen from the previous screen
+        this.props.navigation.addListener('focus', () => {
+            fetch(`http://172.20.10.5:5000/api/menus`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            }) 
             const tableId = this.props.route.params.tableId;
-            console.log(tableId)
+            console.log("MainMenuScreen " + tableId)
+
             this.setState({
                 tableId: tableId
             })
-        }
+            
+        });
 
-        console.log(this.state.tableId)
-
-        fetch(`http://172.20.10.5:5000/api/menus`)
-        .then(response => response.json())
-        .then(responseJson => {
-            this.setState({
-                dataSource: responseJson
-            });
-        })
     }
     render() {
         const Item = ({ menuName }) => (

@@ -70,7 +70,7 @@ class LoginScreen extends Component {
       let approvalVariableManager = "admin"
       let filteredPasswordManager = String(json.password).includes(approvalVariableManager);
 
-      console.log(filteredPasswordManager)
+      // console.log(filteredPasswordManager)
 
       let approvalVariableStaff = "staff"
       let filteredPasswordStaff = String(json.password).includes(approvalVariableStaff);
@@ -88,11 +88,11 @@ class LoginScreen extends Component {
       }
 
       if(filteredPasswordManager) {
-        console.log("Here!");
+        // console.log("Here!");
         this.props.navigation.navigate("VirtualQueueScreen");
       }
       else if(filteredPasswordStaff) {
-        console.log("Staff!");
+        // console.log("Staff!");
         this.props.navigation.navigate("KitchenOrderScreen");
       }
       else {

@@ -11,12 +11,20 @@ class DishesScreen extends Component {
         this.state = { 
             isModalVisible: false,
             setModalVisible: false,
-            dataSource: ''
+            dataSource: '',
+            tableId: ''
         };
     }
     componentDidMount = async () => {
         const menuId = this.props.route.params.menuId;
+        const tableOrderId = this.props.route.params.tableId;
+        console.log(tableOrderId)
         console.log(menuId)
+
+        this.setState({
+            tableId: tableOrderId
+        })
+
         fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
         .then(response => response.json())
         .then(responseJson => {
@@ -36,8 +44,6 @@ class DishesScreen extends Component {
         });
     }
     render() {
-        let tableOrderId = this.props.route.params.tableId;
-        console.log(tableOrderId)
         const Item = ({ dishName, dishImage, dishDescription, dishPrice }) => (
             <View style={styles.item}>
                 <View style={styles.textContainer}>
@@ -58,7 +64,7 @@ class DishesScreen extends Component {
                 dishDescription: item.dishDescription,
                 dishPrice: item.dishPrice,
                 // dishImage: item.dishImage, 
-                tableId: tableOrderId
+                tableId: this.state.tableId
                 })}>
                 <Item 
                     dishName={item.dishName} 
@@ -81,7 +87,7 @@ class DishesScreen extends Component {
                     style={{top: 30}}
                 />
                 <View>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen", {tableId: tableOrderId })}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen", {tableId: this.state.tableId })}>
                     {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen")}> */}
                         <View style={styles.button}>
                             <Text style={styles.text}>View Cart</Text>

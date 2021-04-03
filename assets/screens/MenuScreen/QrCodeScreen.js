@@ -22,7 +22,7 @@ export default function QrCodeScreen({ navigation }) {
     // alert(`${data}`);
     Alert.alert("Table " + data, "")
     // navigation.navigate("MainMenuScreen", { screen: "Menu", params: {tableId: data} })
-    navigation.navigate("CartScreen", {tableId: data, screenName: "QrCodeScreen"})
+    navigation.navigate("MainMenuScreen", { screen: "Menu", option: "update", params: {tableId: data, screenName: "QrCodeScreen"}})
 
     // try {
     //   let response = await fetch(
