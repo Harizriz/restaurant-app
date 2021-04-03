@@ -116,7 +116,7 @@ module.exports = {
         async function retrieveOrder() {
             const Order = Parse.Object.extend("Order");
             const query = new Parse.Query(Order);
-            // query.exists("qrCodeValue")
+            query.equalTo("tableId", req.params.tableId);
 
             const order = await query.find();  
             // console.log(order);

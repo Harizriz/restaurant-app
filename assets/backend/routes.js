@@ -86,7 +86,7 @@ app.post('/api/orders', orders.createOrder);
 app.post('/api/orders/tableId', orders.createTableIdOrder);
 
 // get orders for cart
-app.get('/api/orders', orders.getOrder);
+app.get('/api/orders/:tableId', orders.getOrder);
 
 // update an item in the cart
 app.put('/api/orders/:itemId', orders.updateOrder);
