@@ -43,6 +43,8 @@ app.get('/api/users/:email', users.getUserInfo);
 // update user password
 app.put('/api/users/:id', users.updateUserPassword);
 
+// TABLES
+
 // create table
 app.post('/api/tables', tables.createTable);
 
@@ -54,6 +56,8 @@ app.delete('/api/tables/:id', tables.deleteTable);
 
 // update a row in table
 app.put('/api/tables/:id', tables.updateTable);
+
+// MENUS
 
 // create a menu
 app.post('/api/menus', menus.createMenu);
@@ -79,20 +83,40 @@ app.post('/api/menus/dishes', menus.createDish);
 // get dishes
 app.get('/api/menus/:menuId', menus.getDishes);
 
+// ORDERS
+
 // add dish to cart
 app.post('/api/orders', orders.createOrder);
+
+// add dish to kitchen order
+app.post('/api/orders/kitchen', orders.createKitchenOrder);
 
 // add table number to order list
 app.post('/api/orders/tableId', orders.createTableIdOrder);
 
-// get orders for cart
+// get order by id number for cart
 app.get('/api/orders/:tableId', orders.getOrder);
+
+// get all orders
+app.get('/api/orders', orders.getOrders);
+
+// get all orders for kitchen helper
+app.get('/api/orders/kitchen/kit', orders.getOrdersKitchen);
 
 // update an item in the cart
 app.put('/api/orders/:itemId', orders.updateOrder);
 
 // remove an item from the cart
 app.delete('/api/orders/:itemId', orders.deleteOrder);
+
+// update the order to prepared for kitchen helper
+app.put('/api/orders/order/:itemId', orders.updateOrderToServed);
+
+// delete the prepared order for kitchen helper
+app.delete('/api/orders/order/:itemId', orders.deleteOrderToServed);
+
+// delete the an order in order list
+app.delete('/api/orders/waiter/:tableId', orders.deleteServedOrder);
 
 const PORT = process.env.PORT || 5000
 

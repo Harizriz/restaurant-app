@@ -9,7 +9,8 @@ class DishDetailsScreen extends Component {
         super(props);
         this.state = { 
             remarksValueHolder: '',
-            dishQuantityHolder: ''
+            dishQuantityHolder: '',
+            preparedItem: false
         };
     }
     AddCart = async () => {
@@ -18,8 +19,11 @@ class DishDetailsScreen extends Component {
         const tableId = this.props.route.params.tableId;
         console.log("Detail Added " + tableId)
 
-        const { remarksValueHolder, dishQuantityHolder } = this.state;
+        const { remarksValueHolder, dishQuantityHolder, preparedItem } = this.state;
 
+        console.log(preparedItem)
+
+        // post to Order
         try {
             let response = await fetch(
               'http://172.20.10.5:5000/api/orders', 
@@ -34,7 +38,8 @@ class DishDetailsScreen extends Component {
                     dishPrice: dishPrice,
                     dishQuantity: dishQuantityHolder,
                     dishRemarks: remarksValueHolder,
-                    tableId: tableId
+                    tableId: tableId,
+                    preparedItem: preparedItem
                 })
               }
             );
@@ -45,6 +50,33 @@ class DishDetailsScreen extends Component {
             { text: "Okay", onPress: () => console.log("Successful") });
 
             this.props.navigation.goBack();
+
+        } catch (error) {
+            console.error(error);
+        }
+
+        // post to Kitchen Order
+        try {
+            let response = await fetch(
+              'http://172.20.10.5:5000/api/orders/kitchen', 
+              {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    dishName: dishName,
+                    dishPrice: dishPrice,
+                    dishQuantity: dishQuantityHolder,
+                    dishRemarks: remarksValueHolder,
+                    tableId: tableId,
+                    preparedItem: preparedItem
+                })
+              }
+            );
+            let json = await response.json();
+            console.log(json); 
 
         } catch (error) {
             console.error(error);

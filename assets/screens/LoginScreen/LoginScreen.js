@@ -169,7 +169,7 @@ class LoginScreen extends Component {
             }}
             onPress={() => {
               this.GetDataFromApi(this.state.EmailValueHolder, this.state.PasswordValueHolder);
-              // this.props.navigation.navigate("MainMenuScreen", { params: {tableId: "" }, screen: "Menu"})
+              // this.props.navigation.navigate("KitchenOrderScreen")
             }}
           >
             Sign In
