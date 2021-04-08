@@ -11,7 +11,6 @@ class OrderListScreen extends Component {
             tableArray: [],
             expanded: false,
             showTable: {},
-            arr: []
         };
     }
     componentDidMount = () => {
@@ -35,8 +34,8 @@ class OrderListScreen extends Component {
             else {
                 tableTree[this.state.dataSource[i].tableId] = [this.state.dataSource[i]]
             }
-
         }
+
         const preparedItem = (objectId, preparedDish) => {
 
             if (!preparedDish) {

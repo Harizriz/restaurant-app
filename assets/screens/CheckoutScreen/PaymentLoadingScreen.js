@@ -3,12 +3,23 @@ import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
 import LottieView from "lottie-react-native";
 
 class PaymentLoadingScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { 
+            
+        };
+    }
     componentDidMount() {
+        const tableOrderId = this.props.route.params.tableId
+        
         // Or set a specific startFrame and endFrame with:
         this.animation.play(0, 200);
         this.animation.pause;
+
+        setTimeout(() => {
+            this.props.navigation.navigate("MainMenuScreen", { params: { tableId: tableOrderId }, screen: "Order Status" } )
+        }, 1000);
     }
-    state = {  }
     render() { 
         return ( 
             <SafeAreaView style={styles.container}>

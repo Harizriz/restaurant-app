@@ -57,7 +57,9 @@ class PaymentDetailScreen extends Component {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentLoadingScreen")}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentLoadingScreen", 
+        { tableId: tableOrderId }
+          )}>
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Place Order</Text>
             </View>
