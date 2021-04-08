@@ -23,6 +23,8 @@ import QrCodeScreen from "../MenuScreen/QrCodeScreen";
 import DishesScreen from "../MenuScreen/DishesScreen";
 import DishDetailsScreen from "../MenuScreen/DishDetailsScreen";
 import CartScreen from "../MenuScreen/CartScreen";
+import VirtualQueueUserScreen from "../MenuScreen/VirtualQueueUserScreen";
+import VirtualQueueQRScreen from "../MenuScreen/VirtualQueueQRScreen";
 
 import VirtualQueueScreen from "../RestaurantManager/VirtualQueueScreen";
 import TablesScreen from "../RestaurantManager/TablesScreen";
@@ -52,6 +54,15 @@ const BottomTab = createBottomTabNavigator();
 const MaterialBottomTabs = () => {
   return (
     <BottomTab.Navigator>
+      <BottomTab.Screen
+        name="Virtual Queue"
+        component={VirtualQueueUserScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MenuIcon name="people" color={color} size={26} />
+          ),
+        }}
+      />
       <BottomTab.Screen
         name="Menu"
         component={MainMenuScreen}
@@ -226,6 +237,7 @@ export default function App() {
           component={MaterialBottomTabsStaff}
           options={{gestureEnabled: false, headerShown: false}}
         />
+        <Stack.Screen name="VirtualQueueQRScreen" component={VirtualQueueQRScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
         <Stack.Screen name="DishesScreen" component={DishesScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
         <Stack.Screen name="DishDetailsScreen" component={DishDetailsScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false }}/>

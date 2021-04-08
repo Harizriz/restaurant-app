@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Button, Alert, StatusBar } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigation } from '@react-navigation/native';
 
-export default function QrCodeScreen({ navigation }) {
+export default function VirtualQueueQRScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [tableId, setTableId] = useState(null)
@@ -22,7 +22,7 @@ export default function QrCodeScreen({ navigation }) {
     // alert(`${data}`);
     Alert.alert("Table " + data, "")
     // navigation.navigate("MainMenuScreen", { screen: "Menu", params: {tableId: data} })
-    navigation.navigate("MainMenuScreen", { screen: "Menu", option: "update", params: {tableId: data, screenName: "QrCodeScreen"}})
+    navigation.navigate("MainMenuScreen", { screen: "Menu", option: "update", params: {tableId: data, screenName: "VirtualQueueQRScreen"}})
 
     // try {
     //   let response = await fetch(
