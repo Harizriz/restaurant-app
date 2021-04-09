@@ -177,6 +177,9 @@ class MenuManagerScreen extends Component {
                         <SearchInput placeholder="What are you craving for?" />
                     </View>
                 </View> */}
+                <View style={styles.headingContainer}>
+                    <Text style={styles.headingText}>Menu</Text>
+                </View>
                 <FlatList
                     data={this.state.dataSource}
                     renderItem={renderItem}
@@ -204,14 +207,13 @@ const styles = StyleSheet.create({
         // backgroundColor: "red"
     },
     headingContainer: {
-        height: 100,
+        height: 125,
         // backgroundColor: "yellow",
         justifyContent: "center"
     },
     headingText: {
         fontSize: 35,
         color: "purple",
-        top: 50,
         alignSelf: "center"
     },
     item: {

@@ -46,6 +46,9 @@ class TablesScreen extends Component {
         );
         return (
             <SafeAreaView style={styles.container}>
+                <View style={styles.headingContainer}>
+                    <Text style={styles.headingText}>Tables</Text>
+                </View>
                 <FlatList
                     data={this.state.dataSource}
                     renderItem={renderItem}
@@ -73,12 +76,11 @@ const styles = StyleSheet.create({
     },
     headingContainer: {
         height: 125,
-        // backgroundColor: "yellow",
+        justifyContent: "center"
     },
     headingText: {
         fontSize: 35,
         color: "purple",
-        top: 50,
         alignSelf: "center"
     },
     item: {
