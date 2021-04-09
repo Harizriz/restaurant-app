@@ -49,6 +49,9 @@ class CheckoutTableScreen extends Component {
         );
         return (
             <SafeAreaView style={styles.container}>
+                <View style={styles.headingContainer}>
+                    <Text style={styles.headingText}>Tables</Text>
+                </View>
                 <FlatList
                     data={this.state.dataSource}
                     renderItem={renderItem}

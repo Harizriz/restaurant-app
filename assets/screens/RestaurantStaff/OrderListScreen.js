@@ -180,7 +180,7 @@ class OrderListScreen extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.headingContainer}>
-                    <Text style={styles.headingText}>Order List Screen</Text>
+                    <Text style={styles.headingText}>Order List</Text>
                 </View>
                 { renderTables (tableTree) }
             </SafeAreaView>
