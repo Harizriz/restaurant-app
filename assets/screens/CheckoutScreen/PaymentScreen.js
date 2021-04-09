@@ -33,7 +33,7 @@ class PaymentScreen extends Component {
           </TouchableOpacity>
         </View>
         <View style={styles.cardContainer}>
-          <TouchableOpacity onPress={() => console.log("Add")}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("AddNewCardScreen")}>
             <Text style={styles.cardInformationText}>
               <PlusIcon 
                 name="plus" 

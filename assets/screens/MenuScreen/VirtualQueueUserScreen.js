@@ -89,7 +89,7 @@ class VirtualQueueScreen extends Component {
                 <View style={styles.headingContainer}>
                     <Text style={styles.headingText}>Virtual Queue Screen</Text>
                 </View>
-                { renderMainScreen() }
+                { renderAssignedScreen() }
             </SafeAreaView>
         );
     }

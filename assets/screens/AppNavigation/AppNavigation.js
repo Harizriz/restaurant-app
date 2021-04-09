@@ -46,6 +46,7 @@ import AccountStaffScreen from "../RestaurantStaff/AccountStaffScreen";
 import PaymentScreen from "../CheckoutScreen/PaymentScreen";
 import PaymentDetailScreen from "../CheckoutScreen/PaymentDetailScreen";
 import PaymentLoadingScreen from "../CheckoutScreen/PaymentLoadingScreen";
+import AddNewCardScreen from "../CheckoutScreen/AddNewCardScreen";
 
 import ItemScreen from "../../components/ItemScreen";
 import DummyScreen from "../../components/DummyScreen";
@@ -258,6 +259,7 @@ export default function App() {
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="PaymentDetailScreen" component={PaymentDetailScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="PaymentLoadingScreen" component={PaymentLoadingScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="AddNewCardScreen" component={AddNewCardScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
         <Stack.Screen name="QrCodeManagerScreen" component={QrCodeManagerScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="EditTableScreen" component={EditTableScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="DishesManagerScreen" component={DishesManagerScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
