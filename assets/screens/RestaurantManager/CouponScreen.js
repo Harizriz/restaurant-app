@@ -10,14 +10,17 @@ const DATA = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'HELLO30',
+      per: '30%'
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
       title: 'JOY70',
+      per: '70%'
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
       title: 'WOAH20',
+      per: '20%'
     },
 ];
 
@@ -91,9 +94,11 @@ class CouponScreen extends Component {
                 })
             }
         }
-        const Item = ({ title }) => (
+
+        const Item = ({ title, per }) => (
             <View style={styles.item}>
                 <Text style={styles.title}>{title}</Text>
+                <Text style={styles.per}>{per}</Text>
             </View>
         );
           
@@ -101,7 +106,7 @@ class CouponScreen extends Component {
             <View>
                 <TouchableOpacity
                     onLongPress={() => this.deleteCoupon()}>
-                    <Item title={item.title} /> 
+                    <Item title={item.title} per={item.per} /> 
                 </TouchableOpacity>
             </View>
         );
@@ -185,12 +190,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         // backgroundColor: "yellow"
     },
-    searchContainer: {
-        height: 50,
-    },
     title: {
         fontSize: 25,
         width: "80%"
+    },
+    per: {
+        fontSize: 25,
+        width: "20%",
+        textAlign: "right",
+        // backgroundColor: "yellow"
     },
     text: {
         fontSize: 20,
