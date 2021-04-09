@@ -26,6 +26,7 @@ import CartScreen from "../MenuScreen/CartScreen";
 import VirtualQueueUserScreen from "../MenuScreen/VirtualQueueUserScreen";
 import VirtualQueueQRScreen from "../MenuScreen/VirtualQueueQRScreen";
 
+import CouponScreen from "../RestaurantManager/CouponScreen";
 import VirtualQueueScreen from "../RestaurantManager/VirtualQueueScreen";
 import TablesScreen from "../RestaurantManager/TablesScreen";
 import MenuManagerScreen from "../RestaurantManager/MenuManagerScreen";
@@ -182,6 +183,15 @@ const MaterialBottomTabsManager = () => {
         options={{
           tabBarIcon: ({ color }) => (
             <MenuIcon name="menu" color={color} size={26} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Coupon"
+        component={CouponScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <QrIcon name="ticket-percent" color={color} size={26} />
           ),
         }}
       />
