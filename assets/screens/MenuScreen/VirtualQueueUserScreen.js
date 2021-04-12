@@ -8,11 +8,56 @@ class VirtualQueueScreen extends Component {
         super(props);
         this.state = { 
             newPaxValueHolder: '',
-            isError: false
+            isError: false,
+            currentQueueNumber: '',
+            counter: 1
         };
+    } 
+    componentDidUpdate = () => {
+        console.log("test")
+        // try {
+            if(this.state.counter == 2 && this.state.currentQueueNumber != this.props.route.params.queueNumber) {
+                console.log(this.props.route.params.queueNumber)
+                this.setState({
+                    currentQueueNumber: this.props.route.params.queueNumber
+                })
+            }
+        // }
+        // catch (error) {
+            
+        // }
     }
-    Proceed = () => {
-        this.props.navigation.navigate("VirtualQueueQRScreen", {pax: this.state.newPaxValueHolder})
+    // componentDidMount = () => {
+    //     setTimeout(() => {
+    //         try {
+    //             if(this.state.counter == 2) {
+    //                 console.log(this.props.route.params.queueNumber)
+    //                 this.setState({
+    //                     currentQueueNumber: this.props.route.params.queueNumber
+    //                 })
+    //             }
+    //         }
+    //         // else {
+    //         //     console.log("nope")
+    //         // }
+    //         catch (error) {
+                
+    //         }
+    //     }, 1000);
+    // }
+    Proceed = (pax) => {
+        if(pax == '' || pax == 0) {
+            this.setState({
+                isError: true
+            })
+        }
+        else{
+            this.setState({
+                isError: false
+            })
+            this.props.navigation.navigate("VirtualQueueQRScreen", {pax: pax})
+            this.setState({ counter: this.state.counter + 1 });
+        }
     } 
     LeaveQueue = () => {
         Alert.alert("Leaving Queue", "Are you sure you want to leave the queue?", [
@@ -22,6 +67,10 @@ class VirtualQueueScreen extends Component {
         ])
     }
     render() {
+        console.log("counter", this.state.counter)
+        console.log(this.props.route.name)
+        console.log(this.props)
+
         const renderMainScreen = () => {
             return(
                 <View>
@@ -49,7 +98,7 @@ class VirtualQueueScreen extends Component {
                         </View>
                     </View>
                     <View style={styles.submitContainer}>
-                        <TouchableOpacity onPress={() => this.Proceed() }>
+                        <TouchableOpacity onPress={() => this.Proceed(this.state.newPaxValueHolder) }>
                             <View style={styles.button}>
                                 <Text style={styles.text}>Proceed</Text>
                             </View>
@@ -59,7 +108,7 @@ class VirtualQueueScreen extends Component {
             )
         }
 
-        const renderAssignedScreen = () => {
+        const renderAssignedScreen = (queueNumber) => {
             return (
                 <View>
                     <View style={styles.secondContainer}>
@@ -72,7 +121,7 @@ class VirtualQueueScreen extends Component {
                     </View>
                     <View style={styles.secondContainer}>
                         <Text style={styles.title}>Queue Number</Text>
-                        <Text style={styles.body}>111</Text>
+                        <Text style={styles.body}>{queueNumber}</Text>
                     </View>
                     <View style={styles.submitContainer}>
                         <TouchableOpacity onPress={() => this.LeaveQueue() }>
@@ -89,7 +138,10 @@ class VirtualQueueScreen extends Component {
                 <View style={styles.headingContainer}>
                     <Text style={styles.headingText}>Virtual Queue Screen</Text>
                 </View>
-                { renderAssignedScreen() }
+                { this.state.currentQueueNumber ? 
+                    renderAssignedScreen(this.state.currentQueueNumber) : 
+                    renderMainScreen() 
+                }
             </SafeAreaView>
         );
     }

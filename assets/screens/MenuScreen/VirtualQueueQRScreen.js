@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Button, Alert, StatusBar } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { useNavigation } from '@react-navigation/native';
 
-export default function VirtualQueueQRScreen({ navigation }) {
+export default function VirtualQueueQRScreen({ navigation, route }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [tableId, setTableId] = useState(null)
-  // const navigation = useNavigation();
+  const pax = route.params.pax
+  console.log(pax)
 
   useEffect(() => {
     (async () => {
@@ -19,36 +19,47 @@ export default function VirtualQueueQRScreen({ navigation }) {
   const handleBarCodeScanned = async ({ type, data }) => {
     setTableId(data);
     setScanned(true);
+    console.log("Scanned ", pax)
+    let number = 100
     // alert(`${data}`);
-    Alert.alert("Table " + data, "")
-    // navigation.navigate("MainMenuScreen", { screen: "Menu", params: {tableId: data} })
-    navigation.navigate("MainMenuScreen", { screen: "Menu", option: "update", params: {tableId: data, screenName: "VirtualQueueQRScreen"}})
+    if (data == 'aqFl0LxbRN') {
+      // need to make another if statement to increment the queue number for each customer
+      try {
+        let response = await fetch(
+          'http://172.20.10.5:5000/api/virtualQueue', 
+          {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                pax: pax,
+                virtualQueueNumber: number
+            })
+          }
+        );
+        let json = await response.json();
+        console.log(json); 
 
-    // try {
-    //   let response = await fetch(
-    //     'http://172.20.10.5:5000/api/orders/tableId', 
-    //     {
-    //       method: 'POST',
-    //       headers: {
-    //           Accept: 'application/json',
-    //           'Content-Type': 'application/json'
-    //       },
-    //       body: JSON.stringify({
-    //           tableId: data
-    //       })
-    //     }
-    //   );
-    //   let json = await response.json();
-    //   console.log(json); 
+        Alert.alert(json.msg, "",
+        { text: "Okay", onPress: () => console.log("Successful") });
 
-    //   // Alert.alert(json.msg, "",
-    //   // { text: "Okay", onPress: () => console.log("Successful") });
+        navigation.navigate("MainMenuScreen",
+          { IsScreenQR: true, 
+            params: { queueNumber: number }, 
+            screen: "Virtual Queue",
+          })
 
-    //   // this.props.navigation.goBack();
+      } catch (error) {
+          console.error(error);
+      }
 
-    // } catch (error) {
-    //     console.error(error);
-    // }
+    }
+    else {
+      Alert.alert("Wrong QR Code", "",
+      { text: "Okay", onPress: () => console.log("Successful") });
+    }
   };
 
   if (hasPermission === null) {

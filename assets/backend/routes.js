@@ -5,6 +5,7 @@ const users = require('./routes/api/users');
 const tables = require('./routes/api/tables');
 const menus = require('./routes/api/menus');
 const orders = require('./routes/api/orders');
+const virtualQueue = require('./routes/api/virtualQueue');
 const keys = require('./constants/keys');
 const Parse = require('parse/node');
 
@@ -30,6 +31,8 @@ createInstallation();
 // body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// USERS
 
 // get member
 app.post('/api/users/login', users.getUser);
@@ -117,6 +120,10 @@ app.delete('/api/orders/order/:itemId', orders.deleteOrderToServed);
 
 // delete the an order in order list
 app.delete('/api/orders/waiter/:tableId', orders.deleteServedOrder);
+
+// VIRTUAL QUEUE
+
+app.post('/api/virtualQueue', virtualQueue.addUserToQueue);
 
 const PORT = process.env.PORT || 5000
 

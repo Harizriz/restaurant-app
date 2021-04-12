@@ -51,6 +51,7 @@ import AddNewCardScreen from "../CheckoutScreen/AddNewCardScreen";
 import ItemScreen from "../../components/ItemScreen";
 import DummyScreen from "../../components/DummyScreen";
 import CartPageScreen from "../../components/CartPageScreen";
+import QRDummyScreen from "../../components/QRDummyScreen";
 
 const BottomTab = createBottomTabNavigator();
 const MaterialBottomTabs = () => {
@@ -254,6 +255,7 @@ export default function App() {
         <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="ItemScreen" component={ItemScreen} />
         <Stack.Screen name="DummyScreen" component={DummyScreen} />
+        <Stack.Screen name="QRDummyScreen" component={QRDummyScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="CartPageScreen" component={CartPageScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ headerShown: false }}/>

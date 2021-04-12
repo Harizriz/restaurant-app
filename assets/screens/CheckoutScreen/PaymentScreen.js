@@ -26,6 +26,7 @@ class PaymentScreen extends Component {
       </View>
       <View style={styles.cardsContainer}>
         <View style={styles.cardContainer}>
+          {/* if this card is chosen show a tick symbol at the right side */}
           <TouchableOpacity onPress={() => console.log("Chose")}>
             <Text style={styles.cardInformationText}>
               Visa Ending in 4242
