@@ -20,7 +20,7 @@ export default function VirtualQueueQRScreen({ navigation, route }) {
     setTableId(data);
     setScanned(true);
     console.log("Scanned ", pax)
-    let number = 100
+    let number = 111
     // alert(`${data}`);
     if (data == 'aqFl0LxbRN') {
       // need to make another if statement to increment the queue number for each customer
