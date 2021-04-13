@@ -46,4 +46,51 @@ module.exports = {
         retrieveCustomer();
 
     },
+
+    getQueueList : (req, res) => {
+        
+        // read database to get user's information
+        async function retrieveQueueList() {
+            const Virtual = Parse.Object.extend("Virtual");
+            const query = new Parse.Query(Virtual);
+
+            const virtual = await query.find();  
+            // console.log(virtual);
+            res.send(virtual);
+        }
+
+        retrieveQueueList();
+
+    },
+
+    removeUserFromQueue: (req, res) => {
+
+        const removeUser = {
+            queueNumber: req.body.queueNumber,
+        }
+
+        // delete a specific table in database
+        async function removeCustomer() {
+            
+            const Virtual = Parse.Object.extend("Virtual");
+            const query = new Parse.Query(Virtual)
+            query.equalTo("virtualQueueNumber", removeUser.queueNumber)
+
+            const chosenCustomer = await query.find();  
+            console.log(chosenCustomer[0])
+            chosenCustomer[0].destroy().then((customer) => {
+                // the object was deleted successfully
+                console.log(customer + " is destroyed")
+                res.send({ msg: "customer is destroyed" })
+            }, (error) => {
+                // delete operation failed
+                console.log(error)
+                res.send({ msg: "error" })
+            });
+
+        }
+        
+        removeCustomer();
+
+    },
 }
