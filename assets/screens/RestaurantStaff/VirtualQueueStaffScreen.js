@@ -1,61 +1,44 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, FlatList } from 'react-native';
-
-const DATA = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: '4 Pax',
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: '2 Pax',
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: '10 Pax',
-    },
-    {
-        id: '4',
-        title: '6 Pax',
-    },
-    {
-        id: '5',
-        title: '4 Pax',
-    },
-    {
-        id: '6',
-        title: '8 Pax',
-    },
-    {
-        id: '7',
-        title: '2 Pax',
-    },
-    {
-        id: '8',
-        title: '3 Pax',
-    },
-    {
-        id: '9',
-        title: '1 Pax',
-    },
-];
+import { SafeAreaView, StyleSheet, View, Text, FlatList, Alert } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class VirtualQueueStaffScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-
+            dataSource: ''
         };
     }
+    componentDidMount = () => {
+        fetch(`http://172.20.10.5:5000/api/virtualQueue/list`)
+        .then(response => response.json())
+        .then(responseJson => {
+            this.setState({
+                dataSource: responseJson
+            });
+        })
+    }
     render() {
-        const Item = ({ title }) => (
+        const Item = ({ virtualQueueNumber, pax }) => (
             <View style={styles.item}>
-                <Text style={styles.title}>{title}</Text>
+                <View style={styles.itemContainer}>
+                    <Text style={styles.title}>{virtualQueueNumber}</Text>
+                    <Text style={styles.pax}>{pax} pax</Text>
+                </View>
             </View>
         );
           
         const renderItem = ({ item }) => (
-            <Item title={item.title} />
+            <TouchableOpacity onPress={() => 
+                Alert.alert("Notify Customer?", "", [
+                    { text: "Cancel", onPress: () => console.log("cancelled!") },
+                    { text: "Notify", onPress: () => console.log("checkout!") },
+                ])}>
+                <Item 
+                    virtualQueueNumber={item.virtualQueueNumber} 
+                    pax={item.pax} 
+                />
+            </TouchableOpacity>
         );
 
         return (
@@ -65,10 +48,10 @@ class VirtualQueueStaffScreen extends Component {
                 </View>
                 <View style={styles.secondContainer}>
                     <Text style={styles.titleText}>People in Line</Text>
-                    <Text style={styles.body}>9</Text>
+                    <Text style={styles.body}>{this.state.dataSource.length}</Text>
                 </View>
                 <FlatList
-                    data={DATA}
+                    data={this.state.dataSource}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
                 />
@@ -116,10 +99,19 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         // backgroundColor: "yellow"
     },
+    itemContainer: {
+        flexDirection: "row"
+    },
     title: {
         fontSize: 25,
         width: "80%"
     },
+    pax: {
+        fontSize: 25,
+        width: "20%",
+        right: 5,
+        textAlign: "right"
+    }
 });
 
 export default VirtualQueueStaffScreen;
