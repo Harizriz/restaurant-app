@@ -5,11 +5,10 @@ module.exports = {
     createUserLogin : (req, res) => {
         const newUserLogin = {
             email: req.body.email,
-            password: req.body.password,
             counter: req.body.counter
         };
                 
-        if (!newUserLogin.email || !newUserLogin.password) {
+        if (!newUserLogin.email) {
             return res.status(400).send({ msg: 'Error' });
         }
         
@@ -27,7 +26,6 @@ module.exports = {
                 const userLogin = new UserLogin();
     
                 userLogin.set("email", newUserLogin.email);
-                userLogin.set("password", newUserLogin.password);
                 userLogin.set("counter", newUserLogin.counter);
 
                 try {

@@ -12,7 +12,11 @@ class VirtualQueueScreen extends Component {
             currentQueueNumber: '',
             counter: 1,
             dataSource: '',
-            peopleInLine: ''
+            dataSourceLogin: '',
+            peopleInLine: '',
+            email: this.props.route.params.emailData,
+            initialQueueNumber: '',
+            queueNumber: ''
         };
     } 
     componentDidUpdate = () => {
@@ -29,6 +33,8 @@ class VirtualQueueScreen extends Component {
         }
     }
     componentDidMount = () => {
+        this.props.navigation.navigate("MainMenuScreen", { screen: "Menu" })
+
         setTimeout(() => {
             fetch(`http://172.20.10.5:5000/api/virtualQueue/list`)
             .then(response => response.json())
@@ -38,8 +44,19 @@ class VirtualQueueScreen extends Component {
                 });
             })
         }, 2000)
+
+        this.props.navigation.addListener('focus', () => {
+            fetch(`http://172.20.10.5:5000/api/virtualQueue/list`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        });
+
     }
-    Proceed = (pax) => {
+    Proceed = async (pax) => {
         if(pax == '' || pax == 0) {
             this.setState({
                 isError: true
@@ -49,8 +66,116 @@ class VirtualQueueScreen extends Component {
             this.setState({
                 isError: false
             })
-            this.props.navigation.navigate("VirtualQueueQRScreen", {pax: pax})
-            this.setState({ counter: this.state.counter + 1 });
+
+            await fetch(`http://172.20.10.5:5000/api/user/lastuser`)
+            .then(response => response.json())
+            .then(responseJson => {
+              this.setState({
+                dataSourceLogin: responseJson[0]
+              });
+            })
+
+            // if there is no user logged into the virtual queue
+            // create a new one
+            if (this.state.dataSourceLogin == null) {
+                try {
+                    let response = await fetch(
+                    'http://172.20.10.5:5000/api/user', 
+                    {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: this.state.email,
+                            counter: 101
+                        })
+                    }
+                    );
+                    let json = await response.json();
+
+                    this.setState({
+                        initialQueueNumber: json.counter
+                    })
+                }
+                catch (error) {
+
+                }
+
+                this.props.navigation.navigate("VirtualQueueQRScreen", {pax: pax, queueNumber: this.state.initialQueueNumber})
+                this.setState({ counter: this.state.counter + 1 });
+            }
+            else {
+                try {
+                    let response = await fetch(
+                        'http://172.20.10.5:5000/api/user', 
+                        {
+                            method: 'POST',
+                            headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: this.state.email,
+                                counter: this.state.dataSourceLogin.counter + 1
+                            })
+                        }
+                    );
+                    let json = await response.json();
+                    
+                    this.setState({
+                        queueNumber: json.counter
+                    })
+
+                }
+                catch (error) {
+
+                }
+
+                this.props.navigation.navigate("VirtualQueueQRScreen", {pax: pax, queueNumber: this.state.queueNumber})
+                this.setState({ counter: this.state.counter + 1 });
+            }
+
+            // try {
+            //     let response = await fetch(
+            //       'http://172.20.10.5:5000/api/user/lastuser', 
+            //       {
+            //         method: 'POST',
+            //         headers: {
+            //           Accept: 'application/json',
+            //           'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify({
+            //           email: this.state.email
+            //         })
+            //       }
+            //     );
+            //     let json = await response.json();
+            // }
+            // catch (error) {
+
+            // }
+
+            // console.log(this.state.dataSourceLogin)
+      
+            // await fetch(
+            //   'http://172.20.10.5:5000/api/user', 
+            //   {
+            //     method: 'POST',
+            //     headers: {
+            //       Accept: 'application/json',
+            //       'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //       email: this.state.email,
+            //       counter: this.state.dataSourceLogin.counter + 1
+            //     })
+            //   }
+            // );
+
+            // this.props.navigation.navigate("VirtualQueueQRScreen", {pax: pax})
+            // this.setState({ counter: this.state.counter + 1 });
         }
     } 
     LeaveQueue = () => {
@@ -122,7 +247,7 @@ class VirtualQueueScreen extends Component {
                     </View>
                     <View style={styles.paxContainer}>
                         <Text style={styles.title}>Current Queue Number</Text>
-                        <Text style={styles.body}>105</Text>
+                        <Text style={styles.body}>100</Text>
                     </View>
                     <View style={styles.secondContainer}>
                         <Text style={styles.title}>Queue Number</Text>

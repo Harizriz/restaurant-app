@@ -16,7 +16,6 @@ class LoginScreen extends Component {
       password: true,
       isErrorEmail: false,
       isErrorPassword: false,
-      dataSource: ''
      };
   }
   GetDataFromApi = async (email, password) => {
@@ -67,30 +66,6 @@ class LoginScreen extends Component {
         }
       );
       let json = await response.json();
-
-      await fetch(`http://172.20.10.5:5000/api/user/lastuser`)
-      .then(response => response.json())
-      .then(responseJson => {
-        this.setState({
-          dataSource: responseJson[0]
-        });
-      })
-
-      await fetch(
-        'http://172.20.10.5:5000/api/user', 
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: EmailValueHolder,
-            password: PasswordValueHolder,
-            counter: this.state.dataSource.counter + 1
-          })
-        }
-      );
 
       let approvalVariableManager = "admin"
       let filteredPasswordManager = String(json.password).includes(approvalVariableManager);

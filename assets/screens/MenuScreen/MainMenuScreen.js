@@ -52,7 +52,6 @@ class MainMenuScreen extends Component {
             this.setState({
                 tableId: tableId
             })
-            
         });
 
     }

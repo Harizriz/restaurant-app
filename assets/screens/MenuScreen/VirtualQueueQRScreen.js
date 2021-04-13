@@ -7,7 +7,9 @@ export default function VirtualQueueQRScreen({ navigation, route }) {
   const [scanned, setScanned] = useState(false);
   const [tableId, setTableId] = useState(null)
   const pax = route.params.pax
+  const queueNumber = route.params.queueNumber
   console.log(pax)
+  console.log(queueNumber)
 
   useEffect(() => {
     (async () => {
@@ -20,7 +22,7 @@ export default function VirtualQueueQRScreen({ navigation, route }) {
     setTableId(data);
     setScanned(true);
     console.log("Scanned ", pax)
-    let number = 111
+    console.log("queue Number", queueNumber)
     // alert(`${data}`);
     if (data == 'aqFl0LxbRN') {
       // need to make another if statement to increment the queue number for each customer
@@ -35,7 +37,7 @@ export default function VirtualQueueQRScreen({ navigation, route }) {
             },
             body: JSON.stringify({
                 pax: pax,
-                virtualQueueNumber: number
+                virtualQueueNumber: queueNumber
             })
           }
         );
@@ -47,7 +49,7 @@ export default function VirtualQueueQRScreen({ navigation, route }) {
 
         navigation.navigate("MainMenuScreen",
           { IsScreenQR: true, 
-            params: { queueNumber: number }, 
+            params: { queueNumber: queueNumber }, 
             screen: "Virtual Queue",
           })
 

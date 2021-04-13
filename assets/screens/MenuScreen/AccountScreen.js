@@ -21,7 +21,7 @@ class AccountScreen extends Component {
       });
     })
     .then(response => {
-      navigate('MainMenuScreen', {screen: "Menu"});
+      navigate('MainMenuScreen', { params: {emailData: params }, screen: "Virtual Queue"});
     });
   }
   Logout = (email) => {
