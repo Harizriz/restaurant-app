@@ -25,20 +25,20 @@ class AccountScreen extends Component {
     });
   }
   Logout = (email) => {
-    fetch(`http://172.20.10.5:5000/api/user/${encodeURI(email)}`, {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-      })
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-        console.log(responseJson)
-    })
+    // fetch(`http://172.20.10.5:5000/api/user/${encodeURI(email)}`, {
+    //   method: 'DELETE',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     email: email,
+    //   })
+    // })
+    // .then(response => response.json())
+    // .then(responseJson => {
+    //     console.log(responseJson)
+    // })
 
     this.props.navigation.navigate("MainScreen")
   }

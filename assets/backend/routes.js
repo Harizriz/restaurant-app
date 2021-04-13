@@ -41,6 +41,9 @@ app.post('/api/user', user.createUserLogin);
 // remove user from login
 app.delete('/api/user/:email', user.deleteUserLogin);
 
+// get a user with the highest counter number
+app.get('/api/user/lastuser', user.getLastUserCounter);
+
 // USERS
 
 // get member
@@ -51,9 +54,6 @@ app.post('/api/users', users.createUser);
 
 // get user info
 app.get('/api/users/:email', users.getUserInfo);
-
-// update user info with counter for virtual queue
-app.put('/api/users/login', users.updateUsersInfo);
 
 // update user password
 app.put('/api/users/:id', users.updateUserPassword);

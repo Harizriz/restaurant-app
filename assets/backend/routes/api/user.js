@@ -5,7 +5,8 @@ module.exports = {
     createUserLogin : (req, res) => {
         const newUserLogin = {
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            counter: req.body.counter
         };
                 
         if (!newUserLogin.email || !newUserLogin.password) {
@@ -27,7 +28,8 @@ module.exports = {
     
                 userLogin.set("email", newUserLogin.email);
                 userLogin.set("password", newUserLogin.password);
-    
+                userLogin.set("counter", newUserLogin.counter);
+
                 try {
                     let result = userLogin.save()
                     console.log("Trying to save string");
@@ -75,6 +77,24 @@ module.exports = {
         }
         
         removeUserLogin();
+
+    },
+
+    getLastUserCounter : (req, res) => {
+        
+        // read database to get user's information
+        async function retrieveQueueList() {
+            const UserLogin = Parse.Object.extend("UserLogin");
+            const query = new Parse.Query(UserLogin);
+            query.limit(1)
+            query.descending("counter")
+
+            const userLogin = await query.find();  
+            // console.log(userLogin);
+            res.send(userLogin);
+        }
+
+        retrieveQueueList();
 
     },
 
