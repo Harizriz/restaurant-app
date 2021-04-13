@@ -129,32 +129,6 @@ module.exports = {
 
         updatePassword();
 
-    },
-
-    updateUsersInfo: (req, res) => {
-
-        async function updatePassword() {
-            const Person = Parse.Object.extend("Person");
-            const query = new Parse.Query(Person)
-
-            const users = await query.find();  
-            console.log(users)
-            res.send(users)
-
-            for (let i = 0; i < users.length; i++) {
-                users[i].save().then(() => {
-                    // Now let's update it with some new data. In this case, only cheatMode and score
-                    // will get sent to the cloud. playerName hasn't changed.
-                    users[i].increment("counter")
-                    console.log(users[i].save());
-                    res.send({ msg: "users updated!" })
-                    return users[i].save();
-                });
-            }
-        }
-
-        updatePassword();
-
     }
 
 }
