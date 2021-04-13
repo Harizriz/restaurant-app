@@ -24,6 +24,24 @@ class AccountScreen extends Component {
       navigate('MainMenuScreen', {screen: "Menu"});
     });
   }
+  Logout = (email) => {
+    fetch(`http://172.20.10.5:5000/api/user/${encodeURI(email)}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+      })
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+        console.log(responseJson)
+    })
+
+    this.props.navigation.navigate("MainScreen")
+  }
   render() {
     // console.log(this.state.dataSource);
     // console.log(this.state.dataSource.firstname);
@@ -72,7 +90,7 @@ class AccountScreen extends Component {
             onPress={
               () => Alert.alert("Logging Out", "Are you sure you want to log out?", [
                 { text: "Cancel", onPress: () => console.log("cancelled!") },
-                { text: "Log out", onPress: () => this.props.navigation.navigate("MainScreen") },
+                { text: "Log out", onPress: () => this.Logout(this.state.dataSource.email) },
             ])
             }
           >
@@ -81,7 +99,7 @@ class AccountScreen extends Component {
           <Icon name="chevron-right" color="black" size={26} onPress={
             () => Alert.alert("Logging Out", "Are you sure you want to log out?", [
               { text: "Cancel", onPress: () => console.log("cancelled!") },
-              { text: "Log out", onPress: () => this.props.navigation.navigate("MainScreen") },
+              { text: "Log out", onPress: () => this.Logout(this.state.dataSource.email) },
           ])
           }/>
         </View>

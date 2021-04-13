@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const logger = require('./middleware/logger');
+const user = require('./routes/api/user');
 const users = require('./routes/api/users');
 const tables = require('./routes/api/tables');
 const menus = require('./routes/api/menus');
@@ -32,6 +33,14 @@ createInstallation();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// USER LOGIN LOG
+
+// create new login log for user
+app.post('/api/user', user.createUserLogin);
+
+// remove user from login
+app.delete('/api/user/:email', user.deleteUserLogin);
+
 // USERS
 
 // get member
@@ -42,6 +51,9 @@ app.post('/api/users', users.createUser);
 
 // get user info
 app.get('/api/users/:email', users.getUserInfo);
+
+// update user info with counter for virtual queue
+app.put('/api/users/login', users.updateUsersInfo);
 
 // update user password
 app.put('/api/users/:id', users.updateUserPassword);
@@ -123,7 +135,15 @@ app.delete('/api/orders/waiter/:tableId', orders.deleteServedOrder);
 
 // VIRTUAL QUEUE
 
+// add customer to virtual queue
 app.post('/api/virtualQueue', virtualQueue.addUserToQueue);
+
+// get virtual queue list
+app.get('/api/virtualQueue/list', virtualQueue.getQueueList);
+
+// remove customer from queue
+app.delete('/api/virtualQueue/:queueNumber', virtualQueue.removeUserFromQueue);
+
 
 const PORT = process.env.PORT || 5000
 

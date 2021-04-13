@@ -67,6 +67,38 @@ class LoginScreen extends Component {
       );
       let json = await response.json();
 
+      let responseLogin = await fetch(
+        'http://172.20.10.5:5000/api/user', 
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: EmailValueHolder,
+            password: PasswordValueHolder
+          })
+        }
+      );
+      // let jsonLogin = await responseLogin.json();
+
+      // fetch(`http://172.20.10.5:5000/api/users/login/${encodeURI(EmailValueHolder)}`, {
+      //   method: 'PUT',
+      //   headers: {
+      //       Accept: 'application/json',
+      //       'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({
+      //       email: EmailValueHolder,
+      //       counter: 
+      //   })
+      // })
+      // .then(response => response.json())
+      // .then(responseJson => {
+      //     console.log(responseJson)
+      // })
+
       let approvalVariableManager = "admin"
       let filteredPasswordManager = String(json.password).includes(approvalVariableManager);
 
