@@ -7,6 +7,7 @@ const tables = require('./routes/api/tables');
 const menus = require('./routes/api/menus');
 const orders = require('./routes/api/orders');
 const virtualQueue = require('./routes/api/virtualQueue');
+const coupons = require('./routes/api/coupons');
 const keys = require('./constants/keys');
 const Parse = require('parse/node');
 
@@ -144,6 +145,16 @@ app.get('/api/virtualQueue/list', virtualQueue.getQueueList);
 // remove customer from queue
 app.delete('/api/virtualQueue/:queueNumber', virtualQueue.removeUserFromQueue);
 
+// COUPONS
+
+// create table
+app.post('/api/coupons', coupons.createCoupon);
+
+// get table
+app.get('/api/coupons', coupons.getCoupons);
+
+// delete a row in table
+app.delete('/api/coupons/:id', coupons.deleteCoupon);
 
 const PORT = process.env.PORT || 5000
 

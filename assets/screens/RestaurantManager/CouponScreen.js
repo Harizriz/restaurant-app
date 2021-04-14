@@ -1,28 +1,8 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Button, Alert } from 'react-native';
-import SearchInput from "../../components/SearchInput";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { TextInput } from 'react-native-paper';
-import DeleteIcon from "react-native-vector-icons/MaterialCommunityIcons";
-
-const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'HELLO30',
-      per: '30%'
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'JOY70',
-      per: '70%'
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'WOAH20',
-      per: '20%'
-    },
-];
 
 class CouponScreen extends Component {
     constructor(props) {
@@ -36,50 +16,97 @@ class CouponScreen extends Component {
         };
     }
     componentDidMount = async () => {
-        
+        fetch(`http://172.20.10.5:5000/api/coupons`)
+        .then(response => response.json())
+        .then(responseJson => {
+            this.setState({
+            dataSource: responseJson
+            });
+        })
+        // auto-refresh the screen
+        this.props.navigation.addListener('focus', () => {
+            fetch(`http://172.20.10.5:5000/api/coupons`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                dataSource: responseJson
+                });
+            })
+        });
     }
     AddNewCoupon = async () => {
-        console.log("Add New Coupon")
+        const { couponNameValueHolder, PercentageValueHolder } = this.state;
+
+        try {
+            let response = await fetch(
+              'http://172.20.10.5:5000/api/coupons', 
+              {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  couponName: couponNameValueHolder,
+                  percentage: PercentageValueHolder
+                })
+              }
+            );
+            let json = await response.json();
+            console.log(json);
+
+            this.setState({
+                isModalVisible: false
+            })
+
+            // reload the screen *hack*
+            setTimeout(() => {
+                fetch(`http://172.20.10.5:5000/api/coupons`)
+                .then(response => response.json())
+                .then(responseJson => {
+                    this.setState({
+                        dataSource: responseJson
+                    });
+                })
+            }, 2000)
+
+        } catch (error) {
+            console.log(error)
+        }
     }
     
-    deleteCoupon = (couponId) => {
+    deleteCoupon = (couponName) => {
         Alert.alert("Delete Coupon", "Are you sure you want to delete the coupon permanently?", [
             { text: "Cancel", onPress: () => console.log("cancelled!") },
-            { text: "Delete", onPress: () => console.log("Delete")
-            // { text: "Delete", onPress: () => {
-            //     fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`, {
-            //         method: 'DELETE',
-            //         headers: {
-            //             Accept: 'application/json',
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify({
-            //             menuId: menuId
-            //         })
-            //     })
-            //     .then(response => response.json())
-            //     .then(responseJson => {
-            //         console.log(responseJson)
-            //     });
-
-            //     fetch(`http://172.20.10.5:5000/api/menus/dishes/${encodeURI(menuId)}`, {
-            //         method: 'DELETE',
-            //         headers: {
-            //             Accept: 'application/json',
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify({
-            //             menuId: menuId
-            //         })
-            //     })
-            //     .then(response => response.json())
-            //     .then(responseJson => {
-            //         console.log(responseJson)
-            //     });
-
-            //     }
+            { text: "Delete", onPress: () => {
+                fetch(`http://172.20.10.5:5000/api/coupons/${encodeURI(couponName)}`, {
+                    method: 'DELETE',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        couponName: couponName
+                    })
+                })
+                .then(response => response.json())
+                .then(responseJson => {
+                    console.log(responseJson)
+                });
+            }
             },
         ])
+
+        // reload the screen *hack*
+        setTimeout(() => {
+            fetch(`http://172.20.10.5:5000/api/coupons`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        }, 2000)
     }
     render() {
         const toggleModal = () => {
@@ -95,18 +122,18 @@ class CouponScreen extends Component {
             }
         }
 
-        const Item = ({ title, per }) => (
+        const Item = ({ couponName, percentage }) => (
             <View style={styles.item}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.per}>{per}</Text>
+                <Text style={styles.title}>{couponName}</Text>
+                <Text style={styles.per}>{percentage}%</Text>
             </View>
         );
           
         const renderItem = ({ item }) => (
             <View>
                 <TouchableOpacity
-                    onLongPress={() => this.deleteCoupon()}>
-                    <Item title={item.title} per={item.per} /> 
+                    onLongPress={() => this.deleteCoupon(item.couponName)}>
+                    <Item couponName={item.couponName} percentage={item.percentage} /> 
                 </TouchableOpacity>
             </View>
         );
@@ -148,7 +175,7 @@ class CouponScreen extends Component {
                     <Text style={styles.headingText}>Coupons</Text>
                 </View>
                 <FlatList
-                    data={DATA}
+                    data={this.state.dataSource}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
                 />
