@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, FlatList } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Text, FlatList, Alert } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class VirtualQueueScreen extends Component {
     constructor(props) {
@@ -28,10 +29,16 @@ class VirtualQueueScreen extends Component {
         );
           
         const renderItem = ({ item }) => (
-            <Item 
-                virtualQueueNumber={item.virtualQueueNumber} 
-                pax={item.pax} 
-            />
+            <TouchableOpacity onPress={() => 
+                Alert.alert("Notify Customer?", "", [
+                    { text: "Cancel", onPress: () => console.log("cancelled!") },
+                    { text: "Notify", onPress: () => console.log("checkout!") },
+                ])}>
+                <Item 
+                    virtualQueueNumber={item.virtualQueueNumber} 
+                    pax={item.pax} 
+                />
+            </TouchableOpacity>
         );
 
         return (
