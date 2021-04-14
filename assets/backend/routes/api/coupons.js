@@ -95,4 +95,20 @@ module.exports = {
         removeCoupon();
 
     },
+
+    getCoupon: (req, res) => {
+
+        // read database to get user's information
+        async function retrieveCoupon() {
+           const Coupon = Parse.Object.extend("Coupon");
+           const query = new Parse.Query(Coupon);
+           query.equalTo("couponName", req.params.couponName)
+
+           const coupon = await query.find();  
+           res.send(coupon);
+       }
+
+       retrieveCoupon();
+
+   },
 }

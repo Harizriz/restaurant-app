@@ -156,6 +156,9 @@ app.get('/api/coupons', coupons.getCoupons);
 // delete a row in table
 app.delete('/api/coupons/:id', coupons.deleteCoupon);
 
+// get a specific coupon and validate
+app.get('/api/coupons/customer/:couponName', coupons.getCoupon);
+
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => console.log('Server started on port ' + PORT));

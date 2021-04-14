@@ -5,6 +5,7 @@ import DeleteIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import NumInput from "react-native-numeric-input";
 import Modal from 'react-native-modal';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TextInput } from 'react-native-paper';
 
 class CartPageScreen extends Component {
     state = { 
@@ -15,10 +16,12 @@ class CartPageScreen extends Component {
         itemId: '',
         itemName: '',
         totalPrice: '',
-        tableId: ''
+        tableId: '',
+        couponValueHolder: ''
     }
     componentDidMount = async () => {
-        const tableOrderId = this.props.route.params.tableId;
+        // const tableOrderId = this.props.route.params.tableId;
+        const tableOrderId = 3
         console.log("Cart " + tableOrderId)
         fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
         .then(response => response.json())
@@ -137,12 +140,20 @@ class CartPageScreen extends Component {
         console.log("Cart render " + tableOrderId)
         // calculate total price for cart
         let totalPrice = 0;
+        let serviceChargePrice = 0;
+        let serviceTaxPrice = 0;
+        let initialPrice = 0;
+        let finalPrice = 0;
         // put an if statement here if the tableId is the same from the 
         // scanned QR code then can loop to find the orders with the same and current tableId
         for(let i = 0; i < this.state.dataSource.length; i++) {
             totalPrice += this.state.dataSource[i].dishQuantity * this.state.dataSource[i].dishPrice
         }
         totalPrice = totalPrice.toFixed(2)
+        initialPrice = totalPrice
+        serviceChargePrice = (totalPrice * (10/100)).toFixed(2)
+        serviceTaxPrice = (totalPrice * (6/100)).toFixed(2)
+        finalPrice = (parseFloat(totalPrice) + parseFloat(serviceChargePrice) + parseFloat(serviceTaxPrice)).toFixed(2)
 
         // let tableOrderId = this.props.route.params.tableId;
         // console.log(tableOrderId)
@@ -253,12 +264,40 @@ class CartPageScreen extends Component {
                 extraData={this.state}
             />
             <View style={styles.totalContainer}>
-                <Text style={styles.text}>Total</Text>
-                <Text style={styles.text}>RM {totalPrice}</Text>
+                <View style={styles.rightContainer}>
+                    <Text style={styles.text}>Sub Total</Text>
+                </View>
+                <View style={styles.leftContainer}>
+                    <Text style={styles.numberPrice}>RM {initialPrice}</Text>                    
+                </View>
+            </View>
+            <View style={styles.totalContainer}>
+                <View style={styles.rightContainer}>
+                    <Text style={styles.text}>Service Charge 10%</Text>
+                </View>
+                <View style={styles.leftContainer}>
+                    <Text style={styles.numberPrice}>RM {serviceChargePrice}</Text>                    
+                </View>
+            </View>
+            <View style={styles.totalContainer}>
+                <View style={styles.rightContainer}>
+                    <Text style={styles.text}>Service Tax 6%</Text>
+                </View>
+                <View style={styles.leftContainer}>
+                    <Text style={styles.numberPrice}>RM {serviceTaxPrice}</Text>                    
+                </View>
+            </View>
+            <View style={styles.totalContainer}>
+                <View style={styles.rightContainer}>
+                    <Text style={styles.text}>Total</Text>
+                </View>
+                <View style={styles.leftContainer}>
+                    <Text style={styles.numberPrice}>RM {finalPrice}</Text>                    
+                </View>
             </View>
             <View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentScreen", 
-                    {cartTotalPrice: totalPrice,
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentDetailScreen", 
+                    {cartTotalPrice: finalPrice,
                     tableId: tableOrderId}
                     )}>
                     <View style={styles.button}>
@@ -314,13 +353,13 @@ const styles = StyleSheet.create({
     },
     foodContainer: {
         height: 50,
-        width: "40%",
+        width: "42%",
         // backgroundColor: "lightblue",
         justifyContent: "center"
     },
     priceContainer: {
         height: 50,
-        width: "20%",
+        width: "18%",
         // backgroundColor: "pink",
         justifyContent: "center"
     },
@@ -332,11 +371,32 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     totalContainer: {
-        height: 70,
+        height: 30,
+        width: "65%",
+        alignSelf: "center",
         // backgroundColor: "lightblue",
         flexDirection: "row",
-        justifyContent: "space-around",
-        alignItems: "center"
+        // justifyContent: "space-around",
+        alignItems: "center",
+        bottom: 20
+    },
+    couponContainer: {
+        height: 70,
+        width: "65%",
+        alignSelf: "center",
+        // backgroundColor: "lightblue",
+        flexDirection: "row",
+        // justifyContent: "space-around",
+        alignItems: "center",
+        bottom: 20
+    },
+    rightContainer: {
+        width: "50%",
+        // backgroundColor: "red"
+    },
+    leftContainer: {
+        width: "50%",
+        // backgroundColor: "yellow"
     },
     dialogContentContainer: {
         justifyContent: "center",
@@ -344,6 +404,10 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 17,
+    },
+    numberPrice: {
+        fontSize: 17,
+        textAlign: "right"
     },
     number: {
         fontSize: 17,
