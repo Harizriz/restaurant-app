@@ -13,37 +13,14 @@ class OrderScreen extends Component {
         deliveredOrders: false
     };
   }
-  /* This part is there is no order by user */
-
-  // componentDidMount = async () => {
-  //   this.animation.play(0, 200);
-  //   this.animation.pause;
-  // }
-  // render() { 
-  //   return ( 
-  //     <SafeAreaView style={styles.container}>
-  //       <View style={styles.mainContainer}>
-  //         <LottieView
-  //             ref={animation => {
-  //             this.animation = animation;
-  //             }}
-  //             source={require('./guy-waiting-animation.json')}
-  //             autoPlay
-  //             style={{width: 250, alignSelf: "center"}}
-  //         />
-  //         <Text style={styles.mainText}>You have not placed any orders</Text>
-  //       </View>
-  //     </SafeAreaView>
-  //    );
-  // }
 
   /* This part is when a user has ordered their food */
   componentDidMount = async () => {
     const tableOrderId = this.props.route.params.tableId
-    // const tableOrderId = 3
+    // const tableOrderId = 6
 
     setTimeout(() => {
-      this.animation.play(0, 40);
+      this.animation.play(0, 200);
       this.animation.pause;
     }, 1000);
 
@@ -60,9 +37,7 @@ class OrderScreen extends Component {
 
     let tableTree = {};
     for(let i=0; i<this.state.dataSource.length; i++) {
-        // console.log(this.state.dataSource[i].tableId)
         this.state.tableArray.push(this.state.dataSource[i].tableId)
-        //  console.log(tableTree[this.state.dataSource[i].tableId])
         if (tableTree[this.state.dataSource[i].tableId]){
             tableTree[this.state.dataSource[i].tableId].push(this.state.dataSource[i])
         }
@@ -83,6 +58,24 @@ class OrderScreen extends Component {
       if (tableAND && table[i].preparedDish) {
         check = true
       }
+    }
+
+    const renderEmptyAnimation = () => {
+      return ( 
+        <View>
+          <View style={styles.mainContainer}>
+            <LottieView
+                ref={animation => {
+                this.animation = animation;
+                }}
+                source={require('./guy-waiting-animation.json')}
+                autoPlay
+                style={{width: 250, alignSelf: "center"}}
+            />
+            <Text style={styles.mainText}>You have not placed any orders</Text>
+          </View>
+        </View>
+      );
     }
     
     const renderAnimation = ( check ) => {
@@ -155,21 +148,8 @@ class OrderScreen extends Component {
       for (let i = 0; i < tableLength; i++) {
         const tableId = Object.keys(tables)[i]
         const table = tables[tableId] 
-        // let tableAND = true
-        // for (let i=0; i<table.length; i++) {
-        //     tableAND = tableAND && table[i].preparedDish
-        // } 
-        // if (tableAND && table[i].preparedDish) {
-        //   check = true
-        //   console.log("all checked")
-        // }
-        // else {
-        //   check = false
-        //   console.log("not checked")
-        // }
         tableJSX.push(
           <View>
-            {/* { this.state.showTable[tableId] ?  */}
             <View>
               <FlatList
                 data={table}
@@ -177,14 +157,11 @@ class OrderScreen extends Component {
                 keyExtractor={item => item.objectId}
               />
             </View>
-            {/* : null } */}
           </View>
         )
       }
       return ( 
-          // <ScrollView>
-              [tableJSX]
-          // </ScrollView>
+            [tableJSX]
           )
     }
 
@@ -192,40 +169,19 @@ class OrderScreen extends Component {
 
     return ( 
       <SafeAreaView style={styles.container}>
+      { this.state.tableArray[0] == null ? renderEmptyAnimation() :
+      <View>
         <View style={styles.animationContainer}>
-          {/* { check == false ? 
-            <View>
-              <LottieView
-                ref={animation => {
-                this.animation = animation;
-                }}
-                source={require('./cooking-animation.json')}
-                autoPlay
-                style={{width: 250, alignSelf: "center"}}
-              />
-              <Text style={styles.mainText}>Preparing your order</Text>
-            </View> :
-            <View>
-              <LottieView
-                ref={animation => {
-                this.animation = animation;
-                }}
-                source={require('./success-animation.json')}
-                loop={false}
-                style={{width: 150, alignSelf: "center", top: 10}}
-              />
-              <Text style={styles.mainText}>All orders have been delivered.</Text>
-              <Text style={styles.mainText}>Enjoy your meal!</Text>
-            </View>
-          } */}
-          { renderAnimation (check) }
-        </View>
-        <View style={styles.contentContainer}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>Order Summary</Text>
+            { renderAnimation (check) }
           </View>
-          { renderTables (tableTree) }
-        </View>
+          <View style={styles.contentContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleText}>Order Summary</Text>
+            </View>
+            { renderTables (tableTree) }
+          </View>
+      </View>
+      }
       </SafeAreaView>
     );
   }
@@ -236,7 +192,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "stretch",
-    // backgroundColor: "white"
+    // backgroundColor: "yellow"
   },
   mainContainer: {
     height: "100%",
@@ -247,6 +203,7 @@ const styles = StyleSheet.create({
     height: 350,
     justifyContent: "center",
     bottom: 40,
+    // backgroundColor: "yellow"
   },
   contentContainer: {
     height: 500,

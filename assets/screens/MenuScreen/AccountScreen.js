@@ -75,8 +75,8 @@ class AccountScreen extends Component {
           >
             Change Password
           </Button>
-          {/* <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("ChangePasswordScreen", {userId: this.state.dataSource.objectId, password: this.state.dataSource.password})}/> */}
-          <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("QRDummyScreen")}/>
+          <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("ChangePasswordScreen", {userId: this.state.dataSource.objectId, password: this.state.dataSource.password})}/>
+          {/* <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("QRDummyScreen")}/> */}
         </View>
         <View style={styles.buttonContainer}>
           <Button
