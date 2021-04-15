@@ -14,7 +14,7 @@ class AccountScreen extends Component {
   }
   componentDidMount = async () => {
     const { navigate }  = this.props.navigation;
-    navigate('MainMenuScreen', { params: {emailData: params }, screen: "Virtual Queue"});
+    // navigate('MainMenuScreen', { params: { emailData: params }, screen: "Virtual Queue"});
 
     let params = this.props.route.params.emailData;
     fetch(`http://172.20.10.5:5000/api/users/${encodeURI(params)}`)
@@ -24,9 +24,9 @@ class AccountScreen extends Component {
         dataSource: responseJson[0]
       });
     })
-    // .then(response => {
-    //   navigate('MainMenuScreen', { params: {emailData: params }, screen: "Virtual Queue"});
-    // });
+    .then(response => {
+      navigate('MainMenuScreen', { params: {emailData: params }, screen: "Virtual Queue"});
+    });
   }
   Logout = (email) => {
     fetch(`http://172.20.10.5:5000/api/user/${encodeURI(email)}`, {
