@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, Alert } from "react-native";
-import Button from "react-native-button";
+import { SafeAreaView, StyleSheet, View, Text, Alert, Button } from "react-native";
+import ReactButton from "react-native-button";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Modal from 'react-native-modal';
 
 class AccountScreen extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      dataSource: ''
+      dataSource: '',
+      isModalVisible: false,
     };
   }
   componentDidMount = async () => {
     const { navigate }  = this.props.navigation;
+    navigate('MainMenuScreen', { params: {emailData: params }, screen: "Virtual Queue"});
+
     let params = this.props.route.params.emailData;
     fetch(`http://172.20.10.5:5000/api/users/${encodeURI(params)}`)
     .then(response => response.json())
@@ -20,9 +24,9 @@ class AccountScreen extends Component {
         dataSource: responseJson[0]
       });
     })
-    .then(response => {
-      navigate('MainMenuScreen', { params: {emailData: params }, screen: "Virtual Queue"});
-    });
+    // .then(response => {
+    //   navigate('MainMenuScreen', { params: {emailData: params }, screen: "Virtual Queue"});
+    // });
   }
   Logout = (email) => {
     fetch(`http://172.20.10.5:5000/api/user/${encodeURI(email)}`, {
@@ -43,10 +47,29 @@ class AccountScreen extends Component {
     this.props.navigation.navigate("MainScreen")
   }
   render() {
-    // console.log(this.state.dataSource);
-    // console.log(this.state.dataSource.firstname);
+    const toggleModal = () => {
+      if(this.state.isModalVisible == false) {
+        this.setState({
+            isModalVisible: true
+        })
+      }
+      else {
+        this.setState({
+            isModalVisible: false
+        })
+      }
+    }
     return (
       <SafeAreaView style={styles.container}>
+         <Modal isVisible={this.state.isModalVisible}>
+            <View style={styles.modalContainer}>
+                <Text style={styles.modalHeadingText}>Total Points Available</Text>
+                  <Text style={styles.modalContentText}>98</Text>
+                <View style={styles.modalButtonContainer}>
+                    <Button title="Return" onPress={toggleModal} />
+                </View>
+            </View>
+        </Modal>
         <View style={styles.headingContainer}>
           <Text style={styles.headingText}>My Account</Text>
         </View>
@@ -63,45 +86,66 @@ class AccountScreen extends Component {
           <Text style={styles.secondaryText}>{this.state.dataSource.email}</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button
-            style={{
-              paddingRight: 142,
-              paddingBottom: 10,
-              width: "100%",
-              color: "black",
-              // borderBottomWidth: 1,
-            }}
-            onPress={() => this.props.navigation.navigate("ChangePasswordScreen", {userId: this.state.dataSource.objectId, password: this.state.dataSource.password})}
-          >
-            Change Password
-          </Button>
-          <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("ChangePasswordScreen", {userId: this.state.dataSource.objectId, password: this.state.dataSource.password})}/>
-          {/* <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("QRDummyScreen")}/> */}
+          <View style={styles.buttonLeftContainer}>
+            <ReactButton
+              style={{
+                textAlign: "left",
+                width: "100%",
+                color: "black",
+              }}
+              onPress={() => this.props.navigation.navigate("ChangePasswordScreen", {userId: this.state.dataSource.objectId, password: this.state.dataSource.password})}
+            >
+              Change Password
+            </ReactButton>
+          </View>
+          <View style={styles.buttonRightContainer}>
+            <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("ChangePasswordScreen", {userId: this.state.dataSource.objectId, password: this.state.dataSource.password})}/>
+            {/* <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("QRDummyScreen")}/> */}
+          </View>
         </View>
         <View style={styles.buttonContainer}>
-          <Button
-            style={{
-              paddingRight: 210,
-              paddingBottom: 10,
-              width: "100%",
-              color: "black",
-              // borderBottomWidth: 1,
-            }}
-            onPress={
+          <View style={styles.buttonLeftContainer}>
+            <ReactButton
+              style={{
+                textAlign: "left",
+                width: "100%",
+                color: "black",
+              }}
+              onPress={toggleModal}
+            >
+              Manage Subscription
+            </ReactButton>
+          </View>
+          <View style={styles.buttonRightContainer}>
+            <Icon name="chevron-right" color="black" size={26} onPress={toggleModal}/>
+          </View>
+        </View>
+        <View style={styles.buttonContainer}>
+          <View style={styles.buttonLeftContainer}>
+            <ReactButton
+              style={{
+                textAlign: "left",
+                width: "100%",
+                color: "black",
+              }}
+              onPress={
+                () => Alert.alert("Logging Out", "Are you sure you want to log out?", [
+                  { text: "Cancel", onPress: () => console.log("cancelled!") },
+                  { text: "Log out", onPress: () => this.Logout(this.state.dataSource.email) },
+              ])
+              }
+            >
+              Log Out
+            </ReactButton>
+          </View>
+          <View style={styles.buttonRightContainer}>
+            <Icon name="chevron-right" color="black" size={26} onPress={
               () => Alert.alert("Logging Out", "Are you sure you want to log out?", [
                 { text: "Cancel", onPress: () => console.log("cancelled!") },
                 { text: "Log out", onPress: () => this.Logout(this.state.dataSource.email) },
             ])
-            }
-          >
-            Log Out
-          </Button>
-          <Icon name="chevron-right" color="black" size={26} onPress={
-            () => Alert.alert("Logging Out", "Are you sure you want to log out?", [
-              { text: "Cancel", onPress: () => console.log("cancelled!") },
-              { text: "Log out", onPress: () => this.Logout(this.state.dataSource.email) },
-          ])
-          }/>
+            }/>
+          </View>
         </View>
       </SafeAreaView>
     );
@@ -133,8 +177,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "flex-start",
     marginHorizontal: 55,
-    top: 20,
+    top: 10,
     // backgroundColor: "yellow",
+  },
+  buttonLeftContainer: {
+    width: "90%",
+    // backgroundColor: "yellow",
+    justifyContent: "center"
+  },
+  buttonRightContainer: {
+    width: "10%",
+    // backgroundColor: "red",
+    justifyContent: "center"
   },
   primaryText: {
     fontSize: 20,
@@ -146,6 +200,33 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "black",
     left: 50,
+    top: 5
+  },
+  modalContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 175,
+    backgroundColor: "white",
+    borderRadius: 24
+  },
+  modalHeadingText: {
+    fontSize: 25,
+    color: "purple",
+    textAlign: "center",
+    // left: 50,
+    bottom : 10
+  },
+  modalButtonContainer: {
+    top: 20,
+    width: "75%",
+    flexDirection: "row",
+    // backgroundColor: "yellow",
+    justifyContent: "center"
+  },
+  modalContentText: {
+    fontSize: 20,
+    color: "black",
+    textAlign: "center",
     top: 5
   }
 });
