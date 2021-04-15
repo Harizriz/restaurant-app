@@ -16,11 +16,11 @@ class OrderScreen extends Component {
 
   /* This part is when a user has ordered their food */
   componentDidMount = async () => {
-    const tableOrderId = this.props.route.params.tableId
-    // const tableOrderId = 6
+    // const tableOrderId = this.props.route.params.tableId
+    const tableOrderId = 3
 
     setTimeout(() => {
-      this.animation.play(0, 200);
+      this.animation.play(0, 40);
       this.animation.pause;
     }, 1000);
 
