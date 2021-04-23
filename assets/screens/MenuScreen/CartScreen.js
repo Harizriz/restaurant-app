@@ -21,8 +21,10 @@ class CartPageScreen extends Component {
     }
     componentDidMount = async () => {
         // const tableOrderId = this.props.route.params.tableId;
+        const emailData = this.props.route.params.emailData;
         const tableOrderId = 3
         console.log("Cart " + tableOrderId)
+        console.log("Cart " + emailData)
         fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
         .then(response => response.json())
         .then(responseJson => {
@@ -298,7 +300,9 @@ class CartPageScreen extends Component {
             <View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentDetailScreen", 
                     {cartTotalPrice: finalPrice,
-                    tableId: tableOrderId}
+                    tableId: tableOrderId,
+                    emailData: this.props.route.params.emailData
+                    }
                     )}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Checkout</Text>

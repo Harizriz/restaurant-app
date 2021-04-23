@@ -33,7 +33,7 @@ class VirtualQueueScreen extends Component {
         }
     }
     componentDidMount = () => {
-        this.props.navigation.navigate("MainMenuScreen", { screen: "Menu" })
+        this.props.navigation.navigate("MainMenuScreen", { params: { emailData: this.props.route.params.emailData }, screen: "Menu" })
 
         setTimeout(() => {
             fetch(`http://172.20.10.5:5000/api/virtualQueue/list`)

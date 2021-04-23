@@ -18,8 +18,10 @@ class DishesScreen extends Component {
     componentDidMount = async () => {
         const menuId = this.props.route.params.menuId;
         const tableOrderId = this.props.route.params.tableId;
+        const emailData = this.props.route.params.emailData;
         console.log(tableOrderId)
         console.log(menuId)
+        console.log(emailData)
 
         this.setState({
             tableId: tableOrderId
@@ -87,7 +89,7 @@ class DishesScreen extends Component {
                     style={{top: 30}}
                 />
                 <View>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen", {tableId: this.state.tableId })}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen", { tableId: this.state.tableId, emailData: this.props.route.params.emailData })}>
                     {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen")}> */}
                         <View style={styles.button}>
                             <Text style={styles.text}>View Cart</Text>

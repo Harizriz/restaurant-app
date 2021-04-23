@@ -8,7 +8,7 @@ class MainMenuScreen extends Component {
         super(props);
         this.state = { 
             dataSource: '',
-            tableId: ''
+            tableId: '',
         };
     }
     componentDidMount = async () => {
@@ -47,10 +47,12 @@ class MainMenuScreen extends Component {
                 });
             }) 
             const tableId = this.props.route.params.tableId;
-            console.log("MainMenuScreen " + tableId)
+            const emailData = this.props.route.params.emailData;
+            console.log("MainMenuScreen TableId " + tableId)
+            console.log("MainMenuScreen emailData " + emailData)
 
             this.setState({
-                tableId: tableId
+                tableId: tableId,
             })
         });
 
@@ -63,7 +65,7 @@ class MainMenuScreen extends Component {
         );
           
         const renderItem = ({ item }) => (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("DishesScreen", {tableId: this.state.tableId, menuId: item.objectId})}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("DishesScreen", {tableId: this.state.tableId, menuId: item.objectId, emailData: this.props.route.params.emailData})}>
                 <Item menuName={item.menuName} />
             </TouchableOpacity>
         );
@@ -80,7 +82,7 @@ class MainMenuScreen extends Component {
                     keyExtractor={(item) => item.objectId}
                 />
                 <View>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen", {screenName: "MainMenuScreen", tableId: this.state.tableId})}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CartScreen", {screenName: "MainMenuScreen", tableId: this.state.tableId, emailData: this.props.route.params.emailData})}>
                         <View style={styles.button}>
                             <Text style={styles.text}>View Cart</Text>
                         </View>

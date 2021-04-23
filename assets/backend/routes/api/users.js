@@ -7,7 +7,8 @@ module.exports = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            subpoint: 0
         };
                 
         if(!newUser.firstName || !newUser.lastName || !newUser.email || !newUser.password) {
@@ -31,6 +32,7 @@ module.exports = {
                 person.set("lastname", newUser.lastName);
                 person.set("email", newUser.email);
                 person.set("password", newUser.password);
+                person.set("subpoint", newUser.subpoint);
     
                 try {
                     let result = person.save()
@@ -128,6 +130,34 @@ module.exports = {
         }
 
         updatePassword();
+
+    },
+
+    updateUserPoints: (req, res) => {
+        const data = {
+            email: req.body.email,
+            points: req.body.points,
+        }
+
+        async function updatePoint() {
+            const Person = Parse.Object.extend("Person");
+            const query = new Parse.Query(Person)
+            query.equalTo("email", data.email)
+
+            const password = await query.find();  
+            console.log(password[0])
+
+            password[0].save().then(() => {
+                // Now let's update it with some new data. In this case, only cheatMode and score
+                // will get sent to the cloud. playerName hasn't changed.
+                password[0].set("subpoint", data.points);
+                console.log(password[0].save());
+                res.send({ msg: "subpoint updated!" })
+                return password[0].save();
+            });
+        }
+
+        updatePoint();
 
     }
 

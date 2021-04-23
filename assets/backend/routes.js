@@ -59,6 +59,10 @@ app.get('/api/users/:email', users.getUserInfo);
 // update user password
 app.put('/api/users/:id', users.updateUserPassword);
 
+// update user's points
+app.put('/api/users/points/:email', users.updateUserPoints);
+
+
 // TABLES
 
 // create table

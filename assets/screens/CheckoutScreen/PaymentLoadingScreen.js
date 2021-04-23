@@ -6,15 +6,42 @@ class PaymentLoadingScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            
+            counter: 0
         };
     }
     componentDidMount() {
         const tableOrderId = this.props.route.params.tableId
-        
+        const totalPrice = this.props.route.params.cartTotalPrice
+        const emailData = this.props.route.params.emailData
+
+        const points = parseInt(totalPrice)
+        console.log(points)
+
         // Or set a specific startFrame and endFrame with:
-        this.animation.play(0, 200);
-        this.animation.pause;
+        this.animation.play;
+        this.animation.reset;
+
+        setTimeout(() => {
+            this.setState({
+                counter: 1
+            })
+        }, 1000)
+
+        fetch(`http://172.20.10.5:5000/api/users/points/${encodeURI(emailData)}`, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: emailData,
+                points: points
+            })
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson)
+        })
 
         setTimeout(() => {
             this.props.navigation.navigate("MainMenuScreen", { params: { tableId: tableOrderId }, screen: "Order Status" } )
@@ -23,26 +50,33 @@ class PaymentLoadingScreen extends Component {
     render() { 
         return ( 
             <SafeAreaView style={styles.container}>
-                 <View style={styles.mainContainer}>
-                 {/* <LottieView
-                    ref={animation => {
-                    this.animation = animation;
-                    }}
-                    source={require('./walking-burger-animation.json')}
-                    autoPlay
-                    style={{width: 200, alignSelf: "center"}}
-                /> */}
-                <Text style={styles.headingText}>Placing Order</Text>
-                {/* output below if order has been placed */}
-                <LottieView
-                    ref={animation => {
-                    this.animation = animation;
-                    }}
-                    source={require('./tick-animation.json')}
-                    loop={false}
-                    style={{width: 200, alignSelf: "center"}}
-                />
-                <Text style={styles.headingText}>Order Placed</Text>
+                <View style={styles.mainContainer}>
+                { this.state.counter == 0 ? 
+                    <View>
+                        <LottieView
+                            ref={animation => {
+                            this.animation = animation;
+                            }}
+                            source={require('./walking-burger-animation.json')}
+                            autoPlay
+                            style={{width: 200, alignSelf: "center"}}
+                        />
+                        <Text style={styles.headingText}>Placing Order</Text>
+                    </View>
+                    :
+                    <View>
+                        <LottieView
+                            ref={animation => {
+                            this.animation = animation;
+                            }}
+                            source={require('./tick-animation.json')}
+                            autoPlay
+                            loop={false}
+                            style={{width: 200, alignSelf: "center"}}
+                        />
+                        <Text style={styles.headingText}>Order Placed</Text>
+                    </View>
+                }
                 </View>
             </SafeAreaView>
          );

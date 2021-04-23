@@ -41,6 +41,7 @@ class PaymentDetailScreen extends Component {
     
     const totalPrice = this.props.route.params.cartTotalPrice
     const tableOrderId = this.props.route.params.tableId
+    const emailData = this.props.route.params.emailData
     console.log(tableOrderId)
     console.log(totalPrice)
 
@@ -171,7 +172,8 @@ class PaymentDetailScreen extends Component {
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentScreen", 
         { tableId: tableOrderId,
-          cartTotalPrice: finalPrice
+          cartTotalPrice: finalPrice,
+          emailData: emailData
         }
           )}>
             <View style={styles.button}>

@@ -64,7 +64,7 @@ class AccountScreen extends Component {
          <Modal isVisible={this.state.isModalVisible}>
             <View style={styles.modalContainer}>
                 <Text style={styles.modalHeadingText}>Total Points Available</Text>
-                  <Text style={styles.modalContentText}>98</Text>
+                  <Text style={styles.modalContentText}>{this.state.dataSource.subpoint}</Text>
                 <View style={styles.modalButtonContainer}>
                     <Button title="Return" onPress={toggleModal} />
                 </View>
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     bottom : 10
   },
   modalButtonContainer: {
-    top: 20,
+    top: 30,
     width: "75%",
     flexDirection: "row",
     // backgroundColor: "yellow",
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "black",
     textAlign: "center",
-    top: 5
+    top: 10
   }
 });
 
