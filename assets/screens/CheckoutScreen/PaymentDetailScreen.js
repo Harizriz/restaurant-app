@@ -10,8 +10,10 @@ class PaymentDetailScreen extends Component {
     this.state = {
       isModalVisible: false,
       couponValueHolder: '',
+      PointsValueHolder: '',
       dataSource: '',
-      isError: false
+      isError: false,
+      isErrorPoints: false,
     }
   }
   validateCoupon = (couponName) => {
@@ -138,6 +140,29 @@ class PaymentDetailScreen extends Component {
                 Any Coupon?
               </Text>
             }
+          </View>
+        </View>
+        <View style={styles.infoContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.textTitle}>
+              Redeem Points
+            </Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <View style={styles.textInput}>
+              <TextInput
+                label="  Points  "
+                mode="outlined"
+                error={this.state.isErrorPoints}
+                returnKeyType="done"
+                keyboardType="numeric"
+                style={{
+                  height: 40,
+                  // width: 100
+                }}
+                onChangeText={PointsValueHolder => this.setState({PointsValueHolder})}
+              />  
+            </View>
           </View>
         </View>
         <View style={styles.infoContainer}>
@@ -277,6 +302,12 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       // backgroundColor: "yellow",
       justifyContent: "space-between"
+    },
+    textInput: {
+      width: "60%",
+      left: 50,
+      justifyContent: "flex-end",
+      // backgroundColor: "yellow"
     },
   });
  

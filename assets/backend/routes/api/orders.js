@@ -22,6 +22,7 @@ module.exports = {
             const Order = Parse.Object.extend("Order");
             const order = new Parse.Query(Order);
             order.equalTo("dishName", newOrder.dishName)
+            order.equalTo("tableId", newOrder.tableId)
 
             const chosenOrder = await order.find();  
             
