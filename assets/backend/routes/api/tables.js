@@ -4,7 +4,8 @@ module.exports = {
     createTable : (req, res) => {
         const newTable = {
             qrCodeValue: req.body.qrCodeValue,
-            paxValue: req.body.paxValue
+            paxValue: req.body.paxValue,
+            occupant: false
         }
 
         if(!newTable.qrCodeValue || !newTable.paxValue) {
@@ -26,7 +27,8 @@ module.exports = {
     
                 table.set("qrCodeValue", newTable.qrCodeValue);
                 table.set("paxValue", newTable.paxValue);
-    
+                table.set("occupant", newTable.occupant);
+
                 try {
                     let result = table.save()
                     console.log("Trying to save string");
@@ -116,6 +118,62 @@ module.exports = {
                 // Now let's update it with some new data. In this case, only cheatMode and score
                 // will get sent to the cloud. playerName hasn't changed.
                 chosenTable[0].set("paxValue", newData.newPaxValue);
+                console.log(chosenTable[0].save());
+                res.send({ msg: "Table updated!" })
+                return chosenTable[0].save();
+            });
+        }
+
+        updateTable();
+    
+    },
+
+    updateTableStatus: (req, res) => {
+        const newData = {
+            tableId: req.body.tableId,
+            occupyStatus: req.body.occupyStatus
+        }
+
+        async function updateTable() {
+            const Table = Parse.Object.extend("Table");
+            const query = new Parse.Query(Table)
+            query.equalTo("qrCodeValue", newData.tableId)
+
+            const chosenTable = await query.find();  
+            console.log(chosenTable[0])
+
+            chosenTable[0].save().then(() => {
+                // Now let's update it with some new data. In this case, only cheatMode and score
+                // will get sent to the cloud. playerName hasn't changed.
+                chosenTable[0].set("occupant", newData.occupyStatus);
+                console.log(chosenTable[0].save());
+                res.send({ msg: "Table updated!" })
+                return chosenTable[0].save();
+            });
+        }
+
+        updateTable();
+    
+    },
+
+    checkoutTable: (req, res) => {
+        const newData = {
+            tableId: req.body.tableId,
+            occupyStatus: req.body.occupyStatus
+        }
+
+        async function updateTable() {
+            const Table = Parse.Object.extend("Table");
+            const query = new Parse.Query(Table)
+            query.equalTo("qrCodeValue", newData.tableId)
+
+            const chosenTable = await query.find();  
+            console.log(chosenTable[0])
+
+            chosenTable[0].save().then(() => {
+                // Now let's update it with some new data. In this case, only cheatMode and score
+                // will get sent to the cloud. playerName hasn't changed.
+                chosenTable[0].set("occupant", newData.occupyStatus);
                 console.log(chosenTable[0].save());
                 res.send({ msg: "Table updated!" })
                 return chosenTable[0].save();

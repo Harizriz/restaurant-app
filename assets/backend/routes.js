@@ -77,6 +77,12 @@ app.delete('/api/tables/:id', tables.deleteTable);
 // update a row in table
 app.put('/api/tables/:id', tables.updateTable);
 
+// update table's occupant status
+app.put('/api/tables/status/:id', tables.updateTableStatus);
+
+// update to checkout customer
+app.put('/api/tables/checkout/:id', tables.checkoutTable);
+
 // MENUS
 
 // create a menu

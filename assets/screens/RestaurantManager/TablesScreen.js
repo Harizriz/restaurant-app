@@ -31,17 +31,20 @@ class TablesScreen extends Component {
     }
     
     render() {
-        const Item = ({ qrCodeValue, paxValue }) => (
+        const Item = ({ qrCodeValue, paxValue, occupant }) => (
             <View style={styles.item}>
               <Text style={styles.title}>{qrCodeValue}</Text>
-              <Icon name="chair-school" color="gray" size={26}/>
+              <Icon name="chair-school" color={occupant ? "limegreen" : "gray"} size={26}/>
               <Text style={styles.content}>pax: {paxValue}</Text>
             </View>
         );
         
         const renderItem = ({ item }) => (
             <TouchableOpacity onPress={() => this.props.navigation.navigate("EditTableScreen", {tableId: item.qrCodeValue, pax: item.paxValue})}>
-                <Item qrCodeValue={item.qrCodeValue} paxValue={item.paxValue}/>
+                <Item 
+                    qrCodeValue={item.qrCodeValue} 
+                    paxValue={item.paxValue}
+                    occupant={item.occupant} />
             </TouchableOpacity>
         );
         return (

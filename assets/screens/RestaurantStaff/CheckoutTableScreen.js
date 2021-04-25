@@ -30,10 +30,10 @@ class CheckoutTableScreen extends Component {
         });
     }
     render() {
-        const Item = ({ qrCodeValue, paxValue }) => (
+        const Item = ({ qrCodeValue, paxValue, occupant }) => (
             <View style={styles.item}>
               <Text style={styles.title}>{qrCodeValue}</Text>
-              <Icon name="chair-school" color="gray" size={26}/>
+              <Icon name="chair-school" color={occupant ? "limegreen" : "gray"} size={26}/>
               <Text style={styles.content}>pax: {paxValue}</Text>
             </View>
         );
@@ -42,9 +42,37 @@ class CheckoutTableScreen extends Component {
             <TouchableOpacity onPress={() => 
                 Alert.alert("Checkout Table", "Are you sure you want to checkout the table?", [
                     { text: "Cancel", onPress: () => console.log("cancelled!") },
-                    { text: "Confirm", onPress: () => console.log("checkout!") },
+                    { text: "Confirm", onPress: () => 
+                        fetch(`http://172.20.10.5:5000/api/tables/checkout/${encodeURI(item.qrCodeValue)}`, {
+                            method: 'PUT',
+                            headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                tableId: item.qrCodeValue,
+                                occupyStatus: false
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(responseJson => {
+                            console.log(responseJson)
+                        })
+                        .then(setTimeout(() => {
+                            fetch(`http://172.20.10.5:5000/api/tables`)
+                            .then(response => response.json())
+                            .then(responseJson => {
+                                this.setState({
+                                    dataSource: responseJson
+                                });
+                            })
+                        }, 2000))
+                    },
                 ])}>
-                <Item qrCodeValue={item.qrCodeValue} paxValue={item.paxValue}/>
+                <Item 
+                    qrCodeValue={item.qrCodeValue}
+                    paxValue={item.paxValue}
+                    occupant={item.occupant} />
             </TouchableOpacity>
         );
         return (
