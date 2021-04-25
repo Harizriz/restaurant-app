@@ -19,68 +19,75 @@ class DishDetailsScreen extends Component {
         const tableId = this.props.route.params.tableId;
         console.log("Detail Added " + tableId)
 
-        const { remarksValueHolder, dishQuantityHolder, preparedItem } = this.state;
+        if (tableId == null) {
+            Alert.alert("Error", "You have not scan a table QR code", [
+                { text: "Okay", onPress: () => this.props.navigation.navigate("MainMenuScreen", { screen: "Menu" })},
+            ])
+        }
+        else {
+            const { remarksValueHolder, dishQuantityHolder, preparedItem } = this.state;
+        
+            // post to Order
+            try {
+                let response = await fetch(
+                'http://172.20.10.5:5000/api/orders', 
+                {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        dishName: dishName,
+                        dishPrice: dishPrice,
+                        dishQuantity: dishQuantityHolder,
+                        dishRemarks: remarksValueHolder,
+                        tableId: tableId,
+                        preparedItem: preparedItem
+                    })
+                }
+                );
+                let json = await response.json();
+                console.log(json); 
 
-        console.log(preparedItem)
+                Alert.alert(json.msg, "",
+                { text: "Okay", onPress: () => console.log("Successful") });
 
-        // post to Order
-        try {
-            let response = await fetch(
-              'http://172.20.10.5:5000/api/orders', 
-              {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    dishName: dishName,
-                    dishPrice: dishPrice,
-                    dishQuantity: dishQuantityHolder,
-                    dishRemarks: remarksValueHolder,
-                    tableId: tableId,
-                    preparedItem: preparedItem
-                })
-              }
-            );
-            let json = await response.json();
-            console.log(json); 
+            } catch (error) {
+                console.error(error);
+            }
 
-            Alert.alert(json.msg, "",
-            { text: "Okay", onPress: () => console.log("Successful") });
+            // post to Kitchen Order
+            try {
+                let response = await fetch(
+                'http://172.20.10.5:5000/api/orders/kitchen', 
+                {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        dishName: dishName,
+                        dishPrice: dishPrice,
+                        dishQuantity: dishQuantityHolder,
+                        dishRemarks: remarksValueHolder,
+                        tableId: tableId,
+                        preparedItem: preparedItem
+                    })
+                }
+                );
+                let json = await response.json();
+                console.log(json); 
+
+            } catch (error) {
+                console.error(error);
+            }
 
             this.props.navigation.goBack();
 
-        } catch (error) {
-            console.error(error);
         }
 
-        // post to Kitchen Order
-        try {
-            let response = await fetch(
-              'http://172.20.10.5:5000/api/orders/kitchen', 
-              {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    dishName: dishName,
-                    dishPrice: dishPrice,
-                    dishQuantity: dishQuantityHolder,
-                    dishRemarks: remarksValueHolder,
-                    tableId: tableId,
-                    preparedItem: preparedItem
-                })
-              }
-            );
-            let json = await response.json();
-            console.log(json); 
-
-        } catch (error) {
-            console.error(error);
-        }
     }
     render() {
         const dishId = this.props.route.params.dishId;
