@@ -7,7 +7,8 @@ class TablesScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            dataSource: ''
+            dataSource: '',
+            isRefresh: false
         };
     }
     componentDidMount = async () => {
@@ -29,7 +30,23 @@ class TablesScreen extends Component {
             })
         });
     }
-    
+    onRefresh() {
+        this.setState({
+            isRefresh: true
+        }, () => { 
+            fetch(`http://172.20.10.5:5000/api/tables`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                dataSource: responseJson
+                });
+            })
+        });
+
+        setTimeout(() => {
+            this.setState({ isRefresh: false })
+        }, 1000)
+    }
     render() {
         const Item = ({ qrCodeValue, paxValue, occupant }) => (
             <View style={styles.item}>
@@ -57,6 +74,8 @@ class TablesScreen extends Component {
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
                     numColumns={3}
+                    onRefresh={() => this.onRefresh()}
+                    refreshing={this.state.isRefresh}
                 />
                 <View style={{top: 6}}>
                     <TouchableHighlight onPress={() => this.props.navigation.navigate("QrCodeManagerScreen")}

@@ -9,7 +9,8 @@ class DishesManagerScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            dataSource: ''
+            dataSource: '',
+            isRefresh: false
         };
     }
     componentDidMount = async () => {
@@ -41,6 +42,23 @@ class DishesManagerScreen extends Component {
                 });
             })
         }, 2000) 
+    }
+    onRefresh(menuId) {
+        this.setState({
+            isRefresh: true
+        }, () => { 
+            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        });
+
+        setTimeout(() => {
+            this.setState({ isRefresh: false })
+        }, 1000)
     }
     deleteDish = (dishId) => {
         const menuId = this.props.route.params.menuId;
@@ -78,6 +96,7 @@ class DishesManagerScreen extends Component {
     }
     render() {
         const menuId = this.props.route.params.menuId;
+        const menuName = this.props.route.params.menuName;
 
         const Item = ({ dishName, dishImage, dishDescription, dishPrice, objectId }) => (
             <View style={styles.item}>
@@ -116,11 +135,16 @@ class DishesManagerScreen extends Component {
                     </View>
                 </View> */}
                 {/* if there's no data in database, just put an empty flatlist */}
+                <View style={styles.headingContainer}>
+                    <Text style={styles.headingText}>{menuName}</Text>
+                </View>
                 <FlatList
                     style={styles.flatlist}
                     data={this.state.dataSource}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
+                    onRefresh={() => this.onRefresh(menuId)}
+                    refreshing={this.state.isRefresh}
                 />
                 <View>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate("AddDishScreen", {menuId: menuId})}
@@ -154,7 +178,7 @@ const styles = StyleSheet.create({
     headingText: {
         fontSize: 35,
         color: "purple",
-        top: 50,
+        top: 30,
         alignSelf: "center"
     },
     item: {

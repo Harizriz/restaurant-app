@@ -7,7 +7,7 @@ class CheckoutTableScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-
+            isRefresh: false
         };
     }
     componentDidMount = async () => {
@@ -28,6 +28,23 @@ class CheckoutTableScreen extends Component {
                 });
             })
         });
+    }
+    onRefresh() {
+        this.setState({
+            isRefresh: true
+        }, () => { 
+            fetch(`http://172.20.10.5:5000/api/tables`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                dataSource: responseJson
+                });
+            })
+        });
+
+        setTimeout(() => {
+            this.setState({ isRefresh: false })
+        }, 1000)
     }
     render() {
         const Item = ({ qrCodeValue, paxValue, occupant }) => (
@@ -85,6 +102,8 @@ class CheckoutTableScreen extends Component {
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
                     numColumns={3}
+                    onRefresh={() => this.onRefresh()}
+                    refreshing={this.state.isRefresh}
                 />
             </SafeAreaView>
         );

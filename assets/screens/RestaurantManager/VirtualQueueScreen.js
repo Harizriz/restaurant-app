@@ -6,7 +6,8 @@ class VirtualQueueScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            dataSource: ''
+            dataSource: '',
+            isRefresh: false
         };
     }
     componentDidMount = () => {
@@ -17,6 +18,23 @@ class VirtualQueueScreen extends Component {
                 dataSource: responseJson
             });
         })
+    }
+    onRefresh() {
+        this.setState({
+            isRefresh: true
+        }, () => { 
+            fetch(`http://172.20.10.5:5000/api/virtualQueue/list`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        });
+
+        setTimeout(() => {
+            this.setState({ isRefresh: false })
+        }, 1000)
     }
     render() {
         const Item = ({ virtualQueueNumber, pax }) => (
@@ -54,6 +72,8 @@ class VirtualQueueScreen extends Component {
                     data={this.state.dataSource}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
+                    onRefresh={() => this.onRefresh()}
+                    refreshing={this.state.isRefresh}
                 />
             </SafeAreaView>
         );

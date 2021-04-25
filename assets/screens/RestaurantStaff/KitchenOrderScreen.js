@@ -10,7 +10,8 @@ class KitchenOrderScreen extends Component {
             dataSource: '',
             tableArray: [],
             expanded: false,
-            showTable: {}
+            showTable: {},
+            isRefresh: false
         };
     }
     componentDidMount = () => {
@@ -21,6 +22,23 @@ class KitchenOrderScreen extends Component {
                 dataSource: responseJson
             });
         })
+    }
+    onRefresh() {
+        this.setState({
+            isRefresh: true
+        }, () => { 
+            fetch(`http://172.20.10.5:5000/api/orders/kitchen/kit`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        });
+
+        setTimeout(() => {
+            this.setState({ isRefresh: false })
+        }, 1000)
     }
     render() {
         let tableTree = {};
@@ -129,6 +147,8 @@ class KitchenOrderScreen extends Component {
                                 data={table}
                                 renderItem={renderItem}
                                 keyExtractor={item => item.objectId}
+                                onRefresh={() => this.onRefresh()}
+                                refreshing={this.state.isRefresh}
                             />
                         </View>
                         : null }

@@ -12,7 +12,8 @@ class CouponScreen extends Component {
             setModalVisible: false,
             couponNameValueHolder: '',
             PercentageValueHolder: '',
-            dataSource: ''
+            dataSource: '',
+            isRefresh: false
         };
     }
     componentDidMount = async () => {
@@ -33,6 +34,23 @@ class CouponScreen extends Component {
                 });
             })
         });
+    }
+    onRefresh() {
+        this.setState({
+            isRefresh: true
+        }, () => { 
+            fetch(`http://172.20.10.5:5000/api/coupons`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                dataSource: responseJson
+                });
+            })
+        });
+
+        setTimeout(() => {
+            this.setState({ isRefresh: false })
+        }, 1000)
     }
     AddNewCoupon = async () => {
         const { couponNameValueHolder, PercentageValueHolder } = this.state;
@@ -178,6 +196,8 @@ class CouponScreen extends Component {
                     data={this.state.dataSource}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.objectId}
+                    onRefresh={() => this.onRefresh()}
+                    refreshing={this.state.isRefresh}
                 />
                 <View style={{top: 6}}>
                     <TouchableOpacity onPress={toggleModal}
