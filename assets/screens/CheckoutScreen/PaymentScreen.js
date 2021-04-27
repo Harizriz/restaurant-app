@@ -113,7 +113,7 @@ class PaymentScreen extends Component {
             <TextInput
                 label="  Expiration Date  "
                 mode="outlined"
-                keyboardType="number-pad"
+                keyboardType="numbers-and-punctuation"
                 error={this.state.isErrorExpDate}
                 defaultValue="MM/YY"
                 returnKeyType="done"
