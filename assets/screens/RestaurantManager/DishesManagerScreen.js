@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Button, Alert, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Alert, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Modal from 'react-native-modal';
-import { TextInput } from 'react-native-paper'
 
 class DishesManagerScreen extends Component {
     constructor(props) {
@@ -42,6 +40,7 @@ class DishesManagerScreen extends Component {
             })
         }, 2000) 
     }
+    // refresh the menu list
     onRefresh(menuId) {
         this.setState({
             isRefresh: true
@@ -97,7 +96,7 @@ class DishesManagerScreen extends Component {
         const menuId = this.props.route.params.menuId;
         const menuName = this.props.route.params.menuName;
 
-        const Item = ({ dishName, dishImage, dishDescription, dishPrice, objectId }) => (
+        const Item = ({ dishName, dishImage, dishDescription, dishPrice }) => (
             <View style={styles.item}>
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>{dishName}</Text>
@@ -158,14 +157,12 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "stretch",
         marginTop: StatusBar.currentHeight || 0,
-        // backgroundColor: "red"
     },
     flatlist: {
         marginTop: 50
     },
     headingContainer: {
         height: 100,
-        // backgroundColor: "yellow",
         justifyContent: "center"
     },
     headingText: {
@@ -227,7 +224,6 @@ const styles = StyleSheet.create({
         top: 20,
         width: "75%",
         flexDirection: "row",
-        // backgroundColor: "yellow",
         justifyContent: "space-between"
     },
     textContainer: {

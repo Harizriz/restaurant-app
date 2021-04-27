@@ -18,14 +18,15 @@ class ChangePasswordScreen extends Component {
       isErrorConfirmPassword: false
     };
   }
+  // make password secret
   changeIcon() {
     this.setState(prevState => ({
         icon: prevState.icon === 'eye' ? 'eye-off' : 'eye',
         password: !prevState.password
     }));
   }
+  // update password
   UpdatePassword = (currentPass, newPass, confirmPass) => {
-
     if(currentPass.trim() == "") {
       this.setState({
         CurrentPasswordValueHolder: currentPass,
@@ -213,28 +214,19 @@ const styles = StyleSheet.create({
   },
   headingContainer: {
     height: 100,
-    // backgroundColor: "yellow",
   },
   promptContainer: {
     height: 250,
     alignItems: "center",
-    // backgroundColor: "red",
   },
   submitContainer: {
     height: 100,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "green",
-    // marginHorizontal: 50,
   },
   textInputContainer: {
     width: "75%",
-    // flex: 1,
-    // flexDirection: "row",
-    // justifyContent: "center",
-    // alignItems: "center",
-    // backgroundColor: "yellow"
   },
   headingText: {
     fontSize: 35,
@@ -253,7 +245,6 @@ const styles = StyleSheet.create({
     left: 125,
     bottom: 13,
     alignSelf: "center",
-    // backgroundColor: "yellow",
   }
 });
 

@@ -30,6 +30,7 @@ class TablesScreen extends Component {
             })
         });
     }
+    // refresh the tables list
     onRefresh() {
         this.setState({
             isRefresh: true
@@ -55,7 +56,6 @@ class TablesScreen extends Component {
               <Text style={styles.content}>pax: {paxValue}</Text>
             </View>
         );
-        
         const renderItem = ({ item }) => (
             <TouchableOpacity onPress={() => this.props.navigation.navigate("EditTableScreen", {tableId: item.qrCodeValue, pax: item.paxValue})}>
                 <Item 
@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
     },
     item: {
         backgroundColor: '#f9c2ff',
-        // padding: 20,
         marginVertical: 7,
         marginHorizontal: 7,
         width: Dimensions.get('window').width * 0.3,
@@ -119,12 +118,10 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32,
-        // backgroundColor: "yellow"
     },
     content: {
         top: 5,
         fontSize: 24,
-        // backgroundColor: "lightblue"
     },
     text: {
         fontSize: 20,

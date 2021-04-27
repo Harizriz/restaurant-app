@@ -13,31 +13,6 @@ class MainMenuScreen extends Component {
         };
     }
     componentDidMount = async () => {
-        // // check if tableId exist yet to be sent to the dish screens
-        // if(!this.props.route.params.tableId) {
-        //     console.log("tableId does not exist yet")
-        // }
-        // else {
-        //     const tableId = this.props.route.params.tableId;
-        //     console.log(tableId)
-        //     this.setState({
-        //         tableId: tableId
-        //     })
-        // }
-
-        // console.log("MainMenuScreen " + this.state.tableId)
-
-        // fetch(`http://172.20.10.5:5000/api/menus`)
-        // .then(response => response.json())
-        // .then(responseJson => {
-        //     this.setState({
-        //         dataSource: responseJson
-        //     });
-        // }) 
-
-        // const tableId = this.props.route.params.tableId;
-        // console.log("MainMenuScreen " + tableId)
-
         // auto-refresh the screen to listen from the previous screen
         this.props.navigation.addListener('focus', () => {
             fetch(`http://172.20.10.5:5000/api/menus`)
@@ -48,15 +23,13 @@ class MainMenuScreen extends Component {
                 });
             }) 
             const tableId = this.props.route.params.tableId;
-            const emailData = this.props.route.params.emailData;
-            console.log("MainMenuScreen TableId " + tableId)
-            console.log("MainMenuScreen emailData " + emailData)
 
             this.setState({
                 tableId: tableId,
             })
         });
     }
+    // search functionality
     searchItems = text => {
         let newData = this.state.dataSource.filter(item => {
             const itemData = `${item.menuName.toUpperCase()}`;
@@ -85,7 +58,6 @@ class MainMenuScreen extends Component {
                 <Text style={styles.title}>{menuName}</Text>
             </View>
         );
-          
         const renderItem = ({ item }) => (
             <TouchableOpacity onPress={() => {
                 this.setState({
@@ -139,11 +111,9 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "stretch",
         marginTop: StatusBar.currentHeight || 0,
-        // backgroundColor: "red"
     },
     headingContainer: {
         height: 100,
-        // backgroundColor: "yellow",
         justifyContent: "center"
     },
     headingText: {
@@ -182,12 +152,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         backgroundColor: "#fff",
         height: 50,
-        // backgroundColor: "red",
         width: "92%",
         left: 16,
         borderRadius: 5
-        // borderColor: "lightgray",
-        // borderWidth: 1
     },
     icon: {
         padding: 20,
@@ -195,18 +162,8 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         padding: 10,
-        // paddingLeft: 10,
         borderLeftColor: "lightgray",
-        borderLeftWidth: 1,
-        // backgroundColor: "#fff",
-        // color: "#424242",
-        // height: 40,
-        // borderColor: "gray",
-        // borderWidth: 2,
-        // borderRadius: 5,
-        // width: "50%",
-        // left: 20,
-        // marginTop: 10,
+        borderLeftWidth: 1
     },
 });
 

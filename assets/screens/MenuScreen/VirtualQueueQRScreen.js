@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Button, Alert, StatusBar } from 'react-native';
+import { Text, View, StyleSheet, Button, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 export default function VirtualQueueQRScreen({ navigation, route }) {
@@ -23,9 +23,7 @@ export default function VirtualQueueQRScreen({ navigation, route }) {
     setScanned(true);
     console.log("Scanned ", pax)
     console.log("queue Number", queueNumber)
-    // alert(`${data}`);
     if (data == 'aqFl0LxbRN') {
-      // need to make another if statement to increment the queue number for each customer
       try {
         let response = await fetch(
           'http://172.20.10.5:5000/api/virtualQueue', 

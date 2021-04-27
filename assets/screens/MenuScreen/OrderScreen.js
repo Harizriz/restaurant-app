@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, ScrollView, FlatList } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Text, FlatList } from 'react-native';
 import LottieView from "lottie-react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -13,11 +13,8 @@ class OrderScreen extends Component {
         deliveredOrders: false
     };
   }
-
-  /* This part is when a user has ordered their food */
   componentDidMount = async () => {
     const tableOrderId = this.props.route.params.tableId
-    // const tableOrderId = 3
 
     setTimeout(() => {
       this.animation.play(0, 40);
@@ -34,7 +31,7 @@ class OrderScreen extends Component {
     })
   }
   render() { 
-
+    // retrieve orders from a specific tableId
     let tableTree = {};
     for(let i=0; i<this.state.dataSource.length; i++) {
         this.state.tableArray.push(this.state.dataSource[i].tableId)
@@ -59,7 +56,6 @@ class OrderScreen extends Component {
         check = true
       }
     }
-
     const renderEmptyAnimation = () => {
       return ( 
         <View>
@@ -77,7 +73,6 @@ class OrderScreen extends Component {
         </View>
       );
     }
-    
     const renderAnimation = ( check ) => {
       if (check == false) {
         return (
@@ -111,7 +106,29 @@ class OrderScreen extends Component {
         )
       }
     }
-
+    // render flatlist of the tableId's orders
+    const renderTables = ( tables ) => {
+      let tableJSX = []
+      let tableLength = Object.keys(tables).length
+      for (let i = 0; i < tableLength; i++) {
+        const tableId = Object.keys(tables)[i]
+        const table = tables[tableId] 
+        tableJSX.push(
+          <View>
+            <View>
+              <FlatList
+                data={table}
+                renderItem={renderItem}
+                keyExtractor={item => item.objectId}
+              />
+            </View>
+          </View>
+        )
+      }
+      return ( 
+        [tableJSX]
+      )
+    }
     const Item = ({ dishName, dishQuantity, preparedDish }) => (
       <View style={styles.item}>
         <View style={styles.orderContainer}>
@@ -133,40 +150,12 @@ class OrderScreen extends Component {
         </View>
       </View>
     );
-    
     const renderItem = ({ item }) => (
       <Item 
         dishName={item.dishName} 
         dishQuantity={item.dishQuantity}
         preparedDish={item.preparedDish} />
     );
-
-    const renderTables = ( tables ) => {
-      let tableJSX = []
-      let check = ''
-      let tableLength = Object.keys(tables).length
-      for (let i = 0; i < tableLength; i++) {
-        const tableId = Object.keys(tables)[i]
-        const table = tables[tableId] 
-        tableJSX.push(
-          <View>
-            <View>
-              <FlatList
-                data={table}
-                renderItem={renderItem}
-                keyExtractor={item => item.objectId}
-              />
-            </View>
-          </View>
-        )
-      }
-      return ( 
-            [tableJSX]
-          )
-    }
-
-    console.log(check)
-
     return ( 
       <SafeAreaView style={styles.container}>
       { this.state.tableArray[0] == null ? renderEmptyAnimation() :
@@ -192,7 +181,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "stretch",
-    // backgroundColor: "yellow"
   },
   mainContainer: {
     height: "100%",
@@ -203,7 +191,6 @@ const styles = StyleSheet.create({
     height: 350,
     justifyContent: "center",
     bottom: 40,
-    // backgroundColor: "yellow"
   },
   contentContainer: {
     height: 500,
@@ -211,7 +198,6 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     height: 70,
-    // backgroundColor: "pink",
     justifyContent: "center"
   },
   item: {
@@ -224,24 +210,20 @@ const styles = StyleSheet.create({
   orderContainer: {
     height: 50,
     flexDirection: "row",
-    // backgroundColor: "blue"
   },
   leftOrderContainer: {
     height: 50,
     width: "16%",
-    // backgroundColor: "orange",
     justifyContent: "center"
   },
   middleOrderContainer: {
     height: 50,
     width: "68%",
-    // backgroundColor: "pink",
     justifyContent: "center"
   },
   rightOrderContainer: {
     height: 50,
     width: "16%",
-    // backgroundColor: "yellow",
     justifyContent: "center"
   },
   numberContainer:{
@@ -251,7 +233,6 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgrey",
     alignContent: "flex-start",
     justifyContent: "center",
-    // borderWidth: 1,
     borderColor: "purple"
   },
   mainText:{

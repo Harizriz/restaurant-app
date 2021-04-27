@@ -77,26 +77,9 @@ class QrCodeManagerScreen extends Component {
     
         } catch (error) {
           console.error(error);
-        }
-
-        // this.setState({viewQrCode: true})
-        
+        }        
     }
-    // renderQrCodeComponent() {
-    //     if(this.state.viewQrCode) {
-    //         return (
-    //             <View style={styles.QRcontainer}>
-    //                 {this.state.QRCodeValueHolder ? 
-    //                 <QRCode value={this.state.QRCodeValueHolder} 
-    //                     size={300}
-    //                     backgroundColor="none"/>
-    //                 : null}
-    //             </View>
-    //         )
-    //     }
-    // }
     render() { 
-        let uniqueURL = `http://172.20.10.5:5000/api/tables/${this.state.QRCodeValueHolder}`
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.headingContainer}>
@@ -104,7 +87,6 @@ class QrCodeManagerScreen extends Component {
                 </View>
                 <View style={styles.promptContainer}>
                     <View style={styles.inputContainer}>
-                        {/* for android number pad, https://stackoverflow.com/questions/48798415/react-native-how-to-key-number-pad-only-without-punctuations */}
                         <TextInput
                             label="  Table Number ID  "
                             mode="outlined"
@@ -156,7 +138,6 @@ class QrCodeManagerScreen extends Component {
                         </View>
                     </TouchableHighlight>
                 </View>
-                {/* {this.renderQrCodeComponent()} */}
             </SafeAreaView>
         );
     }
@@ -178,13 +159,6 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         width: "75%",
-        // flexDirection: "row",
-        // justifyContent: "center",
-        // alignItems: "center",
-        // marginHorizontal: 100,
-        // paddingBottom: 25,
-        // borderRadius: 24,
-        // backgroundColor: "yellow"
     },
     button: {
         alignItems: "center",
@@ -201,7 +175,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        // backgroundColor: "red",
         borderColor: "black",
         borderWidth: 2,
         marginTop: 53,
@@ -218,7 +191,6 @@ const styles = StyleSheet.create({
     promptContainer: {
         height: 160,
         alignItems: "center",
-        // backgroundColor: "red"
     },
 });
 

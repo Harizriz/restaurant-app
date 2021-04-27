@@ -77,7 +77,7 @@ class CouponScreen extends Component {
                 isModalVisible: false
             })
 
-            // reload the screen *hack*
+            // reload the screen
             setTimeout(() => {
                 fetch(`http://172.20.10.5:5000/api/coupons`)
                 .then(response => response.json())
@@ -92,7 +92,7 @@ class CouponScreen extends Component {
             console.log(error)
         }
     }
-    
+    // delete coupon from Coupon object
     deleteCoupon = (couponName) => {
         Alert.alert("Delete Coupon", "Are you sure you want to delete the coupon permanently?", [
             { text: "Cancel", onPress: () => console.log("cancelled!") },
@@ -115,7 +115,7 @@ class CouponScreen extends Component {
             },
         ])
 
-        // reload the screen *hack*
+        // reload the screen
         setTimeout(() => {
             fetch(`http://172.20.10.5:5000/api/coupons`)
             .then(response => response.json())
@@ -139,14 +139,12 @@ class CouponScreen extends Component {
                 })
             }
         }
-
         const Item = ({ couponName, percentage }) => (
             <View style={styles.item}>
                 <Text style={styles.title}>{couponName}</Text>
                 <Text style={styles.per}>{percentage}%</Text>
             </View>
         );
-          
         const renderItem = ({ item }) => (
             <View>
                 <TouchableOpacity
@@ -235,7 +233,6 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         marginHorizontal: 16,
         flexDirection: "row",
-        // backgroundColor: "yellow"
     },
     title: {
         fontSize: 25,
@@ -245,7 +242,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
         width: "20%",
         textAlign: "right",
-        // backgroundColor: "yellow"
     },
     text: {
         fontSize: 20,
@@ -278,13 +274,11 @@ const styles = StyleSheet.create({
         top: 25,
         width: "75%",
         flexDirection: "row",
-        // backgroundColor: "yellow",
         justifyContent: "space-between"
     },
     editContainer: {
         height: 25,
         width: "20%",
-        // backgroundColor: "lightgreen",
         justifyContent: "center"
     },
     icon: {

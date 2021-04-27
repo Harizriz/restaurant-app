@@ -3,7 +3,6 @@ import { SafeAreaView, StyleSheet, View, Text, Image, Alert } from 'react-native
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { TextInput } from 'react-native-paper'
 import * as ImagePicker from 'expo-image-picker'
-import ImgToBase64 from 'react-native-image-base64';
 
 class AddDishScreen extends Component {
     constructor(props) {
@@ -23,21 +22,12 @@ class AddDishScreen extends Component {
           aspect: [4, 3],
           quality: 1,
         });
-    
-        console.log(result);
-    
+        
         if (!result.cancelled) {
             this.setState({
                 imageUri: result.uri
             })
         }
-
-        console.log(this.state.imageUri)
-
-        // ImgToBase64.getBase64String(this.state.imageUri)
-        //     .then(base64String => console.log(base64String))
-        //     .catch(err => console.log(err));
-
     }
     AddDish = async () => {
 
@@ -49,14 +39,6 @@ class AddDishScreen extends Component {
 
         const { DishNameValueHolder, DishPriceValueHolder, DishDescriptionValueHolder, imageUri, menuId } = this.state;
 
-        // let photo = { uri: this.state.imageUri }
-        // let formdata = new FormData();
-
-        // formdata.append("product[name]", 'test')
-        // formdata.append("product[price]", 10)
-        // formdata.append("product[description]", '12dsadadsa')
-        // formdata.append("product[images_attributes[0][file]]", {uri: photo.uri, name: 'image.jpg', type: 'image/jpeg'})
-
         try {
             let response = await fetch(
               'http://172.20.10.5:5000/api/menus/dishes', 
@@ -65,7 +47,6 @@ class AddDishScreen extends Component {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    // 'Content-Type': 'multipart/form-data'
                 },
                 body: JSON.stringify({
                     menuId: menuId,
@@ -162,7 +143,6 @@ const styles = StyleSheet.create({
     },
     headingContainer: {
         height: 125,
-        // backgroundColor: "yellow",
     },
     headingText: {
         fontSize: 35,
@@ -173,7 +153,6 @@ const styles = StyleSheet.create({
     promptContainer: {
         height: 250,
         alignItems: "center",
-        // backgroundColor: "red"
     },
     inputContainer: {
         width: "75%",
@@ -183,7 +162,6 @@ const styles = StyleSheet.create({
         width: 252,
         borderWidth: 1,
         borderColor: "black",
-        // backgroundColor: "yellow",
         justifyContent: "center",
         alignSelf: "center",
     },
@@ -209,7 +187,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         alignSelf: "center",
         top: 10
-        // backgroundColor: "lightblue"
     },
 });
 

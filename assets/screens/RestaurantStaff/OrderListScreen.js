@@ -43,9 +43,7 @@ class OrderListScreen extends Component {
     render() {
         let tableTree = {};
         for(let i=0; i<this.state.dataSource.length; i++) {
-            // console.log(this.state.dataSource[i].tableId)
             this.state.tableArray.push(this.state.dataSource[i].tableId)
-            //  console.log(tableTree[this.state.dataSource[i].tableId])
             if (tableTree[this.state.dataSource[i].tableId]){
                 tableTree[this.state.dataSource[i].tableId].push(this.state.dataSource[i])
             }
@@ -53,9 +51,7 @@ class OrderListScreen extends Component {
                 tableTree[this.state.dataSource[i].tableId] = [this.state.dataSource[i]]
             }
         }
-
         const preparedItem = (objectId, preparedDish) => {
-
             if (!preparedDish) {
                 Alert.alert("Dish Served?", "", [
                     { text: "Cancel", onPress: () => console.log("cancelled!") },
@@ -92,7 +88,6 @@ class OrderListScreen extends Component {
                     })
                 }, 3000);
             }
-
         }
         const Item = ({ dishName, dishQuantity, objectId, preparedDish }) => {
             return (
@@ -126,7 +121,8 @@ class OrderListScreen extends Component {
                     objectId={item.objectId}
                     preparedDish={item.preparedDish}/>
                 </View>
-        ); }
+            ); 
+        }
         const renderTables = ( tables ) => {
             let tableJSX = []
             let tableLength = Object.keys(tables).length
@@ -134,10 +130,8 @@ class OrderListScreen extends Component {
                 const tableId = Object.keys(tables)[i]
                 const table = tables[tableId]  
                 let tableAND = true
-                // console.log(table)
                 for (let i=0; i<table.length; i++) {
                     tableAND = tableAND && table[i].preparedDish
-                    // console.log(table[i].preparedDish, table[i].dishName)
                 }
                 if (tableAND && table[i].preparedDish) {
                     fetch(`http://172.20.10.5:5000/api/orders/waiter/${encodeURI(table[i].tableId)}`, {
@@ -216,7 +210,6 @@ const styles = StyleSheet.create({
     },
     headingContainer: {
         height: 125,
-        // backgroundColor: "yellow",
     },
     headingText: {
         fontSize: 35,
@@ -235,8 +228,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
     },
     itemContainer: {
-        // height: 50,
-        // backgroundColor: "yellow",
         borderColor: "black",
         borderWidth: 1,
         padding: 10,
@@ -245,17 +236,12 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     quantityContainer: {
-        // height: 50,
         width: "15%",
-        // backgroundColor: "red",
         justifyContent: "center",
-        // borderWidth: 1,
-        // borderColor: "black"
     },
     numberContainer: {
         height: 30,
         width: 30,
-        // backgroundColor: "pink",
         alignSelf: "center",
         justifyContent: "center",
         borderWidth: 1,
@@ -265,14 +251,11 @@ const styles = StyleSheet.create({
         height: 50,
         width: "70%",
         paddingLeft: 10,
-        // backgroundColor: "lightblue",
         justifyContent: "center"
     },
     editContainer: {
         height: 50,
         width: "15%",
-        // backgroundColor: "lightgreen",
-        // justifyContent: "center"
         justifyContent: "center",
         alignItems: "center"
     },

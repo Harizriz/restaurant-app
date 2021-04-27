@@ -14,7 +14,6 @@ class AccountScreen extends Component {
   }
   componentDidMount = async () => {
     const { navigate }  = this.props.navigation;
-    // navigate('MainMenuScreen', { params: { emailData: params }, screen: "Virtual Queue"});
 
     let params = this.props.route.params.emailData;
     fetch(`http://172.20.10.5:5000/api/users/${encodeURI(params)}`)
@@ -28,6 +27,7 @@ class AccountScreen extends Component {
       navigate('MainMenuScreen', { params: {emailData: params }, screen: "Virtual Queue"});
     });
   }
+  // logout user from app
   Logout = (email) => {
     fetch(`http://172.20.10.5:5000/api/user/${encodeURI(email)}`, {
       method: 'DELETE',
@@ -100,7 +100,6 @@ class AccountScreen extends Component {
           </View>
           <View style={styles.buttonRightContainer}>
             <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("ChangePasswordScreen", {userId: this.state.dataSource.objectId, password: this.state.dataSource.password})}/>
-            {/* <Icon name="chevron-right" color="black" size={26} onPress={() => this.props.navigation.navigate("QRDummyScreen")}/> */}
           </View>
         </View>
         <View style={styles.buttonContainer}>
@@ -160,7 +159,6 @@ const styles = StyleSheet.create({
   },
   headingContainer: {
     height: 125,
-    // backgroundColor: "yellow",
   },
   headingText: {
     fontSize: 35,
@@ -170,7 +168,6 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     height: 70,
-    // backgroundColor: "yellow",
   },
   buttonContainer: {
     height: 50,
@@ -178,16 +175,13 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginHorizontal: 55,
     top: 10,
-    // backgroundColor: "yellow",
   },
   buttonLeftContainer: {
     width: "90%",
-    // backgroundColor: "yellow",
     justifyContent: "center"
   },
   buttonRightContainer: {
     width: "10%",
-    // backgroundColor: "red",
     justifyContent: "center"
   },
   primaryText: {
@@ -213,14 +207,12 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "purple",
     textAlign: "center",
-    // left: 50,
     bottom : 10
   },
   modalButtonContainer: {
     top: 30,
     width: "75%",
     flexDirection: "row",
-    // backgroundColor: "yellow",
     justifyContent: "center"
   },
   modalContentText: {

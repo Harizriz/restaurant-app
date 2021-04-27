@@ -3,8 +3,6 @@ import { SafeAreaView, View, StyleSheet, Text, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/Octicons";
 import { TextInput } from 'react-native-paper';
-import PlusIcon from "react-native-vector-icons/Feather"
-import Button from "react-native-button"
 
 class PaymentScreen extends Component {
   constructor(props) {
@@ -18,12 +16,13 @@ class PaymentScreen extends Component {
       isErrorCVV: false
     }
   }
+  // validate card number
   validateInput = (cardNumber, expDate, cvvValue) => {
     const totalPrice = this.props.route.params.cartTotalPrice
     const tableOrderId = this.props.route.params.tableId
     const emailData = this.props.route.params.emailData
 
-    // check for inputs in inputtext
+    // check for inputs in InputText
     if(cardNumber == "" || expDate == "" || cvvValue == "") {
       Alert.alert("Please fill all the fields!", "",
       { text: "Okay", onPress: () => console.log("Successful") });
@@ -84,11 +83,6 @@ class PaymentScreen extends Component {
     }
   } 
   render() { 
-    const totalPrice = this.props.route.params.cartTotalPrice
-    const tableOrderId = this.props.route.params.tableId
-    const emailData = this.props.route.params.emailData
-    console.log(tableOrderId)
-    console.log(totalPrice)
     return ( 
     <SafeAreaView style={styles.container}>
       <View style={styles.iconContainer}>
@@ -100,26 +94,6 @@ class PaymentScreen extends Component {
         />
       </View>
       <View style={styles.cardsContainer}>
-        {/* <View style={styles.cardContainer}>
-          <TouchableOpacity onPress={() => console.log("Chose")}>
-            <Text style={styles.cardInformationText}>
-              Visa Ending in 4242
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cardContainer}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("AddNewCardScreen")}>
-            <Text style={styles.cardInformationText}>
-              <PlusIcon 
-                name="plus" 
-                color="black" 
-                size={15}
-                style={{paddingLeft: 20}}
-              />
-              &nbsp; &nbsp; Add new card
-            </Text>
-          </TouchableOpacity>
-        </View> */}
         <View style={styles.mainPromptContainer}>
           <View style={styles.mainInputContainer}>
             {/* https://callstack.github.io/react-native-paper/text-input.html */}
@@ -190,24 +164,20 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
       height: "30%",
-      // backgroundColor: "yellow",
       justifyContent: "center",
       borderBottomWidth: 1,
       borderBottomColor: "black"
     },
     cardsContainer: {
       flex: 1,
-      // backgroundColor: "orange",
       marginTop: 10
     },
     cardContainer: {
       height: 50,
-      // backgroundColor: "pink",
       justifyContent: "center"
     },
     buttonContainer: {
       justifyContent: "flex-end",
-      // backgroundColor: "yellow"
     },
     headingText: {
       fontSize: 40,
@@ -218,7 +188,6 @@ const styles = StyleSheet.create({
     cardInformationText: {
       fontSize: 18,
       paddingLeft: 20,
-      // alignSelf: "center"
     },
     buttonText: {
       fontSize: 20,
@@ -236,7 +205,6 @@ const styles = StyleSheet.create({
     mainPromptContainer: {
       height: 65,
       alignItems: "center",
-      // backgroundColor: "blue"
       top: 20
     },
     mainInputContainer: {
@@ -245,7 +213,6 @@ const styles = StyleSheet.create({
     secondPromptContainer: {
       height: 70,
       alignItems: "center",
-      // backgroundColor: "red",
       top: 20
     },
     secondInputContainer: {

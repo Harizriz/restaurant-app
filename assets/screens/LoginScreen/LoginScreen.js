@@ -20,7 +20,7 @@ class LoginScreen extends Component {
   }
   GetDataFromApi = async (email, password) => {
 
-    // validate email and password
+    // validate user's email and password
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/;
     if(reg.test(email) === false) {
       this.setState({ 
@@ -70,8 +70,6 @@ class LoginScreen extends Component {
       let approvalVariableManager = "admin"
       let filteredPasswordManager = String(json.password).includes(approvalVariableManager);
 
-      // console.log(filteredPasswordManager)
-
       let approvalVariableStaff = "staff"
       let filteredPasswordStaff = String(json.password).includes(approvalVariableStaff);
 
@@ -88,23 +86,20 @@ class LoginScreen extends Component {
       }
 
       if(filteredPasswordManager) {
-        // console.log("Here!");
         this.props.navigation.navigate("VirtualQueueScreen");
       }
       else if(filteredPasswordStaff) {
-        // console.log("Staff!");
         this.props.navigation.navigate("KitchenOrderScreen");
       }
       else {
-        // send user's email to AccountScreen
         this.props.navigation.navigate("MainMenuScreen", {params: {emailData: this.state.EmailValueHolder}, screen: "Account" })
       }
 
     } catch (error) {
       console.error(error);
     }
-    
   }
+  // make the password secret
   changeIcon() {
     this.setState(prevState => ({
         icon: prevState.icon === 'eye' ? 'eye-off' : 'eye',
@@ -169,36 +164,10 @@ class LoginScreen extends Component {
             }}
             onPress={() => {
               this.GetDataFromApi(this.state.EmailValueHolder, this.state.PasswordValueHolder);
-              // this.props.navigation.navigate("MainMenuScreen")
             }}
           >
             Sign In
           </Button>
-        </View>
-        <View style={styles.or}>
-          <Text>OR</Text>
-        </View>
-        <View style={styles.bottomContainer}>
-          <Button
-            style={{
-              padding: 16,
-              width: 250,
-              borderRadius: 24,
-              alignItems: "center",
-              backgroundColor: "#3b5998",
-              color: "white",
-              overflow: "hidden",
-            }}
-            onPress={() => this.props.navigation.navigate("")}
-          >
-            Login with Facebook
-          </Button>
-          {/* <Text
-            style={styles.loginLink}
-            onPress={() => this.props.navigation.navigate("LoginPhoneNumberScreen")}
-          >
-            Login with phone number
-          </Text> */}
         </View>
       </SafeAreaView>
     );
@@ -213,26 +182,18 @@ const styles = StyleSheet.create({
   },
   headingContainer: {
     height: 100,
-    // backgroundColor: "yellow",
   },
   promptContainer: {
     height: 200,
     alignItems: "center",
-    // backgroundColor: "red",
   },
   submitContainer: {
     height: 100,
     alignSelf: "center",
-    // backgroundColor: "green",
   },
   textInputContainer: {
     width: "75%",
     flex: 1,
-    // flexDirection: "row",
-    // justifyContent: "center",
-    // alignItems: "center",
-    // backgroundColor: "yellow",
-    // borderWidth: 1,
   },
   headingText: {
     fontSize: 35,
@@ -245,30 +206,12 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     right: 50,
     color: "blue",
-    // backgroundColor: "red",
     bottom: 20
-  },
-  loginLink: {
-    alignSelf: "center",
-    color: "blue",
-    paddingTop: 30,
-  },
-  or: {
-    height: 50,
-    alignSelf: "center",
-    // backgroundColor: "orange",
-    paddingTop: 10,
-  },
-  bottomContainer: {
-    height: 200,
-    alignSelf: "center",
-    // backgroundColor: "pink",
   },
   icon: {
     left: 125,
     bottom: 27,
     marginHorizontal: 147,
-    // backgroundColor: "yellow",
   }
 });
 

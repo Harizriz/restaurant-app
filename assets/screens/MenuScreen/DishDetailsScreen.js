@@ -17,7 +17,6 @@ class DishDetailsScreen extends Component {
         const dishName = this.props.route.params.dishName;
         const dishPrice = this.props.route.params.dishPrice;
         const tableId = this.props.route.params.tableId;
-        console.log("Detail Added " + tableId)
 
         if (tableId == null) {
             Alert.alert("Error", "You have not scan a table QR code", [
@@ -26,8 +25,8 @@ class DishDetailsScreen extends Component {
         }
         else {
             const { remarksValueHolder, dishQuantityHolder, preparedItem } = this.state;
-        
-            // post to Order
+            
+            // post to Order object
             try {
                 let response = await fetch(
                 'http://172.20.10.5:5000/api/orders', 
@@ -57,7 +56,7 @@ class DishDetailsScreen extends Component {
                 console.error(error);
             }
 
-            // post to Kitchen Order
+            // post to Kitchen Order object
             try {
                 let response = await fetch(
                 'http://172.20.10.5:5000/api/orders/kitchen', 
@@ -85,18 +84,13 @@ class DishDetailsScreen extends Component {
             }
 
             this.props.navigation.goBack();
-
         }
-
     }
     render() {
-        const dishId = this.props.route.params.dishId;
         const dishName = this.props.route.params.dishName;
         const dishDescription = this.props.route.params.dishDescription;
         const dishPrice = this.props.route.params.dishPrice;
         const dishImage = this.props.route.params.dishImage;
-        const tableId = this.props.route.params.tableId;
-        console.log("Detail " + tableId)
 
         return (
             <SafeAreaView style={styles.container}>
@@ -219,9 +213,7 @@ const styles = StyleSheet.create({
         height: 110,
         marginHorizontal: "6%",
         justifyContent: "center",
-        // alignItems: "center",
-        // backgroundColor: "yellow"
-    },
+    }
 });
 
 export default DishDetailsScreen;

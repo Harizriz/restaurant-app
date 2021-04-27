@@ -5,7 +5,6 @@ import DeleteIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import NumInput from "react-native-numeric-input";
 import Modal from 'react-native-modal';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { TextInput } from 'react-native-paper';
 
 class CartPageScreen extends Component {
     state = { 
@@ -22,9 +21,7 @@ class CartPageScreen extends Component {
     componentDidMount = async () => {
         const tableOrderId = this.props.route.params.tableId;
         const emailData = this.props.route.params.emailData;
-        // const tableOrderId = 3
-        console.log("Cart " + tableOrderId)
-        console.log("Cart " + emailData)
+
         fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
         .then(response => response.json())
         .then(responseJson => {
@@ -67,7 +64,7 @@ class CartPageScreen extends Component {
             })
         }, 1000) 
     }
-    // when updating, need to get the tableNumber
+    // update an item from order
     updateValue = (id) => {
         const { newQuantityValueHolder } = this.state;
         const dishId = id;
@@ -103,7 +100,6 @@ class CartPageScreen extends Component {
                     });
                 })
             }, 1000) 
-
         }
         else {
             fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(dishId)}`, {
@@ -135,21 +131,17 @@ class CartPageScreen extends Component {
                     });
                 })
             }, 1500) 
-
         }
-
     }
     render() {
         let tableOrderId = this.props.route.params.tableId;
-        console.log("Cart render " + tableOrderId)
+
         // calculate total price for cart
         let totalPrice = 0;
         let serviceChargePrice = 0;
         let serviceTaxPrice = 0;
         let initialPrice = 0;
         let finalPrice = 0;
-        // put an if statement here if the tableId is the same from the 
-        // scanned QR code then can loop to find the orders with the same and current tableId
         for(let i = 0; i < this.state.dataSource.length; i++) {
             totalPrice += this.state.dataSource[i].dishQuantity * this.state.dataSource[i].dishPrice
         }
@@ -158,9 +150,6 @@ class CartPageScreen extends Component {
         serviceChargePrice = (totalPrice * (10/100)).toFixed(2)
         serviceTaxPrice = (totalPrice * (6/100)).toFixed(2)
         finalPrice = (parseFloat(totalPrice) + parseFloat(serviceChargePrice) + parseFloat(serviceTaxPrice)).toFixed(2)
-
-        // let tableOrderId = this.props.route.params.tableId;
-        // console.log(tableOrderId)
 
         const toggleModal = () => {
             if(this.state.isModalVisible == false) {
@@ -316,18 +305,14 @@ class CartPageScreen extends Component {
   }
 }
  
-export default CartPageScreen;
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-        // backgroundColor: "purple"
     },
     headingContainer: {
         height: 125,
-        // backgroundColor: "yellow",
         justifyContent: "center"
     },
     headingText: {
@@ -337,21 +322,16 @@ const styles = StyleSheet.create({
     },
     itemContainer: {
         height: 50,
-        // backgroundColor: "yellow",
         flexDirection: "row"
     },
     quantityContainer: {
         height: 50,
         width: "15%",
-        // backgroundColor: "red",
         justifyContent: "center",
-        // borderWidth: 1,
-        // borderColor: "black"
     },
     numberContainer: {
         height: 20,
         width: 20,
-        // backgroundColor: "pink",
         alignSelf: "center",
         justifyContent: "center",
         borderWidth: 1,
@@ -360,29 +340,23 @@ const styles = StyleSheet.create({
     foodContainer: {
         height: 50,
         width: "42%",
-        // backgroundColor: "lightblue",
         justifyContent: "center"
     },
     priceContainer: {
         height: 50,
         width: "18%",
-        // backgroundColor: "pink",
         justifyContent: "center"
     },
     editContainer: {
         height: 50,
         width: "25%",
-        // backgroundColor: "lightgreen",
-        // justifyContent: "center"
         justifyContent: "center",
     },
     totalContainer: {
         height: 30,
         width: "65%",
         alignSelf: "center",
-        // backgroundColor: "lightblue",
         flexDirection: "row",
-        // justifyContent: "space-around",
         alignItems: "center",
         bottom: 20
     },
@@ -390,23 +364,18 @@ const styles = StyleSheet.create({
         height: 70,
         width: "65%",
         alignSelf: "center",
-        // backgroundColor: "lightblue",
         flexDirection: "row",
-        // justifyContent: "space-around",
         alignItems: "center",
         bottom: 20
     },
     rightContainer: {
         width: "50%",
-        // backgroundColor: "red"
     },
     leftContainer: {
         width: "50%",
-        // backgroundColor: "yellow"
     },
     dialogContentContainer: {
         justifyContent: "center",
-        // backgroundColor: "yellow"
     },
     text: {
         fontSize: 17,
@@ -434,7 +403,6 @@ const styles = StyleSheet.create({
         padding: 8,
         marginVertical: 8,
         marginHorizontal: 16,
-        // backgroundColor: "yellow"
     },
     buttonText: {
         fontSize: 20,
@@ -465,7 +433,6 @@ const styles = StyleSheet.create({
         top: 20,
         width: "100%",
         flexDirection: "row",
-        // backgroundColor: "yellow",
         justifyContent: "space-around",
     },
     leftButtonContainer: {
@@ -488,3 +455,5 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     }
 });
+
+export default CartPageScreen;

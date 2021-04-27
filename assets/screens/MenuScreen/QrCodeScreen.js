@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Button, Alert, StatusBar } from 'react-native';
+import { Text, View, StyleSheet, Button, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { useNavigation } from '@react-navigation/native';
 
 export default function QrCodeScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [tableId, setTableId] = useState(null)
-  // const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
@@ -19,8 +17,6 @@ export default function QrCodeScreen({ navigation }) {
   const handleBarCodeScanned = async ({ type, data }) => {
     setTableId(data);
     setScanned(true);
-    // alert(`${data}`);
-    // navigation.navigate("MainMenuScreen", { screen: "Menu", params: {tableId: data} })
 
     try {
       let response = await fetch(

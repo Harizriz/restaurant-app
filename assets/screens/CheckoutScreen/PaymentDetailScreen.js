@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { TextInput } from 'react-native-paper';
@@ -114,9 +114,8 @@ class PaymentDetailScreen extends Component {
     const totalPrice = this.props.route.params.cartTotalPrice
     const tableOrderId = this.props.route.params.tableId
     const emailData = this.props.route.params.emailData
-    console.log(tableOrderId)
-    console.log(totalPrice)
 
+    // calculate price after discounts and points
     let totalDiscount = 0;
     let totalRedeemPoints = 0;
     let finalTotalAfterPoints = 0;
@@ -132,7 +131,6 @@ class PaymentDetailScreen extends Component {
       finalTotalAfterPoints = (totalPrice - totalRedeemPoints - totalDiscount).toFixed(2) 
     }
     finalTotal = (totalPrice - totalDiscount).toFixed(2)
-    
 
     const toggleModal = () => {
       if(this.state.isModalVisible == false) {
@@ -147,7 +145,6 @@ class PaymentDetailScreen extends Component {
           })
       }
     }
-
     const toggleTextInput = () => {
       if(this.state.isTextInputVisible == false) {
           this.setState({
@@ -161,7 +158,6 @@ class PaymentDetailScreen extends Component {
           })
       }
     }
-
     const renderContent = () => {
       if (this.state.isPointsSuccess) {
         return (
@@ -178,7 +174,6 @@ class PaymentDetailScreen extends Component {
         )
       }
     }
-
     const renderFinalTotalContent = () => {
       if (finalTotalAfterPoints < 0) {
         return (
@@ -196,26 +191,21 @@ class PaymentDetailScreen extends Component {
       }
     }
 
+    // set final price for transaction
     let finalPrice = 0;
     if (this.state.dataSource) {
       finalPrice = finalTotal
-      console.log("Send 1", finalPrice)
     }
     else {
       finalPrice = totalPrice
-      console.log("Send 2", finalPrice)
     }
 
     if (this.state.PointsValueHolder == "") {
       finalPrice = finalTotal
-      console.log("Send 1", finalPrice)
     }
     else {
       finalPrice = finalTotalAfterPoints
-      console.log("Send 2", finalPrice)
     }
-
-    console.log("FinalPrice", finalPrice)
 
     return ( 
       <SafeAreaView style={styles.container}>
@@ -385,7 +375,6 @@ const styles = StyleSheet.create({
     },
     headingContainer: {
       height: 125,
-      // backgroundColor: "yellow",
       justifyContent: "center"
     },
     headingText: {
@@ -395,7 +384,6 @@ const styles = StyleSheet.create({
     },
     informationContainer: {
       flex: 1
-      // backgroundColor: "orange"
     },  
     infoContainer: {
       height: 50,
@@ -405,16 +393,13 @@ const styles = StyleSheet.create({
     leftContainer: {
       width: "50%",
       justifyContent: "center",
-      // backgroundColor: "blue"
     },
     rightContainer: {
       width: "50%",
       justifyContent: "center",
-      // backgroundColor: "red"
     },
     buttonContainer: {
       justifyContent: "flex-end",
-      // backgroundColor: "pink"
     },
     textTitle: {
       fontSize: 18,
@@ -487,14 +472,12 @@ const styles = StyleSheet.create({
       top: 20,
       width: "75%",
       flexDirection: "row",
-      // backgroundColor: "yellow",
       justifyContent: "space-between"
     },
     textInput: {
       width: "60%",
       left: 50,
       justifyContent: "flex-end",
-      // backgroundColor: "yellow"
     },
   });
  

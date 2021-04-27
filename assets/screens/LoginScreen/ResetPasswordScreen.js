@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { SafeAreaView, View, StyleSheet, Text, Alert } from "react-native";
+import { SafeAreaView, View, StyleSheet, Text } from "react-native";
 import Button from "react-native-button";
 import { TextInput } from 'react-native-paper'
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class ResetPasswordScreen extends Component {
   constructor(props) {
@@ -65,26 +64,18 @@ const styles = StyleSheet.create({
   },
   headingContainer: {
     height: 100,
-    // backgroundColor: "yellow",
   },
   promptContainer: {
     height: 90,
     alignItems: "center",
-    // backgroundColor: "red",
   },
   submitContainer: {
     height: 100,
     alignSelf: "center",
-    // backgroundColor: "green",
   },
   textInputContainer: {
     width: "75%",
     flex: 1,
-    // flexDirection: "row",
-    // justifyContent: "center",
-    // alignItems: "center",
-    // backgroundColor: "yellow",
-    // borderWidth: 1,
   },
   headingText: {
     fontSize: 35,
@@ -97,30 +88,12 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     right: 50,
     color: "blue",
-    // backgroundColor: "red",
     bottom: 20
-  },
-  loginLink: {
-    alignSelf: "center",
-    color: "blue",
-    paddingTop: 30,
-  },
-  or: {
-    height: 50,
-    alignSelf: "center",
-    // backgroundColor: "orange",
-    paddingTop: 10,
-  },
-  bottomContainer: {
-    height: 200,
-    alignSelf: "center",
-    // backgroundColor: "pink",
   },
   icon: {
     left: 125,
     bottom: 27,
     marginHorizontal: 147,
-    // backgroundColor: "yellow",
   }
 });
 

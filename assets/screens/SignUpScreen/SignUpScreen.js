@@ -22,7 +22,7 @@ class SignUpScreen extends Component {
   }
   GetValueFunction = async (email, password, firstName, lastName) => {
 
-    // check for inputs in inputtext
+    // check for inputs in InputText
     if(email == "" || password == "" || firstName == "" || lastName == "") {
       Alert.alert("Please fill all the fields!", "",
       { text: "Okay", onPress: () => console.log("Successful") });
@@ -120,10 +120,9 @@ class SignUpScreen extends Component {
       } catch (error) {
         console.error(error);
       }
-
     }
-    
   }
+  // make the password secret
   changeIcon() {
     this.setState(prevState => ({
         icon: prevState.icon === 'eye' ? 'eye-off' : 'eye',
@@ -224,31 +223,6 @@ class SignUpScreen extends Component {
             Sign Up
           </Button>
         </View>
-        <View style={styles.or}>
-          <Text>OR</Text>
-        </View>
-        <View style={styles.bottomContainer}>
-          <Button
-            style={{
-              padding: 16,
-              width: 250,
-              borderRadius: 24,
-              alignItems: "center",
-              backgroundColor: "#3b5998",
-              color: "white",
-              overflow: "hidden",
-            }}
-            onPress={() => this.props.navigation.navigate("")}
-          >
-            Login with Facebook
-          </Button>
-          {/* <Text
-            style={styles.loginLink}
-            onPress={() => this.props.navigation.navigate("SignUpPhoneNumberScreen")}
-          >
-            Sign up with phone number
-          </Text> */}
-        </View>
       </SafeAreaView>
      );
   }
@@ -262,29 +236,21 @@ const styles = StyleSheet.create({
   },
   headingContainer: {
     height: 100,
-    // backgroundColor: "yellow",
   },
   pictureContainer: {
     height: 125,
-    // backgroundColor: "orange",
   },
   promptContainer: {
     height: 300,
     alignItems: "center",
-    // backgroundColor: "red",
   },
   submitContainer: {
     height: 100,
-    // backgroundColor: "green",
     alignSelf: "center",
   },
   textInputContainer: {
     width: "75%",
     flex: 1,
-    // flexDirection: "row",
-    // justifyContent: "center",
-    // alignItems: "center",
-    // borderWidth: 1
   },
   headingText: {
     fontSize: 35,
@@ -299,27 +265,10 @@ const styles = StyleSheet.create({
     right: 50,
     color: "blue",
   },
-  loginLink: {
-    alignSelf: "center",
-    color: "blue",
-    paddingTop: 30,
-  },
-  or: {
-    height: 60,
-    justifyContent: "center",
-    alignSelf: "center",
-    // backgroundColor: "orange",
-  },
-  bottomContainer: {
-    height: 200,
-    alignSelf: "center",
-    // backgroundColor: "pink",
-  },
   icon: {
     left: 125,
     bottom: 13,
     marginHorizontal: 147,
-    // backgroundColor: "yellow",
   }
 });
 

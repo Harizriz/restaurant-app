@@ -1,9 +1,7 @@
 import React from "react";
-import { Button } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from "react-native-vector-icons/FontAwesome";
 import MenuIcon from "react-native-vector-icons/MaterialIcons";
 import QrIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import ListIcon from "react-native-vector-icons/Octicons";
@@ -12,8 +10,6 @@ import MainScreen from "../MainScreen/index";
 import SignUpScreen from "../SignUpScreen/SignUpScreen";
 import LoginScreen from "../LoginScreen/LoginScreen";
 import ResetPasswordScreen from "../LoginScreen/ResetPasswordScreen";
-import LoginPhoneNumberScreen from "../LoginScreen/LoginPhoneNumberScreen";
-import SignUpPhoneNumberScreen from "../SignUpScreen/SignUpPhoneNumberScreen";
 
 import OrderScreen from "../MenuScreen/OrderScreen";
 import AccountScreen from "../MenuScreen/AccountScreen";
@@ -46,12 +42,6 @@ import AccountStaffScreen from "../RestaurantStaff/AccountStaffScreen";
 import PaymentScreen from "../CheckoutScreen/PaymentScreen";
 import PaymentDetailScreen from "../CheckoutScreen/PaymentDetailScreen";
 import PaymentLoadingScreen from "../CheckoutScreen/PaymentLoadingScreen";
-import AddNewCardScreen from "../CheckoutScreen/AddNewCardScreen";
-
-import ItemScreen from "../../components/ItemScreen";
-import DummyScreen from "../../components/DummyScreen";
-import CartPageScreen from "../../components/CartPageScreen";
-import QRDummyScreen from "../../components/QRDummyScreen";
 
 const BottomTab = createBottomTabNavigator();
 const MaterialBottomTabs = () => {
@@ -217,22 +207,12 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
+        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
         <Stack.Screen
           name="ResetPasswordScreen"
           component={ResetPasswordScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="LoginPhoneNumberScreen"
-          component={LoginPhoneNumberScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="SignUpPhoneNumberScreen"
-          component={SignUpPhoneNumberScreen}
-          options={{ headerShown: false }}
+          options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}
         />
         <Stack.Screen
           name="MainMenuScreen"
@@ -250,18 +230,13 @@ export default function App() {
           options={{gestureEnabled: false, headerShown: false}}
         />
         <Stack.Screen name="VirtualQueueQRScreen" component={VirtualQueueQRScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
-        <Stack.Screen name="DishesScreen" component={DishesScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
-        <Stack.Screen name="DishDetailsScreen" component={DishDetailsScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="ItemScreen" component={ItemScreen} />
-        <Stack.Screen name="DummyScreen" component={DummyScreen} />
-        <Stack.Screen name="QRDummyScreen" component={QRDummyScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="DishesScreen" component={DishesScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
+        <Stack.Screen name="DishDetailsScreen" component={DishDetailsScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
+        <Stack.Screen name="CartScreen" component={CartScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
         <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="CartPageScreen" component={CartPageScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="PaymentDetailScreen" component={PaymentDetailScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
+        <Stack.Screen name="PaymentDetailScreen" component={PaymentDetailScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
         <Stack.Screen name="PaymentLoadingScreen" component={PaymentLoadingScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="AddNewCardScreen" component={AddNewCardScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
         <Stack.Screen name="QrCodeManagerScreen" component={QrCodeManagerScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="EditTableScreen" component={EditTableScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="DishesManagerScreen" component={DishesManagerScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>

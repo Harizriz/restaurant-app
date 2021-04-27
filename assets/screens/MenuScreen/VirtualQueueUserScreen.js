@@ -54,7 +54,6 @@ class VirtualQueueScreen extends Component {
                 });
             })
         });
-
     }
     Proceed = async (pax) => {
         if(pax == '' || pax == 0) {
@@ -62,7 +61,7 @@ class VirtualQueueScreen extends Component {
                 isError: true
             })
         }
-        else{
+        else {
             this.setState({
                 isError: false
             })
@@ -102,7 +101,6 @@ class VirtualQueueScreen extends Component {
                 catch (error) {
 
                 }
-
                 this.props.navigation.navigate("VirtualQueueQRScreen", {pax: pax, queueNumber: this.state.initialQueueNumber})
                 this.setState({ counter: this.state.counter + 1 });
             }
@@ -132,50 +130,9 @@ class VirtualQueueScreen extends Component {
                 catch (error) {
 
                 }
-
                 this.props.navigation.navigate("VirtualQueueQRScreen", {pax: pax, queueNumber: this.state.queueNumber})
                 this.setState({ counter: this.state.counter + 1 });
             }
-
-            // try {
-            //     let response = await fetch(
-            //       'http://172.20.10.5:5000/api/user/lastuser', 
-            //       {
-            //         method: 'POST',
-            //         headers: {
-            //           Accept: 'application/json',
-            //           'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify({
-            //           email: this.state.email
-            //         })
-            //       }
-            //     );
-            //     let json = await response.json();
-            // }
-            // catch (error) {
-
-            // }
-
-            // console.log(this.state.dataSourceLogin)
-      
-            // await fetch(
-            //   'http://172.20.10.5:5000/api/user', 
-            //   {
-            //     method: 'POST',
-            //     headers: {
-            //       Accept: 'application/json',
-            //       'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({
-            //       email: this.state.email,
-            //       counter: this.state.dataSourceLogin.counter + 1
-            //     })
-            //   }
-            // );
-
-            // this.props.navigation.navigate("VirtualQueueQRScreen", {pax: pax})
-            // this.setState({ counter: this.state.counter + 1 });
         }
     } 
     LeaveQueue = () => {
@@ -199,8 +156,7 @@ class VirtualQueueScreen extends Component {
                 })
                 } 
             },
-        ])
-        
+        ])   
     }
     render() {     
         const renderMainScreen = () => {
@@ -237,7 +193,6 @@ class VirtualQueueScreen extends Component {
                 </View>
             )
         }
-
         const renderAssignedScreen = (queueNumber) => {
             return (
                 <View>
@@ -285,7 +240,6 @@ const styles = StyleSheet.create({
     },
     headingContainer: {
         height: 125,
-        // backgroundColor: "yellow",
     },
     headingText: {
         fontSize: 35,

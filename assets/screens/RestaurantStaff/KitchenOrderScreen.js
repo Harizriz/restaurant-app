@@ -23,6 +23,7 @@ class KitchenOrderScreen extends Component {
             });
         })
     }
+    // refresh kitchen order list
     onRefresh() {
         this.setState({
             isRefresh: true
@@ -43,19 +44,15 @@ class KitchenOrderScreen extends Component {
     render() {
         let tableTree = {};
         for(let i=0; i<this.state.dataSource.length; i++) {
-            // console.log(this.state.dataSource[i].tableId)
             this.state.tableArray.push(this.state.dataSource[i].tableId)
-             // console.log(this.state.tableArray)
             if (tableTree[this.state.dataSource[i].tableId]){
                 tableTree[this.state.dataSource[i].tableId].push(this.state.dataSource[i])
             }
             else {
                 tableTree[this.state.dataSource[i].tableId] = [this.state.dataSource[i]]
             }
-
         }
         const preparedItem = (objectId) => {
-
             Alert.alert("Dish Prepared?", "", [
                 { text: "Cancel", onPress: () => console.log("cancelled!") },
                 { text: "Prepared", onPress: () => {
@@ -87,7 +84,6 @@ class KitchenOrderScreen extends Component {
                     });
                 })
             }, 3000);
-
         }
         const Item = ({ dishName, dishQuantity, objectId, preparedDish }) => (
             <View style={styles.itemContainer}>
@@ -112,7 +108,6 @@ class KitchenOrderScreen extends Component {
             </View>
         );
         const renderItem = ({ item }) => {
-            // console.log('item', item)
             return (
                 <View>
                     <Item dishName={item.dishName} 
@@ -120,16 +115,15 @@ class KitchenOrderScreen extends Component {
                     objectId={item.objectId}
                     preparedDish={item.preparedDish}/>
                 </View>
-        ); }
+            ); 
+        }
         const renderTables = ( tables ) => {
             let tableJSX = []
             let i = 0
             let tableLength = Object.keys(tables).length
             for (i = 0; i < tableLength; i++) {
                 const tableId = Object.keys(tables)[i]
-                // console.log(tableId)
                 const table = tables[tableId]
-                // console.log(table)
                 tableJSX.push(
                     <View>
                         <TouchableOpacity onPress={() => {
@@ -180,7 +174,6 @@ const styles = StyleSheet.create({
     },
     headingContainer: {
         height: 125,
-        // backgroundColor: "yellow",
     },
     headingText: {
         fontSize: 35,
@@ -199,8 +192,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
     },
     itemContainer: {
-        // height: 50,
-        // backgroundColor: "yellow",
         borderColor: "black",
         borderWidth: 1,
         padding: 10,
@@ -209,17 +200,12 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     quantityContainer: {
-        // height: 50,
         width: "15%",
-        // backgroundColor: "red",
         justifyContent: "center",
-        // borderWidth: 1,
-        // borderColor: "black"
     },
     numberContainer: {
         height: 30,
         width: 30,
-        // backgroundColor: "pink",
         alignSelf: "center",
         justifyContent: "center",
         borderWidth: 1,
@@ -229,14 +215,11 @@ const styles = StyleSheet.create({
         height: 50,
         width: "70%",
         paddingLeft: 10,
-        // backgroundColor: "lightblue",
         justifyContent: "center"
     },
     editContainer: {
         height: 50,
         width: "15%",
-        // backgroundColor: "lightgreen",
-        // justifyContent: "center"
         justifyContent: "center",
         alignItems: "center"
     },

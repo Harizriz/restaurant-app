@@ -15,9 +15,8 @@ class PaymentLoadingScreen extends Component {
         const emailData = this.props.route.params.emailData
 
         const points = parseInt(totalPrice)
-        console.log(points)
 
-        // Or set a specific startFrame and endFrame with:
+        // set a specific startFrame and endFrame
         this.animation.play;
         this.animation.reset;
 

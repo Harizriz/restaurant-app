@@ -19,6 +19,7 @@ class VirtualQueueScreen extends Component {
             });
         })
     }
+    // refresh the virtual queue list
     onRefresh() {
         this.setState({
             isRefresh: true
@@ -45,7 +46,6 @@ class VirtualQueueScreen extends Component {
                 </View>
             </View>
         );
-          
         const renderItem = ({ item }) => (
             <TouchableOpacity onPress={() => 
                 Alert.alert("Notify Customer?", "", [
@@ -58,7 +58,6 @@ class VirtualQueueScreen extends Component {
                 />
             </TouchableOpacity>
         );
-
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.headingContainer}>
@@ -88,7 +87,6 @@ const styles = StyleSheet.create({
     },
     headingContainer: {
         height: 125,
-        // backgroundColor: "yellow",
     },
     headingText: {
         fontSize: 35,
@@ -117,7 +115,6 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         marginHorizontal: 16,
         flexDirection: "row",
-        // backgroundColor: "yellow"
     },
     itemContainer: {
         flexDirection: "row"

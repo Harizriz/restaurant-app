@@ -3,7 +3,6 @@ import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Button, Aler
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { TextInput } from 'react-native-paper';
-import DeleteIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class MenuManagerScreen extends Component {
     constructor(props) {
@@ -36,6 +35,7 @@ class MenuManagerScreen extends Component {
             })
         });
     }
+    // refresh the menu list
     onRefresh() {
         this.setState({
             isRefresh: true
@@ -78,7 +78,7 @@ class MenuManagerScreen extends Component {
                 isModalVisible: false
             })
 
-            // reload the screen *hack*
+            // reload the screen
             fetch(`http://172.20.10.5:5000/api/menus`)
             .then(response => response.json())
             .then(responseJson => {
@@ -92,8 +92,7 @@ class MenuManagerScreen extends Component {
         }
 
     }
-    // delete menu
-    // might consider updating the "name" of the menu
+    // delete menu from Menu object
     deleteMenu = (menuId) => {
         Alert.alert("Delete Menu", "Are you sure you want to delete the menu permanently?", [
             { text: "Cancel", onPress: () => console.log("cancelled!") },
@@ -160,7 +159,6 @@ class MenuManagerScreen extends Component {
                 <Text style={styles.title}>{menuName}</Text>
             </View>
         );
-          
         const renderItem = ({ item }) => (
             <View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("DishesManagerScreen", {menuName: item.menuName, menuId: item.objectId})}
@@ -217,11 +215,9 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "stretch",
         marginTop: StatusBar.currentHeight || 0,
-        // backgroundColor: "red"
     },
     headingContainer: {
         height: 125,
-        // backgroundColor: "yellow",
         justifyContent: "center"
     },
     headingText: {
@@ -236,7 +232,6 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         marginHorizontal: 16,
         flexDirection: "row",
-        // backgroundColor: "yellow"
     },
     searchContainer: {
         height: 50,
@@ -276,13 +271,11 @@ const styles = StyleSheet.create({
         top: 20,
         width: "75%",
         flexDirection: "row",
-        // backgroundColor: "yellow",
         justifyContent: "space-between"
     },
     editContainer: {
         height: 25,
         width: "20%",
-        // backgroundColor: "lightgreen",
         justifyContent: "center"
     },
     icon: {
