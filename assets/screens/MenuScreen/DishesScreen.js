@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Button, Alert, Image } from 'react-native';
-import SearchInput from "../../components/SearchInput";
+import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, TextInput, Alert, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Modal from 'react-native-modal';
-import { TextInput } from 'react-native-paper'
+import Icon from "react-native-vector-icons/Feather";
 
 class DishesScreen extends Component {
     constructor(props) {
@@ -12,7 +10,8 @@ class DishesScreen extends Component {
             isModalVisible: false,
             setModalVisible: false,
             dataSource: '',
-            tableId: ''
+            tableId: '',
+            value: ''
         };
     }
     componentDidMount = async () => {
@@ -45,6 +44,29 @@ class DishesScreen extends Component {
             })
         });
     }
+    searchItems = text => {
+        const menuId = this.props.route.params.menuId;
+        let newData = this.state.dataSource.filter(item => {
+            const itemData = `${item.dishName.toUpperCase()}`;
+            const textData = text.toUpperCase();
+        if (text.length > 0) {
+            return itemData.indexOf(textData) > -1;
+        }
+        if (text.length == 0) {
+            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        }
+        });
+        this.setState({
+            dataSource: newData,
+            value: text,
+        });
+    };
     render() {
         const Item = ({ dishName, dishImage, dishDescription, dishPrice }) => (
             <View style={styles.item}>
@@ -60,14 +82,20 @@ class DishesScreen extends Component {
         );
           
         const renderItem = ({ item }) => (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("DishDetailsScreen",
-                {dishId: item.objectId, 
-                dishName: item.dishName, 
-                dishDescription: item.dishDescription,
-                dishPrice: item.dishPrice,
-                dishImage: item.dishImage, 
-                tableId: this.state.tableId
-                })}>
+            <TouchableOpacity onPress={() => {
+                this.setState({
+                    value: ''
+                })
+                this.props.navigation.navigate("DishDetailsScreen",
+                {
+                    dishId: item.objectId, 
+                    dishName: item.dishName, 
+                    dishDescription: item.dishDescription,
+                    dishPrice: item.dishPrice,
+                    dishImage: item.dishImage, 
+                    tableId: this.state.tableId
+                })
+            }}>
                 <Item 
                     dishName={item.dishName} 
                     dishDescription={item.dishDescription} 
@@ -79,7 +107,15 @@ class DishesScreen extends Component {
             <SafeAreaView style={styles.container}>
                 <View style={styles.headingContainer}>
                     <View style={styles.searchContainer}>
-                        <SearchInput placeholder="What are you craving for?" />
+                        <Icon style={styles.icon} name="search" color="black" size={10} />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="What are you craving?"
+                            placeholderTextColor="black"
+                            onChangeText={(text) => this.searchItems(text)}
+                            value={this.state.value}
+                            clearButtonMode="always"
+                        />
                     </View>
                 </View>
                 <FlatList
@@ -184,7 +220,37 @@ const styles = StyleSheet.create({
         width: "75%",
         alignSelf: "center",
         marginBottom: 20,
-    }
+    },
+    searchContainer: {
+        flexDirection: "row",
+        backgroundColor: "#fff",
+        height: 50,
+        // backgroundColor: "red",
+        width: "92%",
+        left: 16,
+        borderRadius: 5
+        // borderColor: "lightgray",
+        // borderWidth: 1
+    },
+    icon: {
+        padding: 20,
+    },
+    input: {
+        flex: 1,
+        padding: 10,
+        // paddingLeft: 10,
+        borderLeftColor: "lightgray",
+        borderLeftWidth: 1,
+        // backgroundColor: "#fff",
+        // color: "#424242",
+        // height: 40,
+        // borderColor: "gray",
+        // borderWidth: 2,
+        // borderRadius: 5,
+        // width: "50%",
+        // left: 20,
+        // marginTop: 10,
+    },
 });
 
 export default DishesScreen;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Button, Alert } from 'react-native';
-import SearchInput from "../../components/SearchInput";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { TextInput } from 'react-native-paper';
@@ -189,12 +188,6 @@ class MenuManagerScreen extends Component {
                         </View>
                     </View>
                 </Modal>
-                {/* This is the search button and text input */}
-                {/* <View style={styles.headingContainer}>
-                    <View style={styles.searchContainer}>
-                        <SearchInput placeholder="What are you craving for?" />
-                    </View>
-                </View> */}
                 <View style={styles.headingContainer}>
                     <Text style={styles.headingText}>Menu</Text>
                 </View>

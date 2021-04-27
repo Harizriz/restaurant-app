@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Button, Alert, Image } from 'react-native';
-import SearchInput from "../../components/SearchInput";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { TextInput } from 'react-native-paper'
@@ -129,12 +128,6 @@ class DishesManagerScreen extends Component {
         );
         return (
             <SafeAreaView style={styles.container}>
-                {/* <View style={styles.headingContainer}>
-                    <View style={styles.searchContainer}>
-                        <SearchInput placeholder="What are you craving for?" />
-                    </View>
-                </View> */}
-                {/* if there's no data in database, just put an empty flatlist */}
                 <View style={styles.headingContainer}>
                     <Text style={styles.headingText}>{menuName}</Text>
                 </View>
