@@ -86,6 +86,7 @@ module.exports = {
             const KitchenOrder = Parse.Object.extend("KitchenOrder");
             const kitchenOrder = new Parse.Query(KitchenOrder);
             kitchenOrder.equalTo("dishName", newKitchenOrder.dishName)
+            kitchenOrder.equalTo("tableId", newKitchenOrder.tableId)
 
             const chosenOrder = await kitchenOrder.find();  
             
@@ -115,14 +116,14 @@ module.exports = {
                 chosenOrder[0].save().then(() => {
                     // Now let's update it with some new data. In this case, only cheatMode and score
                     // will get sent to the cloud. playerName hasn't changed.
-                    chosenOrder[0].set("dishQuantity", newOrder.dishQuantity + item);
+                    chosenOrder[0].set("dishQuantity", newKitchenOrder.dishQuantity + item);
                     console.log(chosenOrder[0].save());
                     res.send({ msg: "Order updated without duplicating!" })
                     return chosenOrder[0].save();
                 });
             }
             
-            res.send({ msg: "Dish added to cart!" });
+            res.send({ msg: "Dish added to Kitchen Order!" });
            
         }
 

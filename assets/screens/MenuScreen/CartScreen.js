@@ -20,9 +20,9 @@ class CartPageScreen extends Component {
         couponValueHolder: ''
     }
     componentDidMount = async () => {
-        // const tableOrderId = this.props.route.params.tableId;
+        const tableOrderId = this.props.route.params.tableId;
         const emailData = this.props.route.params.emailData;
-        const tableOrderId = 3
+        // const tableOrderId = 3
         console.log("Cart " + tableOrderId)
         console.log("Cart " + emailData)
         fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
@@ -35,7 +35,8 @@ class CartPageScreen extends Component {
     }   
     // delete an item from order
     deleteItem = (id) => {
-        const dishId = id
+        const tableOrderId = this.props.route.params.tableId;
+        const dishId = id;
 
         fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(dishId)}`, {
             method: 'DELETE',
@@ -57,7 +58,7 @@ class CartPageScreen extends Component {
         })
 
         setTimeout(() => {
-            fetch(`http://172.20.10.5:5000/api/orders`)
+            fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -69,7 +70,8 @@ class CartPageScreen extends Component {
     // when updating, need to get the tableNumber
     updateValue = (id) => {
         const { newQuantityValueHolder } = this.state;
-        const dishId = id
+        const dishId = id;
+        const tableOrderId = this.props.route.params.tableId;
 
         // remove item from cart if input is 0
         if(newQuantityValueHolder == 0) {
@@ -93,7 +95,7 @@ class CartPageScreen extends Component {
             })
 
             setTimeout(() => {
-                fetch(`http://172.20.10.5:5000/api/orders`)
+                fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
                 .then(response => response.json())
                 .then(responseJson => {
                     this.setState({
@@ -125,7 +127,7 @@ class CartPageScreen extends Component {
             })
 
             setTimeout(() => {
-                fetch(`http://172.20.10.5:5000/api/orders`)
+                fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
                 .then(response => response.json())
                 .then(responseJson => {
                     this.setState({
