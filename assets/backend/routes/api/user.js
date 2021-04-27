@@ -1,6 +1,5 @@
 const Parse = require('parse/node');
 
-// create user
 module.exports = { 
     createUserLogin : (req, res) => {
         const newUserLogin = {
@@ -31,7 +30,6 @@ module.exports = {
                 try {
                     let result = userLogin.save()
                     console.log("Trying to save string");
-                    // console.log(result)
                 }
                 catch(error) {
                     console.log('Failed to create new object, with error code: ' + error.message);
@@ -39,7 +37,6 @@ module.exports = {
                 res.send(newUserLogin);
             }
             else {
-                // POST request in postman
                 res.send({ msg: "User already logged in!" });
             }
         }
@@ -53,7 +50,6 @@ module.exports = {
             email: req.body.email,
         }
 
-        // delete a specific table in database
         async function removeUserLogin() {
             
             const UserLogin = Parse.Object.extend("UserLogin");
@@ -63,11 +59,9 @@ module.exports = {
             const chosenUser = await query.find();  
             console.log(chosenUser[0])
             chosenUser[0].destroy().then((user) => {
-                // the object was deleted successfully
                 console.log(user + " is destroyed")
                 res.send({ msg: "user is destroyed" })
             }, (error) => {
-                // delete operation failed
                 console.log(error)
                 res.send({ msg: "error" })
             });
@@ -79,8 +73,6 @@ module.exports = {
     },
 
     getLastUserCounter : (req, res) => {
-        
-        // read database to get user's information
         async function retrieveQueueList() {
             const UserLogin = Parse.Object.extend("UserLogin");
             const query = new Parse.Query(UserLogin);
@@ -88,7 +80,6 @@ module.exports = {
             query.descending("counter")
 
             const userLogin = await query.find();  
-            // console.log(userLogin);
             res.send(userLogin);
         }
 

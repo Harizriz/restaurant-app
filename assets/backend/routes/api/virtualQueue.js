@@ -11,7 +11,6 @@ module.exports = {
             return res.status(400).send({ msg: 'Error!' });
         }
         
-        // read database to check existing users using email
         async function retrieveCustomer() {
             const Virtual = Parse.Object.extend("Virtual");
             const query = new Parse.Query(Virtual);
@@ -19,7 +18,6 @@ module.exports = {
 
             const virtual = await query.find();  
             
-            // if the virtual's email does not exist in database, create newCustomer
             if(virtual.length == 0) {
                 const Virtual = Parse.Object.extend("Virtual");
                 const virtual = new Virtual();
@@ -30,7 +28,6 @@ module.exports = {
                 try {
                     let result = virtual.save()
                     console.log("Trying to save string");
-                    // console.log(result)
                 }
                 catch(error) {
                     console.log('Failed to create new object, with error code: ' + error.message);
@@ -38,7 +35,6 @@ module.exports = {
                 res.send({ msg: "You are in the queue!" });
             }
             else {
-                // POST request in postman
                 res.send({ msg: "Tables are full!" });
             }
         }
@@ -48,14 +44,11 @@ module.exports = {
     },
 
     getQueueList : (req, res) => {
-        
-        // read database to get user's information
         async function retrieveQueueList() {
             const Virtual = Parse.Object.extend("Virtual");
             const query = new Parse.Query(Virtual);
 
             const virtual = await query.find();  
-            // console.log(virtual);
             res.send(virtual);
         }
 
@@ -64,12 +57,10 @@ module.exports = {
     },
 
     removeUserFromQueue: (req, res) => {
-
         const removeUser = {
             queueNumber: req.body.queueNumber,
         }
 
-        // delete a specific table in database
         async function removeCustomer() {
             
             const Virtual = Parse.Object.extend("Virtual");
@@ -79,11 +70,9 @@ module.exports = {
             const chosenCustomer = await query.find();  
             console.log(chosenCustomer[0])
             chosenCustomer[0].destroy().then((customer) => {
-                // the object was deleted successfully
                 console.log(customer + " is destroyed")
                 res.send({ msg: "customer is destroyed" })
             }, (error) => {
-                // delete operation failed
                 console.log(error)
                 res.send({ msg: "error" })
             });

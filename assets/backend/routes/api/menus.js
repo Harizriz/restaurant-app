@@ -11,7 +11,6 @@ module.exports = {
             return res.status(400).send({ msg: 'Please fill the field!' });
         }
 
-        // read database to check existing users using email
         async function generateMenu() {
             const Menu = Parse.Object.extend("Menu");
             const query = new Parse.Query(Menu);
@@ -30,7 +29,6 @@ module.exports = {
                 try {
                     let result = menu.save()
                     console.log("Trying to save string");
-                    // console.log(result)
                 }
                 catch(error) {
                     console.log('Failed to create new object, with error code: ' + error.message);
@@ -40,7 +38,6 @@ module.exports = {
 
             }
             else {
-                // POST request in postman
                 res.send({ msg: "Menu already exist!" });
             }
         }
@@ -49,16 +46,13 @@ module.exports = {
         
     },
 
-    getMenus : (req, res) => {
-        
-        // read database to get user's information
+    getMenus : (req, res) => {        
         async function retrieveMenus() {
             const Menu = Parse.Object.extend("Menu");
             const query = new Parse.Query(Menu);
             query.exists("menuName")
 
             const menu = await query.find();  
-            // console.log(menu);
             res.send(menu);
         }
 
@@ -80,13 +74,10 @@ module.exports = {
 
             const chosenMenu = await query.find();  
             console.log(chosenMenu[0])
-            // res.send(chosenMenu[0])
             chosenMenu[0].destroy().then((menu) => {
-                // the object was deleted successfully
                 console.log(menu + " is destroyed")
                 res.send({ msg: "menu is destroyed" })
             }, (error) => {
-                // delete operation failed
                 console.log(error)
                 res.send({ msg: "error" })
             });
@@ -101,7 +92,7 @@ module.exports = {
             menuId: req.body.menuId,
         }
 
-        // delete a specific menu in database
+        // delete a specific dish in database
         async function removeDishes() {
             
             const Menu = Parse.Object.extend("Menu");
@@ -111,13 +102,10 @@ module.exports = {
             const chosenDishes = await query.find();  
             for(i = 0; i < chosenDishes.length; i++) {
                 console.log(chosenDishes[i])
-                // res.send(chosenDishes[i])
                 chosenDishes[i].destroy().then((dishes) => {
-                    // the object was deleted successfully
                     console.log(dishes + " is destroyed")
                     res.send({ msg: "dishes is destroyed" })
                 }, (error) => {
-                    // delete operation failed
                     console.log(error)
                     res.send({ msg: "error" })
                 });
@@ -141,7 +129,6 @@ module.exports = {
             return res.status(400).send({ msg: 'Please fill the field!' });
         }
 
-        // read database to check existing users using email
         async function generateDish() {
             const Menu = Parse.Object.extend("Menu");
             const query = new Parse.Query(Menu);
@@ -149,7 +136,7 @@ module.exports = {
 
             const menu = await query.find();  
             
-            // if the menu does not exist in database, create newMenu
+            // if the menu does not exist in database, create newDish
             if(menu.length == 0) {
                 const Menu = Parse.Object.extend("Menu");
                 const menu = new Menu();
@@ -163,18 +150,15 @@ module.exports = {
                 try {
                     let result = menu.save()
                     console.log("Trying to save string");
-                    // console.log(result)
                 }
                 catch(error) {
                     console.log('Failed to create new object, with error code: ' + error.message);
                 }         
                 
-                // res.send(newDish);
                 res.send({ msg: "Dish created successfully!" });
 
             }
             else {
-                // POST request in postman
                 res.send({ msg: "Dish already exist!" });
             }
         }
@@ -188,7 +172,7 @@ module.exports = {
             dishId: req.body.dishId,
         }
 
-        // delete a specific menu in database
+        // delete a specific dish in database
         async function removeDish() {
             
             const Menu = Parse.Object.extend("Menu");
@@ -198,11 +182,9 @@ module.exports = {
             const chosenDish = await query.find();  
             console.log(chosenDish[0])
             chosenDish[0].destroy().then((dish) => {
-                // the object was deleted successfully
                 console.log(dish + " is destroyed")
                 res.send({ msg: "dish is destroyed" })
             }, (error) => {
-                // delete operation failed
                 console.log(error)
                 res.send({ msg: "error" })
             });
@@ -230,8 +212,6 @@ module.exports = {
             console.log(chosenDish[0])
 
             chosenDish[0].save().then(() => {
-                // Now let's update it with some new data. In this case, only cheatMode and score
-                // will get sent to the cloud. playerName hasn't changed.
                 chosenDish[0].set("dishName", newDish.newDishName);
                 chosenDish[0].set("dishPrice", newDish.newDishPrice);
                 chosenDish[0].set("dishDescription", newDish.newDishDescription);
@@ -248,7 +228,7 @@ module.exports = {
 
     getDishes: (req, res) => {
 
-        // read database to get user's information
+        // read database to get dishes
         async function retrieveDishes() {
             const Menu = Parse.Object.extend("Menu");
             const query = new Parse.Query(Menu);

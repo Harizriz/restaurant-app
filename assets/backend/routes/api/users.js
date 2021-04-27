@@ -1,6 +1,5 @@
 const Parse = require('parse/node');
 
-// create user
 module.exports = { 
     createUser : (req, res) => {
         const newUser = {
@@ -37,7 +36,6 @@ module.exports = {
                 try {
                     let result = person.save()
                     console.log("Trying to save string");
-                    // console.log(result)
                 }
                 catch(error) {
                     console.log('Failed to create new object, with error code: ' + error.message);
@@ -45,7 +43,6 @@ module.exports = {
                 res.send(newUser);
             }
             else {
-                // POST request in postman
                 res.send({ msg: "User already exist!" });
             }
         }
@@ -72,7 +69,6 @@ module.exports = {
             query.equalTo("password", user.password);
 
             const person = await query.find();  
-            // console.log(person);
 
             if(person.length == 0) {
                 res.send({ msg: 'Incorrect email or password'});
@@ -88,8 +84,6 @@ module.exports = {
     },
 
     getUserInfo : (req, res) => {
-
-        // read database to get user's information
         async function retrieveUser() {
             const Person = Parse.Object.extend("Person");
             const query = new Parse.Query(Person);
@@ -120,8 +114,6 @@ module.exports = {
             console.log(password[0])
 
             password[0].save().then(() => {
-                // Now let's update it with some new data. In this case, only cheatMode and score
-                // will get sent to the cloud. playerName hasn't changed.
                 password[0].set("password", passwordInformation.confirmNewPassword);
                 console.log(password[0].save());
                 res.send({ msg: "Password updated!" })
@@ -148,8 +140,6 @@ module.exports = {
             console.log(password[0])
 
             password[0].save().then(() => {
-                // Now let's update it with some new data. In this case, only cheatMode and score
-                // will get sent to the cloud. playerName hasn't changed.
                 password[0].set("subpoint", data.points);
                 console.log(password[0].save());
                 res.send({ msg: "subpoint updated!" })
@@ -176,8 +166,6 @@ module.exports = {
             console.log(points[0])
 
             points[0].save().then(() => {
-                // Now let's update it with some new data. In this case, only cheatMode and score
-                // will get sent to the cloud. playerName hasn't changed.
                 points[0].set("subpoint", data.points);
                 console.log(points[0].save());
                 res.send({ msg: "subpoint updated!" })
