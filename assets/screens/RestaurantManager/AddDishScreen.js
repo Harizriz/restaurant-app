@@ -32,13 +32,13 @@ class AddDishScreen extends Component {
             })
         }
 
-        // console.log(this.state.imageUri)
+        console.log(this.state.imageUri)
 
         // ImgToBase64.getBase64String(this.state.imageUri)
         //     .then(base64String => console.log(base64String))
         //     .catch(err => console.log(err));
- 
-    };
+
+    }
     AddDish = async () => {
 
         // convert string to float with two decimals
@@ -47,11 +47,15 @@ class AddDishScreen extends Component {
         let dec = converted.toFixed(2)
         this.state.DishPriceValueHolder = dec
 
-        this.setState({
-            imageUri: this.state.imageUri,
-        })
-
         const { DishNameValueHolder, DishPriceValueHolder, DishDescriptionValueHolder, imageUri, menuId } = this.state;
+
+        // let photo = { uri: this.state.imageUri }
+        // let formdata = new FormData();
+
+        // formdata.append("product[name]", 'test')
+        // formdata.append("product[price]", 10)
+        // formdata.append("product[description]", '12dsadadsa')
+        // formdata.append("product[images_attributes[0][file]]", {uri: photo.uri, name: 'image.jpg', type: 'image/jpeg'})
 
         try {
             let response = await fetch(
@@ -60,7 +64,8 @@ class AddDishScreen extends Component {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'multipart/form-data'
                 },
                 body: JSON.stringify({
                     menuId: menuId,
@@ -72,7 +77,7 @@ class AddDishScreen extends Component {
               }
             );
             let json = await response.json();
-            console.log(json); 
+            console.log(json);  
 
             this.props.navigation.goBack();
 

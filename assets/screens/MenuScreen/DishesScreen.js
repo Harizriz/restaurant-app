@@ -65,7 +65,7 @@ class DishesScreen extends Component {
                 dishName: item.dishName, 
                 dishDescription: item.dishDescription,
                 dishPrice: item.dishPrice,
-                // dishImage: item.dishImage, 
+                dishImage: item.dishImage, 
                 tableId: this.state.tableId
                 })}>
                 <Item 

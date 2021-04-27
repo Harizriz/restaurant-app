@@ -94,6 +94,7 @@ class DishDetailsScreen extends Component {
         const dishName = this.props.route.params.dishName;
         const dishDescription = this.props.route.params.dishDescription;
         const dishPrice = this.props.route.params.dishPrice;
+        const dishImage = this.props.route.params.dishImage;
         const tableId = this.props.route.params.tableId;
         console.log("Detail " + tableId)
 
@@ -106,7 +107,7 @@ class DishDetailsScreen extends Component {
                 <View style={styles.imageContainer}>
                     <Image
                     style={styles.image}
-                    source={require("../../garlic_bread.png")}
+                    source={{ uri: dishImage }}
                     />
                 </View>
                 <View style={styles.descriptionContainer}>
