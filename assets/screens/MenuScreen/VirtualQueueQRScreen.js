@@ -8,8 +8,6 @@ export default function VirtualQueueQRScreen({ navigation, route }) {
   const [tableId, setTableId] = useState(null)
   const pax = route.params.pax
   const queueNumber = route.params.queueNumber
-  console.log(pax)
-  console.log(queueNumber)
 
   useEffect(() => {
     (async () => {
@@ -21,8 +19,6 @@ export default function VirtualQueueQRScreen({ navigation, route }) {
   const handleBarCodeScanned = async ({ type, data }) => {
     setTableId(data);
     setScanned(true);
-    console.log("Scanned ", pax)
-    console.log("queue Number", queueNumber)
     if (data == 'aqFl0LxbRN') {
       try {
         let response = await fetch(

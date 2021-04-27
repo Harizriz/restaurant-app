@@ -71,7 +71,7 @@ class PaymentScreen extends Component {
     }
 
     if (!this.state.CardNumberValueHolder || !this.state.ExpDateValueHolder || !this.state.CVVValueHolder) {
-      console.log("nope")
+      
     }
     else {
       this.props.navigation.navigate("PaymentLoadingScreen",

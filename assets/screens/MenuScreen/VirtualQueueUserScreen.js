@@ -22,7 +22,6 @@ class VirtualQueueScreen extends Component {
     componentDidUpdate = () => {
         try {
             if(this.state.counter == 2 && this.state.currentQueueNumber != this.props.route.params.queueNumber) {
-                console.log("componentDidUpdate", this.props.route.params.queueNumber)
                 this.setState({
                     currentQueueNumber: this.props.route.params.queueNumber
                 })
