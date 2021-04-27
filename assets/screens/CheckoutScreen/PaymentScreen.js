@@ -88,6 +88,7 @@ class PaymentScreen extends Component {
     const tableOrderId = this.props.route.params.tableId
     const emailData = this.props.route.params.emailData
     console.log(tableOrderId)
+    console.log(totalPrice)
     return ( 
     <SafeAreaView style={styles.container}>
       <View style={styles.iconContainer}>

@@ -62,6 +62,9 @@ app.put('/api/users/:id', users.updateUserPassword);
 // update user's points
 app.put('/api/users/points/:email', users.updateUserPoints);
 
+// delete user's points if redeemed
+app.put('/api/users/points/redeem/:email', users.deleteUserPoints);
+
 
 // TABLES
 

@@ -159,6 +159,34 @@ module.exports = {
 
         updatePoint();
 
+    },
+
+    deleteUserPoints: (req, res) => {
+        const data = {
+            email: req.body.email,
+            points: req.body.points,
+        }
+
+        async function deletePoint() {
+            const Person = Parse.Object.extend("Person");
+            const query = new Parse.Query(Person)
+            query.equalTo("email", data.email)
+
+            const points = await query.find();  
+            console.log(points[0])
+
+            points[0].save().then(() => {
+                // Now let's update it with some new data. In this case, only cheatMode and score
+                // will get sent to the cloud. playerName hasn't changed.
+                points[0].set("subpoint", data.points);
+                console.log(points[0].save());
+                res.send({ msg: "subpoint updated!" })
+                return points[0].save();
+            });
+        }
+
+        deletePoint();
+
     }
 
 }
