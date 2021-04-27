@@ -133,6 +133,36 @@ class CartPageScreen extends Component {
             }, 1500) 
         }
     }
+    validateCart = (finalPrice, tableOrderId) => {
+        if(this.state.dataSource.length == 0) {
+            console.log("Empty")
+            return (
+                <TouchableOpacity onPress={() => 
+                    alert("Cart is empty!")
+                }>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}>Checkout</Text>
+                    </View>
+                </TouchableOpacity>
+            )
+        }
+        else {
+            console.log("Got")
+            return (
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentDetailScreen", 
+                    {
+                        cartTotalPrice: finalPrice,
+                        tableId: tableOrderId,
+                        emailData: this.props.route.params.emailData
+                    }
+                    )}>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}>Checkout</Text>
+                    </View>
+                </TouchableOpacity>
+            )
+        }
+    }
     render() {
         let tableOrderId = this.props.route.params.tableId;
 
@@ -289,16 +319,7 @@ class CartPageScreen extends Component {
                 </View>
             </View>
             <View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentDetailScreen", 
-                    {cartTotalPrice: finalPrice,
-                    tableId: tableOrderId,
-                    emailData: this.props.route.params.emailData
-                    }
-                    )}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>Checkout</Text>
-                    </View>
-                </TouchableOpacity>
+                { this.validateCart(finalPrice, tableOrderId) }
             </View>
         </SafeAreaView>
      );
