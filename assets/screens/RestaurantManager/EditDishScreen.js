@@ -2,53 +2,33 @@ import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, Image, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { TextInput } from 'react-native-paper';
+import * as ImagePicker from 'expo-image-picker'
 
 class EditDishScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            newDishNameValueHolder: '',
-            newDishPriceValueHolder: '',
-            newDishDescriptionValueHolder: '',
-            newImageUri: '',
+            newDishNameValueHolder: this.props.route.params.dishName,
+            newDishPriceValueHolder: this.props.route.params.dishPrice,
+            newDishDescriptionValueHolder: this.props.route.params.dishDescription,
+            newImageUri: this.props.route.params.dishImage,
             dishId: this.props.route.params.dishId,
-            imageUri: null,
+            imageUri: '',
         };
     }
-    componentDidMount = () => {
-        const dishName = this.props.route.params.dishName
-        const dishPrice = this.props.route.params.dishPrice
-        const dishDescription = this.props.route.params.dishDescription
-        // const dishImage = this.props.route.params.dishImage
-        this.setState({
-            newDishNameValueHolder: dishName,
-            newDishPriceValueHolder: dishPrice,
-            newDishDescriptionValueHolder: dishDescription
-            // newImageUri: dishImage
-        })
-    }
     changeImage = async () => {
-        // let result = await ImagePicker.launchImageLibraryAsync({
-        //   mediaTypes: ImagePicker.MediaTypeOptions.All,
-        //   allowsEditing: true,
-        //   aspect: [4, 3],
-        //   quality: 1,
-        // });
-    
-        // console.log(result);
-    
-        // if (!result.cancelled) {
-        //     this.setState({
-        //         imageUri: result.uri
-        //     })
-        // }
-
-        // console.log(this.state.imageUri)
-
-        // ImgToBase64.getBase64String(this.state.imageUri)
-        //     .then(base64String => console.log(base64String))
-        //     .catch(err => console.log(err));
- 
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+          
+        if (!result.cancelled) {
+            this.setState({
+                newImageUri: result.uri
+            })
+        }
     };
     EditDish = async () => {
 
@@ -58,11 +38,7 @@ class EditDishScreen extends Component {
         let dec = converted.toFixed(2)
         this.state.newDishPriceValueHolder = dec
 
-        // this.setState({
-        //     imageUri: this.state.imageUri,
-        // })
-
-        const { newDishNameValueHolder, newDishPriceValueHolder, newDishDescriptionValueHolder, newimageUri, dishId } = this.state;
+        const { newDishNameValueHolder, newDishPriceValueHolder, newDishDescriptionValueHolder, newImageUri, dishId } = this.state;
 
         fetch(`http://172.20.10.5:5000/api/menus/dish/${encodeURI(dishId)}`, {
             method: 'PUT',
@@ -75,7 +51,7 @@ class EditDishScreen extends Component {
                 newDishName: newDishNameValueHolder,
                 newDishPrice: newDishPriceValueHolder,
                 newDishDescription: newDishDescriptionValueHolder,
-                newimageUri: newimageUri
+                newImageUri: newImageUri
             })
         })
         .then(response => response.json())
@@ -93,7 +69,7 @@ class EditDishScreen extends Component {
         const dishName = this.props.route.params.dishName
         const dishPrice = this.props.route.params.dishPrice
         const dishDescription = this.props.route.params.dishDescription
-        // const dishImage = this.props.route.params.dishImage
+        const dishImage = this.props.route.params.dishImage
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.headingContainer}>
@@ -139,7 +115,11 @@ class EditDishScreen extends Component {
                     </View>
                 </View>
                 <View style={styles.uploadContainer}>
-                    { this.state.imageUri && <Image source={{ uri: this.state.imageUri }} style={{ width: 250, height: 250 }} />}
+                    { this.state.newImageUri == this.props.route.params.dishImage ?
+                        <Image source={{ uri: dishImage }} style={{ width: 250, height: 250 }}/>
+                        :
+                        <Image source={{ uri: this.state.newImageUri }} style={{ width: 250, height: 250 }}/>
+                    }
                 </View>
                 <View style={styles.submitContainer}>
                     <TouchableOpacity onPress={() => this.changeImage()}

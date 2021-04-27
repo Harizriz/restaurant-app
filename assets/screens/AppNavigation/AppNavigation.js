@@ -237,11 +237,11 @@ export default function App() {
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
         <Stack.Screen name="PaymentDetailScreen" component={PaymentDetailScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
         <Stack.Screen name="PaymentLoadingScreen" component={PaymentLoadingScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="QrCodeManagerScreen" component={QrCodeManagerScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="EditTableScreen" component={EditTableScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="DishesManagerScreen" component={DishesManagerScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
-        <Stack.Screen name="AddDishScreen" component={AddDishScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
-        <Stack.Screen name="EditDishScreen" component={EditDishScreen} options={{ title: "", headerBackTitle: "Back", headerTransparent: true }}/>
+        <Stack.Screen name="QrCodeManagerScreen" component={QrCodeManagerScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
+        <Stack.Screen name="EditTableScreen" component={EditTableScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
+        <Stack.Screen name="DishesManagerScreen" component={DishesManagerScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
+        <Stack.Screen name="AddDishScreen" component={AddDishScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
+        <Stack.Screen name="EditDishScreen" component={EditDishScreen} options={{ title: "", gestureEnabled: false, headerBackTitle: "Back", headerTransparent: true }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

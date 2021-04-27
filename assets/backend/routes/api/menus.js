@@ -218,7 +218,7 @@ module.exports = {
             newDishName: req.body.newDishName,
             newDishPrice: req.body.newDishPrice,
             newDishDescription: req.body.newDishDescription,
-            newimageUri: req.body.newimageUri
+            newImageUri: req.body.newImageUri
         }
 
         async function updateDish() {

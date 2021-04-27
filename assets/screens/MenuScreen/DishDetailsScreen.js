@@ -100,8 +100,8 @@ class DishDetailsScreen extends Component {
                 {/* this is an image example */}
                 <View style={styles.imageContainer}>
                     <Image
-                    style={styles.image}
-                    source={{ uri: dishImage }}
+                        style={styles.image}
+                        source={{ uri: dishImage }}
                     />
                 </View>
                 <View style={styles.descriptionContainer}>
@@ -174,12 +174,12 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     imageContainer: {
-        height: 220,
+        height: 250,
         justifyContent: "center",
     },
     image: {
-        height: 200,
-        width: "90%",
+        height: 250,
+        width: 250,
         borderColor: "black",
         borderWidth: 1,
         alignSelf: "center",
