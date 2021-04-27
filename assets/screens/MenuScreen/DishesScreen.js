@@ -65,15 +65,12 @@ class DishesScreen extends Component {
         });
     };
     render() {
-        const Item = ({ dishName, dishImage, dishDescription, dishPrice }) => (
+        const Item = ({ dishName, dishDescription, dishPrice }) => (
             <View style={styles.item}>
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>{dishName}</Text>
                     <Text style={styles.description}>{dishDescription}</Text>
                     <Text style={styles.price}>RM {dishPrice}</Text>
-                </View>
-                <View style={styles.imageContainer}>
-                    <Image style={styles.image} source={{uri: dishImage }} />
                 </View>
             </View>
         );
@@ -194,7 +191,7 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flexDirection: "column",
-        width: "70%",
+        width: "100%",
         height: 80
       },
     imageContainer: {
