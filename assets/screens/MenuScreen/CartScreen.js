@@ -281,6 +281,7 @@ class CartPageScreen extends Component {
                 </View>
             </Modal>
             <FlatList
+                style={{flex: 1.5}}
                 data={this.state.dataSource}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.objectId}
@@ -361,6 +362,7 @@ const styles = StyleSheet.create({
     foodContainer: {
         height: 50,
         width: "42%",
+        paddingRight: 5,
         justifyContent: "center"
     },
     priceContainer: {
@@ -379,7 +381,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         flexDirection: "row",
         alignItems: "center",
-        bottom: 20
+        bottom: 5,
     },
     couponContainer: {
         height: 70,
