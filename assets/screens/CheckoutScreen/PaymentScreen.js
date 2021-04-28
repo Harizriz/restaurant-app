@@ -13,7 +13,8 @@ class PaymentScreen extends Component {
       CVVValueHolder: '',
       isErrorCardNumber: false,
       isErrorExpDate: false,
-      isErrorCVV: false
+      isErrorCVV: false,
+      cardNumber: ''
     }
   }
   // validate card number
@@ -82,6 +83,11 @@ class PaymentScreen extends Component {
       )
     }
   } 
+  handlingCardNumber(number) {
+    this.setState({
+      cardNumber: number.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim()
+    });
+  }
   render() { 
     return ( 
     <SafeAreaView style={styles.container}>
@@ -101,10 +107,14 @@ class PaymentScreen extends Component {
                 label="  Card Number  "
                 mode="outlined"
                 error={this.state.isErrorCardNumber}
+                keyboardType="number-pad"
                 textContentType="oneTimeCode"
-                returnKeyType="next"
+                returnKeyType="done"
                 onSubmitEditing={() => { this.dateTextInput.focus(); }}
-                onChangeText={CardNumberValueHolder => this.setState({CardNumberValueHolder})}
+                onChangeText={(CardNumberValueHolder) => 
+                  this.handlingCardNumber(CardNumberValueHolder)
+                }
+                value={this.state.cardNumber}
             />
           </View>
         </View>

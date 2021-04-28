@@ -19,8 +19,8 @@ class CartPageScreen extends Component {
         couponValueHolder: ''
     }
     componentDidMount = async () => {
-        const tableOrderId = this.props.route.params.tableId;
-        const emailData = this.props.route.params.emailData;
+        // const tableOrderId = this.props.route.params.tableId;
+        const tableOrderId = 4
 
         fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
         .then(response => response.json())
@@ -135,7 +135,6 @@ class CartPageScreen extends Component {
     }
     validateCart = (finalPrice, tableOrderId) => {
         if(this.state.dataSource.length == 0) {
-            console.log("Empty")
             return (
                 <TouchableOpacity onPress={() => 
                     alert("Cart is empty!")
@@ -147,7 +146,6 @@ class CartPageScreen extends Component {
             )
         }
         else {
-            console.log("Got")
             return (
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("PaymentDetailScreen", 
                     {
