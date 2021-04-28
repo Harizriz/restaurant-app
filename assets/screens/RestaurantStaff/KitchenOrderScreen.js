@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     itemContainer: {
         borderColor: "black",
         borderWidth: 1,
-        padding: 20,
+        padding: 15,
         marginVertical: 1,
         marginHorizontal: 16,
         flexDirection: "row"
@@ -227,7 +227,6 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         justifyContent: "center",
         flexDirection: "column",
-        backgroundColor: "yellow"
     },
     foodNameContainer: {
         height: 25,

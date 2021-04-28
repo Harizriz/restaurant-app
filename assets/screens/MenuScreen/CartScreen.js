@@ -19,8 +19,7 @@ class CartPageScreen extends Component {
         couponValueHolder: ''
     }
     componentDidMount = async () => {
-        // const tableOrderId = this.props.route.params.tableId;
-        const tableOrderId = 4
+        const tableOrderId = this.props.route.params.tableId;
 
         fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
         .then(response => response.json())

@@ -89,7 +89,7 @@ class OrderListScreen extends Component {
                 }, 3000);
             }
         }
-        const Item = ({ dishName, dishQuantity, objectId, preparedDish }) => {
+        const Item = ({ dishName, dishQuantity, objectId, preparedDish, dishRemarks }) => {
             return (
                 <View style={styles.itemContainer}>
                     <View style={styles.quantityContainer}>
@@ -98,7 +98,16 @@ class OrderListScreen extends Component {
                         </View>
                     </View>
                     <View style={styles.foodContainer}>
-                        <Text style={styles.text}>{dishName}</Text>
+                        <View style={styles.foodNameContainer}>
+                            <Text style={styles.text}>{dishName}</Text>
+                        </View>
+                    { dishRemarks ? 
+                        <View style={styles.foodRemarksContainer}>
+                            <Text style={styles.remarksText}>{dishRemarks}</Text>
+                        </View>
+                        :
+                        null
+                    }
                     </View>
                     <View style={styles.editContainer}>
                         <View style={styles.icon}>
@@ -119,7 +128,8 @@ class OrderListScreen extends Component {
                     <Item dishName={item.dishName} 
                     dishQuantity={item.dishQuantity}
                     objectId={item.objectId}
-                    preparedDish={item.preparedDish}/>
+                    preparedDish={item.preparedDish}
+                    dishRemarks={item.dishRemarks}/>
                 </View>
             ); 
         }
@@ -230,7 +240,7 @@ const styles = StyleSheet.create({
     itemContainer: {
         borderColor: "black",
         borderWidth: 1,
-        padding: 10,
+        padding: 15,
         marginVertical: 1,
         marginHorizontal: 16,
         flexDirection: "row"
@@ -251,7 +261,14 @@ const styles = StyleSheet.create({
         height: 50,
         width: "70%",
         paddingLeft: 10,
-        justifyContent: "center"
+        justifyContent: "center",
+        flexDirection: "column",
+    },
+    foodNameContainer: {
+        height: 25,
+    },
+    foodRemarksContainer: {
+        height: 25,
     },
     editContainer: {
         height: 50,
@@ -261,6 +278,9 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 25,
+    },
+    remarksText: {
+        fontSize: 20,
     },
     number: {
         fontSize: 25,
