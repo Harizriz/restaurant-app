@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, FlatList } from 'react-native';
 import LottieView from "lottie-react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { ScrollView } from 'react-native-gesture-handler';
 
 class OrderScreen extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class OrderScreen extends Component {
     };
   }
   componentDidMount = async () => {
-    const tableOrderId = this.props.route.params.tableId
+    // const tableOrderId = this.props.route.params.tableId
+    const tableOrderId = 4
 
     setTimeout(() => {
       this.animation.play(0, 40);
@@ -167,7 +169,9 @@ class OrderScreen extends Component {
             <View style={styles.titleContainer}>
               <Text style={styles.titleText}>Order Summary</Text>
             </View>
-            { renderTables (tableTree) }
+            <ScrollView>
+              { renderTables (tableTree) }
+            </ScrollView>
           </View>
       </View>
       }
@@ -193,7 +197,7 @@ const styles = StyleSheet.create({
     bottom: 40,
   },
   contentContainer: {
-    height: 500,
+    height: 425,
     backgroundColor: "white"
   },
   titleContainer: {
