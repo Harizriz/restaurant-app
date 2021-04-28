@@ -14,7 +14,6 @@ class PaymentScreen extends Component {
       isErrorCardNumber: false,
       isErrorExpDate: false,
       isErrorCVV: false,
-      cardNumber: ''
     }
   }
   // validate card number
@@ -82,11 +81,6 @@ class PaymentScreen extends Component {
         }
       )
     }
-  } 
-  handlingCardNumber(number) {
-    this.setState({
-      cardNumber: number.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim()
-    });
   }
   render() { 
     return ( 
@@ -111,10 +105,7 @@ class PaymentScreen extends Component {
                 textContentType="oneTimeCode"
                 returnKeyType="done"
                 onSubmitEditing={() => { this.dateTextInput.focus(); }}
-                onChangeText={(CardNumberValueHolder) => 
-                  this.handlingCardNumber(CardNumberValueHolder)
-                }
-                value={this.state.cardNumber}
+                onChangeText={CardNumberValueHolder => this.setState({CardNumberValueHolder})}
             />
           </View>
         </View>
