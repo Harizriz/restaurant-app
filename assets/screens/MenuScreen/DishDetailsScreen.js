@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     descriptionContainer: {
-        height: 100,
+        height: 90,
     },
     description: {
         fontSize: 15,
@@ -210,9 +210,8 @@ const styles = StyleSheet.create({
         height: 100,
     },
     remarksContainer: {
-        height: 110,
-        marginHorizontal: "6%",
-        justifyContent: "center",
+        height: 65,
+        marginHorizontal: "6%"
     }
 });
 
