@@ -37,6 +37,22 @@ class VirtualQueueStaffScreen extends Component {
             this.setState({ isRefresh: false })
         }, 1000)
     }
+    removeCustomer = (queueNumber) => {
+        fetch(`http://172.20.10.5:5000/api/virtualQueue/${encodeURI(queueNumber)}`, {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                queueNumber: queueNumber
+            })
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson)
+        })
+    }
     render() {
         const Item = ({ virtualQueueNumber, pax }) => (
             <View style={styles.item}>
@@ -50,7 +66,7 @@ class VirtualQueueStaffScreen extends Component {
             <TouchableOpacity onPress={() => 
                 Alert.alert("Notify Customer?", "", [
                     { text: "Cancel", onPress: () => console.log("cancelled!") },
-                    { text: "Notify", onPress: () => console.log("checkout!") },
+                    { text: "Notify", onPress: () => this.removeCustomer(item.virtualQueueNumber) },
                 ])}>
                 <Item 
                     virtualQueueNumber={item.virtualQueueNumber} 
