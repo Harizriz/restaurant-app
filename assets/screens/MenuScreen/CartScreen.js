@@ -16,7 +16,8 @@ class CartPageScreen extends Component {
         itemName: '',
         totalPrice: '',
         tableId: '',
-        couponValueHolder: ''
+        couponValueHolder: '',
+        isRefresh: false
     }
     componentDidMount = async () => {
         const tableOrderId = this.props.route.params.tableId;
@@ -160,6 +161,25 @@ class CartPageScreen extends Component {
             )
         }
     }
+    onRefresh() {
+        const tableOrderId = this.props.route.params.tableId;
+
+        this.setState({
+            isRefresh: true
+        }, () => { 
+            fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    dataSource: responseJson
+                });
+            })
+        });
+
+        setTimeout(() => {
+            this.setState({ isRefresh: false })
+        }, 1000)
+    }
     render() {
         let tableOrderId = this.props.route.params.tableId;
 
@@ -283,6 +303,8 @@ class CartPageScreen extends Component {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.objectId}
                 extraData={this.state}
+                onRefresh={() => this.onRefresh()}
+                refreshing={this.state.isRefresh}
             />
             <View style={styles.totalContainer}>
                 <View style={styles.rightContainer}>
