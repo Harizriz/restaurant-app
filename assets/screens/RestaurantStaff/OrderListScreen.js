@@ -55,7 +55,7 @@ class OrderListScreen extends Component {
             if (!preparedDish) {
                 Alert.alert("Dish Served?", "", [
                     { text: "Cancel", onPress: () => console.log("cancelled!") },
-                    { text: "Prepared", onPress: () => {
+                    { text: "Served", onPress: () => {
                         preparedDish = true;
 
                         fetch(`http://172.20.10.5:5000/api/orders/order/${encodeURI(objectId)}`, {
