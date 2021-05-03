@@ -20,7 +20,8 @@ class CartPageScreen extends Component {
         isRefresh: false
     }
     componentDidMount = async () => {
-        const tableOrderId = this.props.route.params.tableId;
+        // const tableOrderId = this.props.route.params.tableId;
+        const tableOrderId = 4
 
         fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
         .then(response => response.json())
@@ -32,7 +33,8 @@ class CartPageScreen extends Component {
     }   
     // delete an item from order
     deleteItem = (id, dishName) => {
-        const tableOrderId = this.props.route.params.tableId;
+        // const tableOrderId = this.props.route.params.tableId;
+        const tableOrderId = 4
         const dishId = id;
 
         fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(dishId)}`, {
@@ -81,10 +83,12 @@ class CartPageScreen extends Component {
         }, 1000) 
     }
     // update an item from order
-    updateValue = (id, dishName) => {
+    updateValue = (id, foodName) => {
         const { newQuantityValueHolder } = this.state;
         const dishId = id;
-        const tableOrderId = this.props.route.params.tableId;
+        const dishName = foodName;
+        // const tableOrderId = this.props.route.params.tableId;
+        const tableOrderId = 4
 
         // remove item from cart if input is 0
         if(newQuantityValueHolder == 0) {
@@ -159,14 +163,14 @@ class CartPageScreen extends Component {
                 body: JSON.stringify({
                     dishName: dishName,
                     tableId: tableOrderId,
-                    newItemQuantityValue: newQuantityValueHolder
+                    newQuantityValueHolder: newQuantityValueHolder
                 })
             })
             .then(response => response.json())
             .then(responseJson => {
-                console.log(responseJson)
+                console.log(JSON.stringify(responseJson, null, 4))
+                return responseJson.json()
             })
-
 
             this.setState({
                 isModalVisible: false
@@ -212,7 +216,8 @@ class CartPageScreen extends Component {
         }
     }
     onRefresh() {
-        const tableOrderId = this.props.route.params.tableId;
+        // const tableOrderId = this.props.route.params.tableId;
+        const tableOrderId = 4
 
         this.setState({
             isRefresh: true
@@ -231,7 +236,8 @@ class CartPageScreen extends Component {
         }, 1000)
     }
     render() {
-        let tableOrderId = this.props.route.params.tableId;
+        // let tableOrderId = this.props.route.params.tableId;
+        let tableOrderId = 4
 
         // calculate total price for cart
         let totalPrice = 0;

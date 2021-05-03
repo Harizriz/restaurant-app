@@ -256,6 +256,66 @@ module.exports = {
 
     },
 
+    updateKitchenOrder: (req, res) => {
+
+        const newData = {
+            dishName: req.body.dishName,
+            tableId: req.body.tableId,
+            newQuantityValueHolder: req.body.newQuantityValueHolder
+        }
+
+        async function updateKitchenOrder() {
+            const KitchenOrder = Parse.Object.extend("KitchenOrder");
+            const query = new Parse.Query(KitchenOrder)
+            query.equalTo("dishName", newData.dishName)
+            query.equalTo("tableId", newData.tableId)
+
+            const chosenOrder = await query.find();  
+            console.log(chosenOrder[0])
+            res.send(chosenOrder[0])
+
+            // chosenOrder[0].save().then(() => {
+            //     chosenOrder[0].set("dishQuantity", newData.newQuantityValueHolder);
+            //     console.log(chosenOrder[0].save());
+            //     res.send({ msg: "Order updated!" })
+            //     return chosenOrder[0].save();
+            // });
+        }
+
+        updateKitchenOrder();
+
+    },
+
+    deleteKitchenOrder: (req, res) => {
+
+        const deleteKitchenOrder = {
+            dishName: req.body.dishName,
+            tableId: req.body.tableId
+        }
+
+        async function removeKitchenOrder() {
+            
+            const KitchenOrder = Parse.Object.extend("KitchenOrder");
+            const query = new Parse.Query(KitchenOrder)
+            query.equalTo("dishName", deleteKitchenOrder.dishName)
+            query.equalTo("tableId", deleteKitchenOrder.tableId)
+
+            const chosenItem = await query.find();  
+            console.log(chosenItem[0])
+            chosenItem[0].destroy().then((order) => {
+                console.log(order + " is destroyed")
+                res.send({ msg: "order is destroyed" })
+            }, (error) => {
+                console.log(error)
+                res.send({ msg: "error" })
+            });
+
+        }
+        
+        removeKitchenOrder();
+
+    },
+
     updateOrderToServed: (req, res) => {
         const newData = {
             objectId: req.body.objectId,

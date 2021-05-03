@@ -16,7 +16,8 @@ class VirtualQueueScreen extends Component {
             peopleInLine: '',
             email: this.props.route.params.emailData,
             initialQueueNumber: '',
-            queueNumber: ''
+            queueNumber: '',
+            changeRender: false
         };
     } 
     componentDidUpdate = () => {
@@ -24,6 +25,11 @@ class VirtualQueueScreen extends Component {
             if(this.state.counter == 2 && this.state.currentQueueNumber != this.props.route.params.queueNumber) {
                 this.setState({
                     currentQueueNumber: this.props.route.params.queueNumber
+                })
+            }
+            if(this.state.changeRender && this.state.currentQueueNumber == this.props.route.params.queueNumber) {
+                this.setState({
+                    currentQueueNumber: null
                 })
             }
         }
@@ -153,6 +159,37 @@ class VirtualQueueScreen extends Component {
                 .then(responseJson => {
                     console.log(responseJson)
                 })
+
+                fetch(`http://172.20.10.5:5000/api/user/${encodeURI(queueNumber)}`, {
+                    method: 'DELETE',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        queueNumber: queueNumber
+                    })
+                })
+                .then(response => response.json())
+                .then(responseJson => {
+                    console.log(responseJson)
+                })           
+                
+                this.setState({
+                    changeRender: true,
+                    currentQueueNumber: null
+                })
+
+                setTimeout(() => {
+                    fetch(`http://172.20.10.5:5000/api/virtualQueue/list`)
+                    .then(response => response.json())
+                    .then(responseJson => {
+                        this.setState({
+                            dataSource: responseJson
+                        });
+                    })
+                }, 1000)
+
                 } 
             },
         ])   

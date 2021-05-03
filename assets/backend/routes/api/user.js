@@ -47,14 +47,14 @@ module.exports = {
 
     deleteUserLogin: (req, res) => {
         const removeUser = {
-            email: req.body.email,
+            queueNumber: req.body.queueNumber,
         }
 
         async function removeUserLogin() {
             
             const UserLogin = Parse.Object.extend("UserLogin");
             const query = new Parse.Query(UserLogin)
-            query.equalTo("email", removeUser.email)
+            query.equalTo("counter", removeUser.queueNumber)
 
             const chosenUser = await query.find();  
             console.log(chosenUser[0])

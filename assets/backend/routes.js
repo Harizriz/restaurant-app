@@ -40,7 +40,7 @@ app.use(express.urlencoded({ extended: false }));
 app.post('/api/user', user.createUserLogin);
 
 // remove user from login
-app.delete('/api/user/:email', user.deleteUserLogin);
+app.delete('/api/user/:queueNumber', user.deleteUserLogin);
 
 // get a user with the highest counter number
 app.get('/api/user/lastuser', user.getLastUserCounter);
@@ -137,6 +137,12 @@ app.put('/api/orders/:itemId', orders.updateOrder);
 
 // remove an item from the cart
 app.delete('/api/orders/:itemId', orders.deleteOrder);
+
+// update an item in the kitchen order from cart
+app.put('/api/orders/kitchen/:tableId', orders.updateKitchenOrder);
+
+// remove an item in the kitchen order from cart
+app.delete('/api/orders/kitchen/:tableId', orders.deleteKitchenOrder);
 
 // update the order to prepared for kitchen helper
 app.put('/api/orders/order/:itemId', orders.updateOrderToServed);
