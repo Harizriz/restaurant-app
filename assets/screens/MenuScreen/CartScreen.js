@@ -31,7 +31,7 @@ class CartPageScreen extends Component {
         });
     }   
     // delete an item from order
-    deleteItem = (id) => {
+    deleteItem = (id, dishName) => {
         const tableOrderId = this.props.route.params.tableId;
         const dishId = id;
 
@@ -43,6 +43,22 @@ class CartPageScreen extends Component {
             },
             body: JSON.stringify({
                 dishId: dishId,
+            })
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson)
+        })
+
+        fetch(`http://172.20.10.5:5000/api/orders/kitchen/${encodeURI(tableOrderId)}`, {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                dishName: dishName,
+                tableId: tableOrderId
             })
         })
         .then(response => response.json())
@@ -65,7 +81,7 @@ class CartPageScreen extends Component {
         }, 1000) 
     }
     // update an item from order
-    updateValue = (id) => {
+    updateValue = (id, dishName) => {
         const { newQuantityValueHolder } = this.state;
         const dishId = id;
         const tableOrderId = this.props.route.params.tableId;
@@ -81,6 +97,22 @@ class CartPageScreen extends Component {
                 body: JSON.stringify({
                     dishId: dishId,
                 })
+            })
+            .then(response => response.json())
+            .then(responseJson => {
+                console.log(responseJson)
+            })
+
+            fetch(`http://172.20.10.5:5000/api/orders/kitchen/${encodeURI(tableOrderId)}`, {
+                method: 'DELETE',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    dishName: dishName,
+                    tableId: tableOrderId
+                })  
             })
             .then(response => response.json())
             .then(responseJson => {
@@ -117,6 +149,24 @@ class CartPageScreen extends Component {
             .then(responseJson => {
                 console.log(responseJson)
             })
+
+            fetch(`http://172.20.10.5:5000/api/orders/kitchen/${encodeURI(tableOrderId)}`, {
+                method: 'PUT',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    dishName: dishName,
+                    tableId: tableOrderId,
+                    newItemQuantityValue: newQuantityValueHolder
+                })
+            })
+            .then(response => response.json())
+            .then(responseJson => {
+                console.log(responseJson)
+            })
+
 
             this.setState({
                 isModalVisible: false
@@ -243,7 +293,7 @@ class CartPageScreen extends Component {
                                 color="black" 
                                 size={20}
                                 style={{left: 10}}
-                                onPress={() => this.deleteItem(objectId)}
+                                onPress={() => this.deleteItem(objectId, dishName)}
                             />
                         </View>
                     </View>
@@ -292,7 +342,7 @@ class CartPageScreen extends Component {
                             <Button title="Cancel" onPress={toggleModal}/>                        
                         </View>
                         <View style={styles.rightButtonContainer}>
-                            <Button title="Update" onPress={() => this.updateValue(this.state.itemId)}/>                        
+                            <Button title="Update" onPress={() => this.updateValue(this.state.itemId, this.state.itemName)}/>                        
                         </View>
                     </View>
                 </View>
