@@ -20,8 +20,7 @@ class CartPageScreen extends Component {
         isRefresh: false
     }
     componentDidMount = async () => {
-        // const tableOrderId = this.props.route.params.tableId;
-        const tableOrderId = 4
+        const tableOrderId = this.props.route.params.tableId;
 
         fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
         .then(response => response.json())
@@ -33,8 +32,7 @@ class CartPageScreen extends Component {
     }   
     // delete an item from order
     deleteItem = (id, dishName) => {
-        // const tableOrderId = this.props.route.params.tableId;
-        const tableOrderId = 4
+        const tableOrderId = this.props.route.params.tableId;
         const dishId = id;
 
         fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(dishId)}`, {
@@ -45,22 +43,6 @@ class CartPageScreen extends Component {
             },
             body: JSON.stringify({
                 dishId: dishId,
-            })
-        })
-        .then(response => response.json())
-        .then(responseJson => {
-            console.log(responseJson)
-        })
-
-        fetch(`http://172.20.10.5:5000/api/orders/kitchen/${encodeURI(tableOrderId)}`, {
-            method: 'DELETE',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                dishName: dishName,
-                tableId: tableOrderId
             })
         })
         .then(response => response.json())
@@ -87,8 +69,7 @@ class CartPageScreen extends Component {
         const { newQuantityValueHolder } = this.state;
         const dishId = id;
         const dishName = foodName;
-        // const tableOrderId = this.props.route.params.tableId;
-        const tableOrderId = 4
+        const tableOrderId = this.props.route.params.tableId;
 
         // remove item from cart if input is 0
         if(newQuantityValueHolder == 0) {
@@ -101,22 +82,6 @@ class CartPageScreen extends Component {
                 body: JSON.stringify({
                     dishId: dishId,
                 })
-            })
-            .then(response => response.json())
-            .then(responseJson => {
-                console.log(responseJson)
-            })
-
-            fetch(`http://172.20.10.5:5000/api/orders/kitchen/${encodeURI(tableOrderId)}`, {
-                method: 'DELETE',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    dishName: dishName,
-                    tableId: tableOrderId
-                })  
             })
             .then(response => response.json())
             .then(responseJson => {
@@ -152,24 +117,6 @@ class CartPageScreen extends Component {
             .then(response => response.json())
             .then(responseJson => {
                 console.log(responseJson)
-            })
-
-            fetch(`http://172.20.10.5:5000/api/orders/kitchen/${encodeURI(tableOrderId)}`, {
-                method: 'PUT',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    dishName: dishName,
-                    tableId: tableOrderId,
-                    newQuantityValueHolder: newQuantityValueHolder
-                })
-            })
-            .then(response => response.json())
-            .then(responseJson => {
-                console.log(JSON.stringify(responseJson, null, 4))
-                return responseJson.json()
             })
 
             this.setState({
@@ -216,8 +163,7 @@ class CartPageScreen extends Component {
         }
     }
     onRefresh() {
-        // const tableOrderId = this.props.route.params.tableId;
-        const tableOrderId = 4
+        const tableOrderId = this.props.route.params.tableId;
 
         this.setState({
             isRefresh: true
@@ -236,8 +182,7 @@ class CartPageScreen extends Component {
         }, 1000)
     }
     render() {
-        // let tableOrderId = this.props.route.params.tableId;
-        let tableOrderId = 4
+        let tableOrderId = this.props.route.params.tableId;
 
         // calculate total price for cart
         let totalPrice = 0;
