@@ -138,12 +138,6 @@ app.put('/api/orders/:itemId', orders.updateOrder);
 // remove an item from the cart
 app.delete('/api/orders/:itemId', orders.deleteOrder);
 
-// update an item in the kitchen order from cart
-app.put('/api/orders/kitchen/:tableId', orders.updateKitchenOrder);
-
-// remove an item in the kitchen order from cart
-app.delete('/api/orders/kitchen/:tableId', orders.deleteKitchenOrder);
-
 // update the order to prepared for kitchen helper
 app.put('/api/orders/order/:itemId', orders.updateOrderToServed);
 
