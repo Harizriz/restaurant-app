@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, FlatList, Alert } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/MaterialIcons";
+import settings from "../../../settings";
 
 class OrderListScreen extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class OrderListScreen extends Component {
         };
     }
     componentDidMount = () => {
-        fetch(`http://172.20.10.5:5000/api/orders`)
+        fetch(settings.ipAddress+`/api/orders`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({
@@ -27,7 +28,7 @@ class OrderListScreen extends Component {
         this.setState({
             isRefresh: true
         }, () => { 
-            fetch(`http://172.20.10.5:5000/api/orders`)
+            fetch(settings.ipAddress+`/api/orders`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -58,7 +59,7 @@ class OrderListScreen extends Component {
                     { text: "Served", onPress: () => {
                         preparedDish = true;
 
-                        fetch(`http://172.20.10.5:5000/api/orders/order/${encodeURI(objectId)}`, {
+                        fetch(settings.ipAddress+`/api/orders/order/${encodeURI(objectId)}`, {
                         method: 'PUT',
                         headers: {
                             Accept: 'application/json',
@@ -79,7 +80,7 @@ class OrderListScreen extends Component {
 
                 // reload the screen after updating
                 setTimeout(() => {
-                    fetch(`http://172.20.10.5:5000/api/orders`)
+                    fetch(settings.ipAddress+`/api/orders`)
                     .then(response => response.json())
                     .then(responseJson => {
                         this.setState({
@@ -144,7 +145,7 @@ class OrderListScreen extends Component {
                     tableAND = tableAND && table[i].preparedDish
                 }
                 if (tableAND && table[i].preparedDish) {
-                    fetch(`http://172.20.10.5:5000/api/orders/waiter/${encodeURI(table[i].tableId)}`, {
+                    fetch(settings.ipAddress+`/api/orders/waiter/${encodeURI(table[i].tableId)}`, {
                         method: 'DELETE',
                         headers: {
                             Accept: 'application/json',
@@ -161,7 +162,7 @@ class OrderListScreen extends Component {
 
                     // reload the screen after deleting
                     setTimeout(() => {
-                        fetch(`http://172.20.10.5:5000/api/orders`)
+                        fetch(settings.ipAddress+`/api/orders`)
                         .then(response => response.json())
                         .then(responseJson => {
                             this.setState({

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, TouchableHighlight, Alert } from 'react-native';
 import { TextInput } from 'react-native-paper'
 import QRCode from 'react-native-qrcode-svg';
+import settings from "../../../settings";
 
 class QrCodeManagerScreen extends Component {
     constructor(props) {
@@ -47,7 +48,7 @@ class QrCodeManagerScreen extends Component {
 
         try {
           let response = await fetch(
-            'http://172.20.10.5:5000/api/tables', 
+            settings.ipAddress+'/api/tables', 
             {
               method: 'POST',
               headers: {

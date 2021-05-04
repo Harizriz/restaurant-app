@@ -26,7 +26,7 @@ class PaymentLoadingScreen extends Component {
             })
         }, 1000)
 
-        fetch(`http://172.20.10.5:5000/api/users/points/${encodeURI(emailData)}`, {
+        fetch(settings.ipAddress+`/api/users/points/${encodeURI(emailData)}`, {
             method: 'PUT',
             headers: {
                 Accept: 'application/json',

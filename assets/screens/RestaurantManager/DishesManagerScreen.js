@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Alert, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import settings from "../../../settings";
 
 class DishesManagerScreen extends Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class DishesManagerScreen extends Component {
     }
     componentDidMount = async () => {
         const menuId = this.props.route.params.menuId;
-        fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+        fetch(settings.ipAddress+`/api/menus/${encodeURI(menuId)}`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({
@@ -21,7 +22,7 @@ class DishesManagerScreen extends Component {
         })
         // auto-refresh the screen if using navigation.goBack()
         this.props.navigation.addListener('focus', () => {
-            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+            fetch(settings.ipAddress+`/api/menus/${encodeURI(menuId)}`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -31,7 +32,7 @@ class DishesManagerScreen extends Component {
         });
 
         setTimeout(() => {
-            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+            fetch(settings.ipAddress+`/api/menus/${encodeURI(menuId)}`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -45,7 +46,7 @@ class DishesManagerScreen extends Component {
         this.setState({
             isRefresh: true
         }, () => { 
-            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+            fetch(settings.ipAddress+`/api/menus/${encodeURI(menuId)}`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -64,7 +65,7 @@ class DishesManagerScreen extends Component {
         Alert.alert("Delete Dish", "Are you sure you want to delete the dish permanently?", [
             { text: "Cancel", onPress: () => console.log("cancelled!") },
             { text: "Delete", onPress: () => {
-                fetch(`http://172.20.10.5:5000/api/menus/dish/${encodeURI(dishId)}`, {
+                fetch(settings.ipAddress+`/api/menus/dish/${encodeURI(dishId)}`, {
                     method: 'DELETE',
                     headers: {
                         Accept: 'application/json',
@@ -83,7 +84,7 @@ class DishesManagerScreen extends Component {
         ])
 
         setTimeout(() => {
-            fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`)
+            fetch(settings.ipAddress+`/api/menus/${encodeURI(menuId)}`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({

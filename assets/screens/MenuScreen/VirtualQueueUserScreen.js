@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, Alert } from 'react-native';
 import { TextInput } from 'react-native-paper'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import settings from "../../../settings";
 
 class VirtualQueueScreen extends Component {
     constructor(props) {
@@ -41,7 +42,7 @@ class VirtualQueueScreen extends Component {
         this.props.navigation.navigate("MainMenuScreen", { params: { emailData: this.props.route.params.emailData }, screen: "Menu" })
 
         setTimeout(() => {
-            fetch(`http://172.20.10.5:5000/api/virtualQueue/list`)
+            fetch(settings.ipAddress+`/api/virtualQueue/list`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -51,7 +52,7 @@ class VirtualQueueScreen extends Component {
         }, 2000)
 
         this.props.navigation.addListener('focus', () => {
-            fetch(`http://172.20.10.5:5000/api/virtualQueue/list`)
+            fetch(settings.ipAddress+`/api/virtualQueue/list`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -71,7 +72,7 @@ class VirtualQueueScreen extends Component {
                 isError: false
             })
 
-            await fetch(`http://172.20.10.5:5000/api/user/lastuser`)
+            await fetch(settings.ipAddress+`/api/user/lastuser`)
             .then(response => response.json())
             .then(responseJson => {
               this.setState({
@@ -84,7 +85,7 @@ class VirtualQueueScreen extends Component {
             if (this.state.dataSourceLogin == null) {
                 try {
                     let response = await fetch(
-                    'http://172.20.10.5:5000/api/user', 
+                    settings.ipAddress+'/api/user', 
                     {
                         method: 'POST',
                         headers: {
@@ -112,7 +113,7 @@ class VirtualQueueScreen extends Component {
             else {
                 try {
                     let response = await fetch(
-                        'http://172.20.10.5:5000/api/user', 
+                        settings.ipAddress+'/api/user', 
                         {
                             method: 'POST',
                             headers: {
@@ -145,7 +146,7 @@ class VirtualQueueScreen extends Component {
         Alert.alert("Leaving Queue", "Are you sure you want to leave the queue?", [
             { text: "Cancel", onPress: () => console.log("cancelled!") },
             { text: "Confirm", onPress: () => {
-                fetch(`http://172.20.10.5:5000/api/virtualQueue/${encodeURI(queueNumber)}`, {
+                fetch(settings.ipAddress+`/api/virtualQueue/${encodeURI(queueNumber)}`, {
                     method: 'DELETE',
                     headers: {
                         Accept: 'application/json',
@@ -160,7 +161,7 @@ class VirtualQueueScreen extends Component {
                     console.log(responseJson)
                 })
 
-                fetch(`http://172.20.10.5:5000/api/user/${encodeURI(queueNumber)}`, {
+                fetch(settings.ipAddress+`/api/user/${encodeURI(queueNumber)}`, {
                     method: 'DELETE',
                     headers: {
                         Accept: 'application/json',
@@ -181,7 +182,7 @@ class VirtualQueueScreen extends Component {
                 })
 
                 setTimeout(() => {
-                    fetch(`http://172.20.10.5:5000/api/virtualQueue/list`)
+                    fetch(settings.ipAddress+`/api/virtualQueue/list`)
                     .then(response => response.json())
                     .then(responseJson => {
                         this.setState({

@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, View, Text, Alert, Button } from "react-nativ
 import ReactButton from "react-native-button";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Modal from 'react-native-modal';
+import settings from "../../../settings";
 
 class AccountScreen extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class AccountScreen extends Component {
     const { navigate }  = this.props.navigation;
 
     let params = this.props.route.params.emailData;
-    fetch(`http://172.20.10.5:5000/api/users/${encodeURI(params)}`)
+    fetch(settings.ipAddress+`/api/users/${encodeURI(params)}`)
     .then(response => response.json())
     .then(responseJson => {
       this.setState({

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, FlatList, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import settings from "../../../settings";
 
 class VirtualQueueScreen extends Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class VirtualQueueScreen extends Component {
         };
     }
     componentDidMount = () => {
-        fetch(`http://172.20.10.5:5000/api/virtualQueue/list`)
+        fetch(settings.ipAddress+`/api/virtualQueue/list`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({
@@ -24,7 +25,7 @@ class VirtualQueueScreen extends Component {
         this.setState({
             isRefresh: true
         }, () => { 
-            fetch(`http://172.20.10.5:5000/api/virtualQueue/list`)
+            fetch(settings.ipAddress+`/api/virtualQueue/list`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({

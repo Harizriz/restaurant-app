@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, View, Text, Image, Alert } from 'react-native
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { TextInput } from 'react-native-paper'
 import * as ImagePicker from 'expo-image-picker'
+import settings from "../../../settings";
 
 class AddDishScreen extends Component {
     constructor(props) {
@@ -41,7 +42,7 @@ class AddDishScreen extends Component {
 
         try {
             let response = await fetch(
-              'http://172.20.10.5:5000/api/menus/dishes', 
+              settings.ipAddress+'/api/menus/dishes', 
               {
                 method: 'POST',
                 headers: {

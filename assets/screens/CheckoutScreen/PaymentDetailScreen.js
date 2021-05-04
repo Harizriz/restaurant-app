@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { TextInput } from 'react-native-paper';
+import settings from "../../../settings";
 
 class PaymentDetailScreen extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class PaymentDetailScreen extends Component {
   componentDidMount = () => {
     const emailData = this.props.route.params.emailData
 
-    fetch(`http://172.20.10.5:5000/api/users/${encodeURI(emailData)}`)
+    fetch(settings.ipAddress+`/api/users/${encodeURI(emailData)}`)
     .then(response => response.json())
     .then(responseJson => {
         this.setState({
@@ -37,7 +38,7 @@ class PaymentDetailScreen extends Component {
       })
     }
     else {
-      fetch(`http://172.20.10.5:5000/api/coupons/customer/${encodeURI(couponName)}`)
+      fetch(settings.ipAddress+`/api/coupons/customer/${encodeURI(couponName)}`)
       .then(response => response.json())
       .then(responseJson => {
           this.setState({
@@ -86,7 +87,7 @@ class PaymentDetailScreen extends Component {
       else {
         const newPoints = this.state.dataSourceUserInfo.subpoint - points
         
-        fetch(`http://172.20.10.5:5000/api/users/points/redeem/${encodeURI(emailData)}`, {
+        fetch(settings.ipAddress+`/api/users/points/redeem/${encodeURI(emailData)}`, {
             method: 'PUT',
             headers: {
                 Accept: 'application/json',

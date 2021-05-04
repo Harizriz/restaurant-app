@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, FlatList, Alert } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/MaterialIcons";
+import settings from "../../../settings";
 
 class KitchenOrderScreen extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class KitchenOrderScreen extends Component {
         };
     }
     componentDidMount = () => {
-        fetch(`http://172.20.10.5:5000/api/orders/kitchen/kit`)
+        fetch(settings.ipAddress+`/api/orders/kitchen/kit`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({
@@ -28,7 +29,7 @@ class KitchenOrderScreen extends Component {
         this.setState({
             isRefresh: true
         }, () => { 
-            fetch(`http://172.20.10.5:5000/api/orders/kitchen/kit`)
+            fetch(settings.ipAddress+`/api/orders/kitchen/kit`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -56,7 +57,7 @@ class KitchenOrderScreen extends Component {
             Alert.alert("Dish Prepared?", "", [
                 { text: "Cancel", onPress: () => console.log("cancelled!") },
                 { text: "Prepared", onPress: () => {
-                    fetch(`http://172.20.10.5:5000/api/orders/order/${encodeURI(objectId)}`, {
+                    fetch(settings.ipAddress+`/api/orders/order/${encodeURI(objectId)}`, {
                     method: 'DELETE',
                     headers: {
                         Accept: 'application/json',
@@ -76,7 +77,7 @@ class KitchenOrderScreen extends Component {
 
             // reload the screen after updating
             setTimeout(() => {
-                fetch(`http://172.20.10.5:5000/api/orders/kitchen/kit`)
+                fetch(settings.ipAddress+`/api/orders/kitchen/kit`)
                 .then(response => response.json())
                 .then(responseJson => {
                     this.setState({

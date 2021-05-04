@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
 import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import settings from "../../../settings";
 
 class TablesScreen extends Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class TablesScreen extends Component {
         };
     }
     componentDidMount = async () => {
-        fetch(`http://172.20.10.5:5000/api/tables`)
+        fetch(settings.ipAddress+`/api/tables`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({
@@ -21,7 +22,7 @@ class TablesScreen extends Component {
         })
         // auto-refresh the screen
         this.props.navigation.addListener('focus', () => {
-            fetch(`http://172.20.10.5:5000/api/tables`)
+            fetch(settings.ipAddress+`/api/tables`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -35,7 +36,7 @@ class TablesScreen extends Component {
         this.setState({
             isRefresh: true
         }, () => { 
-            fetch(`http://172.20.10.5:5000/api/tables`)
+            fetch(settings.ipAddress+`/api/tables`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({

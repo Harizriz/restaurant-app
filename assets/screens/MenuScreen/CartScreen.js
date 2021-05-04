@@ -5,6 +5,7 @@ import DeleteIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import NumInput from "react-native-numeric-input";
 import Modal from 'react-native-modal';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import settings from "../../../settings";
 
 class CartPageScreen extends Component {
     state = { 
@@ -22,7 +23,7 @@ class CartPageScreen extends Component {
     componentDidMount = async () => {
         const tableOrderId = this.props.route.params.tableId;
 
-        fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
+        fetch(settings.ipAddress+`/api/orders/${encodeURI(tableOrderId)}`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({
@@ -35,7 +36,7 @@ class CartPageScreen extends Component {
         const tableOrderId = this.props.route.params.tableId;
         const dishId = id;
 
-        fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(dishId)}`, {
+        fetch(settings.ipAddress+`/api/orders/${encodeURI(dishId)}`, {
             method: 'DELETE',
             headers: {
                 Accept: 'application/json',
@@ -55,7 +56,7 @@ class CartPageScreen extends Component {
         })
 
         setTimeout(() => {
-            fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
+            fetch(settings.ipAddress+`/api/orders/${encodeURI(tableOrderId)}`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -73,7 +74,7 @@ class CartPageScreen extends Component {
 
         // remove item from cart if input is 0
         if(newQuantityValueHolder == 0) {
-            fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(dishId)}`, {
+            fetch(settings.ipAddress+`/api/orders/${encodeURI(dishId)}`, {
                 method: 'DELETE',
                 headers: {
                     Accept: 'application/json',
@@ -93,7 +94,7 @@ class CartPageScreen extends Component {
             })
 
             setTimeout(() => {
-                fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
+                fetch(settings.ipAddress+`/api/orders/${encodeURI(tableOrderId)}`)
                 .then(response => response.json())
                 .then(responseJson => {
                     this.setState({
@@ -103,7 +104,7 @@ class CartPageScreen extends Component {
             }, 1000) 
         }
         else {
-            fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(dishId)}`, {
+            fetch(settings.ipAddress+`/api/orders/${encodeURI(dishId)}`, {
                 method: 'PUT',
                 headers: {
                     Accept: 'application/json',
@@ -124,7 +125,7 @@ class CartPageScreen extends Component {
             })
 
             setTimeout(() => {
-                fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
+                fetch(settings.ipAddress+`/api/orders/${encodeURI(tableOrderId)}`)
                 .then(response => response.json())
                 .then(responseJson => {
                     this.setState({
@@ -168,7 +169,7 @@ class CartPageScreen extends Component {
         this.setState({
             isRefresh: true
         }, () => { 
-            fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
+            fetch(settings.ipAddress+`/api/orders/${encodeURI(tableOrderId)}`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({

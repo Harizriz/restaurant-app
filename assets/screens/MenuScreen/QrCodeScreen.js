@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Button, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import settings from "../../../settings";
 
 export default function QrCodeScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -20,7 +21,7 @@ export default function QrCodeScreen({ navigation }) {
 
     try {
       let response = await fetch(
-        `http://172.20.10.5:5000/api/tables/status/${encodeURI(data)}`, 
+        settings.ipAddress+`/api/tables/status/${encodeURI(data)}`, 
         {
           method: 'PUT',
           headers: {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, FlatList, Dimensions, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import settings from "../../../settings";
 
 class CheckoutTableScreen extends Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class CheckoutTableScreen extends Component {
         };
     }
     componentDidMount = async () => {
-        fetch(`http://172.20.10.5:5000/api/tables`)
+        fetch(settings.ipAddress+`/api/tables`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({
@@ -20,7 +21,7 @@ class CheckoutTableScreen extends Component {
         })
         // auto-refresh the screen
         this.props.navigation.addListener('focus', () => {
-            fetch(`http://172.20.10.5:5000/api/tables`)
+            fetch(settings.ipAddress+`/api/tables`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -34,7 +35,7 @@ class CheckoutTableScreen extends Component {
         this.setState({
             isRefresh: true
         }, () => { 
-            fetch(`http://172.20.10.5:5000/api/tables`)
+            fetch(settings.ipAddress+`/api/tables`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -60,7 +61,7 @@ class CheckoutTableScreen extends Component {
                 Alert.alert("Checkout Table", "Are you sure you want to checkout the table?", [
                     { text: "Cancel", onPress: () => console.log("cancelled!") },
                     { text: "Confirm", onPress: () => 
-                        fetch(`http://172.20.10.5:5000/api/tables/checkout/${encodeURI(item.qrCodeValue)}`, {
+                        fetch(settings.ipAddress+`/api/tables/checkout/${encodeURI(item.qrCodeValue)}`, {
                             method: 'PUT',
                             headers: {
                                 Accept: 'application/json',
@@ -76,7 +77,7 @@ class CheckoutTableScreen extends Component {
                             console.log(responseJson)
                         })
                         .then(setTimeout(() => {
-                            fetch(`http://172.20.10.5:5000/api/tables`)
+                            fetch(settings.ipAddress+`/api/tables`)
                             .then(response => response.json())
                             .then(responseJson => {
                                 this.setState({

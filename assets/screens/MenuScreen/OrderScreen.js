@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, View, Text, FlatList } from 'react-native';
 import LottieView from "lottie-react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { ScrollView } from 'react-native-gesture-handler';
+import settings from "../../../settings";
 
 class OrderScreen extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class OrderScreen extends Component {
     }, 1000);
 
 
-    fetch(`http://172.20.10.5:5000/api/orders/${encodeURI(tableOrderId)}`)
+    fetch(settings.ipAddress+`/api/orders/${encodeURI(tableOrderId)}`)
     .then(response => response.json())
     .then(responseJson => {
         this.setState({

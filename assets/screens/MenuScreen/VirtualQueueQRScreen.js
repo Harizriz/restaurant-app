@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Button, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import settings from "../../../settings";
 
 export default function VirtualQueueQRScreen({ navigation, route }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -22,7 +23,7 @@ export default function VirtualQueueQRScreen({ navigation, route }) {
     if (data == 'aqFl0LxbRN') {
       try {
         let response = await fetch(
-          'http://172.20.10.5:5000/api/virtualQueue', 
+          settings.ipAddress+'/api/virtualQueue', 
           {
             method: 'POST',
             headers: {

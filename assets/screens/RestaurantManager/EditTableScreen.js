@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, Alert } from 'react-native';
 import { TextInput } from 'react-native-paper'
 import Button from 'react-native-button'
+import settings from "../../../settings";
 
 class EditTableScreen extends Component {
     constructor(props) {
@@ -35,7 +36,7 @@ class EditTableScreen extends Component {
                 secondButtonText: "Edit"
             })
             const tableId = this.props.route.params.tableId;
-            fetch(`http://172.20.10.5:5000/api/tables/${encodeURI(tableId)}`, {
+            fetch(settings.ipAddress+`/api/tables/${encodeURI(tableId)}`, {
                 method: 'PUT',
                 headers: {
                     Accept: 'application/json',
@@ -61,7 +62,7 @@ class EditTableScreen extends Component {
         Alert.alert("Delete Table", "Are you sure you want to delete the table permanently?", [
             { text: "Cancel", onPress: () => console.log("cancelled!") },
             { text: "Delete", onPress: () => {
-                fetch(`http://172.20.10.5:5000/api/tables/${encodeURI(tableId)}`, {
+                fetch(settings.ipAddress+`/api/tables/${encodeURI(tableId)}`, {
                     method: 'DELETE',
                     headers: {
                         Accept: 'application/json',

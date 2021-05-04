@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Button, Aler
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { TextInput } from 'react-native-paper';
+import settings from "../../../settings";
 
 class CouponScreen extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class CouponScreen extends Component {
         };
     }
     componentDidMount = async () => {
-        fetch(`http://172.20.10.5:5000/api/coupons`)
+        fetch(settings.ipAddress+`/api/coupons`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({
@@ -26,7 +27,7 @@ class CouponScreen extends Component {
         })
         // auto-refresh the screen
         this.props.navigation.addListener('focus', () => {
-            fetch(`http://172.20.10.5:5000/api/coupons`)
+            fetch(settings.ipAddress+`/api/coupons`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -39,7 +40,7 @@ class CouponScreen extends Component {
         this.setState({
             isRefresh: true
         }, () => { 
-            fetch(`http://172.20.10.5:5000/api/coupons`)
+            fetch(settings.ipAddress+`/api/coupons`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -57,7 +58,7 @@ class CouponScreen extends Component {
 
         try {
             let response = await fetch(
-              'http://172.20.10.5:5000/api/coupons', 
+              settings.ipAddress+'/api/coupons', 
               {
                 method: 'POST',
                 headers: {
@@ -79,7 +80,7 @@ class CouponScreen extends Component {
 
             // reload the screen
             setTimeout(() => {
-                fetch(`http://172.20.10.5:5000/api/coupons`)
+                fetch(settings.ipAddress+`/api/coupons`)
                 .then(response => response.json())
                 .then(responseJson => {
                     this.setState({
@@ -97,7 +98,7 @@ class CouponScreen extends Component {
         Alert.alert("Delete Coupon", "Are you sure you want to delete the coupon permanently?", [
             { text: "Cancel", onPress: () => console.log("cancelled!") },
             { text: "Delete", onPress: () => {
-                fetch(`http://172.20.10.5:5000/api/coupons/${encodeURI(couponName)}`, {
+                fetch(settings.ipAddress+`/api/coupons/${encodeURI(couponName)}`, {
                     method: 'DELETE',
                     headers: {
                         Accept: 'application/json',
@@ -117,7 +118,7 @@ class CouponScreen extends Component {
 
         // reload the screen
         setTimeout(() => {
-            fetch(`http://172.20.10.5:5000/api/coupons`)
+            fetch(settings.ipAddress+`/api/coupons`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({

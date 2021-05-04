@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, Text, View, Alert } from "react-native";
 import Button from "react-native-button"; 
 import { TextInput } from 'react-native-paper'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import settings from "../../../settings";
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -88,7 +89,7 @@ class SignUpScreen extends Component {
 
       try {
         let response = await fetch(
-          'http://172.20.10.5:5000/api/users', 
+          settings.ipAddress+'/api/users', 
           {
             method: 'POST',
             headers: {

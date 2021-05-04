@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Alert, SafeAreaView } from "react-native";
 import Button from "react-native-button";
 import { TextInput } from 'react-native-paper'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import settings from "../../settings";
 
 class ChangePasswordScreen extends Component {
   constructor(props) {
@@ -89,7 +90,7 @@ class ChangePasswordScreen extends Component {
       { text: "Okay", onPress: () => console.log("Successful") });
     }
     else {
-      fetch(`http://172.20.10.5:5000/api/users/${encodeURI(userId)}`, {
+      fetch(settings.ipAddress+`/api/users/${encodeURI(userId)}`, {
         method: 'PUT',
         headers: {
             Accept: 'application/json',

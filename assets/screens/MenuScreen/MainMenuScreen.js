@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, TextInput } from 'react-native';
 import Icon from "react-native-vector-icons/Feather";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import settings from "../../../settings";
 
 class MainMenuScreen extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class MainMenuScreen extends Component {
     componentDidMount = async () => {
         // auto-refresh the screen to listen from the previous screen
         this.props.navigation.addListener('focus', () => {
-            fetch(`http://172.20.10.5:5000/api/menus`)
+            fetch(settings.ipAddress+`/api/menus`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -38,7 +39,7 @@ class MainMenuScreen extends Component {
             return itemData.indexOf(textData) > -1;
         }
         if (text.length == 0) {
-            fetch(`http://172.20.10.5:5000/api/menus`)
+            fetch(settings.ipAddress+`/api/menus`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({

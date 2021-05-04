@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, View, Text, Image, Alert } from 'react-native
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { TextInput } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker'
+import settings from "../../../settings";
 
 class EditDishScreen extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class EditDishScreen extends Component {
 
         const { newDishNameValueHolder, newDishPriceValueHolder, newDishDescriptionValueHolder, newImageUri, dishId } = this.state;
 
-        fetch(`http://172.20.10.5:5000/api/menus/dish/${encodeURI(dishId)}`, {
+        fetch(settings.ipAddress+`/api/menus/dish/${encodeURI(dishId)}`, {
             method: 'PUT',
             headers: {
                 Accept: 'application/json',

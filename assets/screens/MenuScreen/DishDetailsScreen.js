@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, Alert } from "react-native";
 import Button from "react-native-button";
 import NumInput from "react-native-numeric-input";
-import { TextInput } from 'react-native-paper'
+import { TextInput } from 'react-native-paper';
+import settings from "../../../settings";
 
 class DishDetailsScreen extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class DishDetailsScreen extends Component {
             // post to Order object
             try {
                 let response = await fetch(
-                'http://172.20.10.5:5000/api/orders', 
+                settings.ipAddress+'/api/orders', 
                 {
                     method: 'POST',
                     headers: {
@@ -59,7 +60,7 @@ class DishDetailsScreen extends Component {
             // post to Kitchen Order object
             try {
                 let response = await fetch(
-                'http://172.20.10.5:5000/api/orders/kitchen', 
+                settings.ipAddress+'/api/orders/kitchen', 
                 {
                     method: 'POST',
                     headers: {

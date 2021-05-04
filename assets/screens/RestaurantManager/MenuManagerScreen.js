@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, View, FlatList, StatusBar, Text, Button, Aler
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { TextInput } from 'react-native-paper';
+import settings from "../../../settings";
 
 class MenuManagerScreen extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class MenuManagerScreen extends Component {
         };
     }
     componentDidMount = async () => {
-        fetch(`http://172.20.10.5:5000/api/menus`)
+        fetch(settings.ipAddress+`/api/menus`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({
@@ -26,7 +27,7 @@ class MenuManagerScreen extends Component {
         })
         // auto-refresh the screen
         this.props.navigation.addListener('focus', () => {
-            fetch(`http://172.20.10.5:5000/api/menus`)
+            fetch(settings.ipAddress+`/api/menus`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -40,7 +41,7 @@ class MenuManagerScreen extends Component {
         this.setState({
             isRefresh: true
         }, () => { 
-            fetch(`http://172.20.10.5:5000/api/menus`)
+            fetch(settings.ipAddress+`/api/menus`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -58,7 +59,7 @@ class MenuManagerScreen extends Component {
 
         try {
             let response = await fetch(
-              'http://172.20.10.5:5000/api/menus', 
+              settings.ipAddress+'/api/menus', 
               {
                 method: 'POST',
                 headers: {
@@ -79,7 +80,7 @@ class MenuManagerScreen extends Component {
             })
 
             // reload the screen
-            fetch(`http://172.20.10.5:5000/api/menus`)
+            fetch(settings.ipAddress+`/api/menus`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
@@ -97,7 +98,7 @@ class MenuManagerScreen extends Component {
         Alert.alert("Delete Menu", "Are you sure you want to delete the menu permanently?", [
             { text: "Cancel", onPress: () => console.log("cancelled!") },
             { text: "Delete", onPress: () => {
-                fetch(`http://172.20.10.5:5000/api/menus/${encodeURI(menuId)}`, {
+                fetch(settings.ipAddress+`/api/menus/${encodeURI(menuId)}`, {
                     method: 'DELETE',
                     headers: {
                         Accept: 'application/json',
@@ -112,7 +113,7 @@ class MenuManagerScreen extends Component {
                     console.log(responseJson)
                 });
 
-                fetch(`http://172.20.10.5:5000/api/menus/dishes/${encodeURI(menuId)}`, {
+                fetch(settings.ipAddress+`/api/menus/dishes/${encodeURI(menuId)}`, {
                     method: 'DELETE',
                     headers: {
                         Accept: 'application/json',
@@ -132,7 +133,7 @@ class MenuManagerScreen extends Component {
         ])
 
         setTimeout(() => {
-            fetch(`http://172.20.10.5:5000/api/menus`)
+            fetch(settings.ipAddress+`/api/menus`)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
