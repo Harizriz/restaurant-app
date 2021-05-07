@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
 import LottieView from "lottie-react-native";
+import settings from "../../../settings"
 
 class PaymentLoadingScreen extends Component {
     constructor(props) {
