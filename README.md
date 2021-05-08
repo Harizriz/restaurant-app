@@ -72,12 +72,12 @@ To run the project on Android simulator
 ---
 1. Press 'a' inside the 'expo start' window command prompt.<br>
 **OR**<br>
-Press the 'Run on Android device/emulator' button in the Expo Devtools.<br><br>
-**NOTE:** If your android virtual device have not installed the Expo App yet, it will wutomatically download it.
+Press the 'Run on Android device/emulator' button in Expo Devtools.<br><br>
+**NOTE:** If your android virtual device have not installed the Expo App yet, it will automatically download it.
 
 To run the project on iOS simulator (Not Tested)
 ---
-1. Press the 'Run on iOS simulator' button in the Expo Devtools.
+1. Press the 'Run on iOS simulator' button in Expo Devtools.
 
 ---
 
